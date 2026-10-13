@@ -23,8 +23,8 @@ describe('homepage', () => {
     expect(
       await screen.findByRole('heading', { name: /local favorites worth discovering/i }),
     ).toBeInTheDocument();
-    // No duplicate "Ask AI Bajan" entry points on the homepage.
-    expect(screen.queryByRole('button', { name: /open the ai bajan assistant/i })).not.toBeInTheDocument();
+    // The floating assistant button (bottom-right) is available on every page.
+    expect(await screen.findByRole('button', { name: /open the ai bajan assistant/i })).toBeInTheDocument();
   });
 
   it('hero search navigates to the directory with query params', async () => {

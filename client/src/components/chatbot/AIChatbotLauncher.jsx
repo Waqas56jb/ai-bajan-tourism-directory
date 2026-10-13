@@ -1,6 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { useAssistant } from '@/hooks/useAssistant';
-import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import { useUI } from '@/hooks/useUI';
@@ -22,29 +21,10 @@ export function AIChatbotLauncher() {
   const launcherRef = useRef(null);
   const isDesktop = useIsDesktop();
   const hasConversation = messages.length > 1;
-  const { pathname } = useLocation();
-
-  // On phones the homepage hero has its own "Ask AI Bajan" button and a search form near the
-  // bottom of the screen, so the floating launcher waits until the visitor scrolls past it.
-  const [pastHero, setPastHero] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.85);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  // One obvious place to ask: on the homepage the hero question box is the entry point, and the
-  // launcher only appears to resume an existing conversation. Hidden entirely while the assistant
-  // is not yet available.
+  // The floating launcher (bottom-right) is the assistant's entry point on every page. It is only
+  // hidden if the server reports the assistant as switched off.
   const { available } = useAssistant();
-  const hideLauncher = !available || (pathname === '/' && !hasConversation);
-  const hideOnHero =
-    !isDesktop &&
-    pathname === '/' &&
-    !pastHero &&
-    chatView === 'closed' &&
-    typeof window !== 'undefined' &&
-    window.innerWidth < 640;
+  const hideLauncher = !available;
 
   useLockBodyScroll(chatView === 'open' && !isDesktop);
 
@@ -63,7 +43,7 @@ export function AIChatbotLauncher() {
   return (
     <>
       <AnimatePresence>
-        {chatView !== 'open' && !hideOnHero && !hideLauncher && (
+        {chatView !== 'open' && !hideLauncher && (
           <motion.div
             key="launcher"
             initial={{ opacity: 0, y: 16, scale: 0.9 }}

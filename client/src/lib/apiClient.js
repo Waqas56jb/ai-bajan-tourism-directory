@@ -73,7 +73,9 @@ export async function request(
           ? 'We couldn’t find what you were looking for.'
           : response.status === 429
             ? 'Too many requests — please wait a moment and try again.'
-            : response.status >= 500
+            : response.status === 503 && typeof data?.error?.message === 'string'
+              ? data.error.message
+              : response.status >= 500
               ? 'The AI Bajan service is having trouble right now.'
               : (typeof data?.error?.message === 'string' && data.error.message) ||
                 (typeof data?.message === 'string' && data.message) ||

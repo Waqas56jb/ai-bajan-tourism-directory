@@ -211,7 +211,8 @@ export const liveAdapter = {
   /** Whether the public AI assistant is switched on (it stays off until a real AI model is connected). */
   async getAssistantStatus() {
     const s = await apiClient.get('/public/settings/chatbot');
-    return { available: Boolean(s?.aiAvailable), welcomeMessage: s?.welcomeMessage ?? '', suggestedQuestions: s?.suggestedQuestions ?? [] };
+    // Available unless the server explicitly reports the assistant as switched off.
+    return { available: s?.aiAvailable !== false && s?.enabled !== false, welcomeMessage: s?.welcomeMessage ?? '', suggestedQuestions: s?.suggestedQuestions ?? [] };
   },
   getBusinesses: () => allBusinesses(),
   async getBusinessBySlug(slug) {
