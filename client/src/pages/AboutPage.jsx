@@ -163,7 +163,7 @@ export default function AboutPage() {
               Tell us about your business and we’ll follow up about listing and advertising options.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button to={routes.contact('listing')} variant="coral" size="lg">
+              <Button to={routes.forBusiness()} variant="coral" size="lg">
                 Request a listing
               </Button>
               <Button to={routes.contact('advertising')} variant="glass" size="lg">

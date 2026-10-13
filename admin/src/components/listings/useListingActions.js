@@ -11,11 +11,13 @@ import {
   Trash2,
   Undo2,
   XCircle,
+  BadgeCheck,
+  BadgeX,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useConfirm } from '@/components/common/ConfirmDialog';
 import { useApiMutation } from '@/hooks/useApi';
-import { deleteListing, setListingStatus, toggleListingFeatured } from '@/services/listingService';
+import { deleteListing, setListingStatus, setListingVerified, toggleListingFeatured } from '@/services/listingService';
 
 /** Errors are already reported by toast; resolve to a success flag instead of rejecting. */
 const safe = (promise) =>
@@ -51,6 +53,11 @@ export function useListingActions() {
     success: (l) =>
       l.featured ? `“${l.name}” marked as featured` : `Featured flag removed from “${l.name}”`,
     error: 'Couldn’t update featured status',
+  });
+  const verify = useApiMutation(({ id, verified }) => setListingVerified(id, verified), {
+    invalidate: INVALIDATE,
+    success: (l) => (l.verified ? `“${l.name}” is now Verified by AI Bajan` : `Verification removed from “${l.name}”`),
+    error: 'Couldn’t update verification',
   });
   const remove = useApiMutation((id) => deleteListing(id), {
     invalidate: INVALIDATE,
@@ -159,6 +166,11 @@ export function useListingActions() {
         label: l.featured ? 'Unfeature' : 'Feature',
         icon: l.featured ? StarOff : Star,
         onSelect: () => featured.mutate(l.id),
+      },
+      l.status === 'published' && {
+        label: l.verified ? 'Remove “Verified” badge' : 'Mark “Verified by AI Bajan”',
+        icon: l.verified ? BadgeX : BadgeCheck,
+        onSelect: () => verify.mutate({ id: l.id, verified: !l.verified }),
       },
       l.status !== 'archived' && { label: 'Archive', icon: Archive, onSelect: () => archive(l) },
       {

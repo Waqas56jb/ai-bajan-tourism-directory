@@ -284,6 +284,47 @@ describe('Ask AI Bajan page', () => {
   });
 });
 
+describe('business sign-up', () => {
+  it('explains the programme before sign-up', async () => {
+    renderApp('/for-business');
+    expect(await screen.findByRole('heading', { level: 1, name: /verified local information partner/i })).toBeInTheDocument();
+    expect(screen.getByText(/customer enquiries sent directly to you/i)).toBeInTheDocument();
+    expect(screen.getByText(/company registration or professional licence/i)).toBeInTheDocument();
+    expect(screen.getByText(/tyre-repair company/i)).toBeInTheDocument();
+    for (const plan of ['Free', 'Verified', 'Business Plus', 'Professional Partner', 'Sponsored Category']) {
+      expect(screen.getByRole('heading', { level: 3, name: plan })).toBeInTheDocument();
+    }
+    expect(screen.getByText(/payment never influences the accuracy/i)).toBeInTheDocument();
+  });
+
+  it('validates and submits a business application (demo mode)', { timeout: 30000 }, async () => {
+    const user = userEvent.setup();
+    renderApp('/for-business/apply?type=business&plan=business_plus');
+    expect(await screen.findByLabelText('Plan')).toHaveValue('business_plus');
+    await user.click(screen.getByRole('button', { name: /submit business application/i }));
+    expect(await screen.findByText(/enter the registered name/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/please confirm to continue/i).length).toBe(2);
+    await user.type(screen.getByLabelText(/registered name/i), 'Island Tyre Services Ltd');
+    await user.type(screen.getByLabelText(/^description/i), 'Tyre repairs and replacements across the south coast.');
+    await user.type(screen.getByLabelText(/^products and services/i), 'Puncture repairs, wheel alignment');
+    await user.type(screen.getByLabelText(/^telephone/i), '+1 246 555 0170');
+    await user.type(screen.getByLabelText(/authorised contact person/i), 'Jordan Best');
+    await user.type(screen.getByLabelText(/contact email/i), 'jordan@example.com');
+    await user.click(screen.getByLabelText(/permission to use and publish/i));
+    await user.click(screen.getByLabelText(/information is accurate/i));
+    await user.click(screen.getByRole('button', { name: /submit business application/i }));
+    expect(await screen.findByText(/demo: application not sent/i)).toBeInTheDocument();
+  });
+
+  it('"List your business" leads to the programme page', async () => {
+    const user = userEvent.setup();
+    renderApp('/about');
+    const links = await screen.findAllByRole('link', { name: /list your business/i });
+    await user.click(links[0]);
+    expect(await screen.findByRole('heading', { level: 1, name: /verified local information partner/i })).toBeInTheDocument();
+  });
+});
+
 describe('forms', () => {
   it('contact form validates required fields', async () => {
     const user = userEvent.setup();

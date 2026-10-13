@@ -34,7 +34,7 @@ export function MobileNavigation({ open, onOpenChange }) {
             variant="outline"
             size="lg"
             className="w-full"
-            to={routes.contact('listing')}
+            to={routes.forBusiness()}
             onClick={close}
             iconLeft={<Store className="h-5 w-5" aria-hidden="true" />}
           >

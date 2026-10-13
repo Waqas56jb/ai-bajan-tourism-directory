@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { AppContext } from '../app/context.js';
 
-const REQUIRED_MIGRATIONS = ['0001', '0002', '0003'];
+const REQUIRED_MIGRATIONS = ['0001', '0002', '0003', '0004'];
 
 export function healthRoutes(ctx: AppContext) {
   const r = Router();

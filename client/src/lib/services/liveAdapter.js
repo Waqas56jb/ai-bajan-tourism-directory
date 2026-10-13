@@ -101,7 +101,8 @@ export function toBusiness(l) {
     accessibility: l.details?.accessibility || null,
     isFeatured: Boolean(l.featured),
     isSponsored: false,
-    isVerified: false,
+    isVerified: Boolean(l.isVerified),
+    infoConfirmedAt: l.infoConfirmedAt ?? null,
     status: 'published',
     demoContent: false,
   };
@@ -208,6 +209,13 @@ async function sendChat(payload) {
 // ------------------------------------------------------------------ adapter
 export const liveAdapter = {
   mode: 'live',
+  /** Business sign-up or content-provider application (reviewed by the AI Bajan team). */
+  submitApplication: (payload) => apiClient.post('/public/applications', payload),
+  /** Active categories and locations from the API (used by the sign-up form). */
+  async getSignupOptions() {
+    const [c, l] = await Promise.all([apiClient.get('/public/categories'), apiClient.get('/public/locations')]);
+    return { categories: c?.items ?? [], locations: l?.items ?? [] };
+  },
   /** Whether the public AI assistant is switched on (it stays off until a real AI model is connected). */
   async getAssistantStatus() {
     const s = await apiClient.get('/public/settings/chatbot');

@@ -41,6 +41,9 @@ export interface ListingRow {
   review_feedback: string;
   private_notes: string;
   public_notes: string;
+  verified: boolean;
+  verified_at: Date | null;
+  info_confirmed_at: string | null;
   owner_user_id: string | null;
   created_by: string | null;
   updated_by: string | null;
@@ -188,6 +191,9 @@ export function toAdminListing(r: ListingRow) {
       chunkCount: r.chunk_count ?? 0,
     },
     review: { rejectionReason: r.rejection_reason, feedback: r.review_feedback },
+    verified: Boolean(r.verified),
+    verifiedAt: iso(r.verified_at),
+    infoConfirmedAt: r.info_confirmed_at ?? null,
     ownerUserId: r.owner_user_id,
     version: r.content_version,
     createdAt: iso(r.created_at),
@@ -212,6 +218,8 @@ export function toPublicListing(r: ListingRow) {
     listingType: r.listing_type,
     category: r.primary_category_id ? { id: r.primary_category_id, name: r.category_name ?? '', slug: r.category_slug ?? '' } : null,
     featured: r.featured,
+    isVerified: Boolean(r.verified),
+    infoConfirmedAt: r.info_confirmed_at ?? null,
     location: {
       area: [r.neighborhood_name, r.city_name, r.region_name].filter(Boolean).join(', '),
       address: r.address_display === 'full' ? r.street_address : '',

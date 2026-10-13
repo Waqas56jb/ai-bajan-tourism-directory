@@ -117,7 +117,7 @@ export function Footer() {
               links={[
                 { to: '/about', label: 'About' },
                 { to: '/contact', label: 'Contact' },
-                { to: routes.contact('listing'), label: 'List your business' },
+                { to: routes.forBusiness(), label: 'List your business' },
                 { to: '/faq', label: 'FAQ' },
               ]}
             />

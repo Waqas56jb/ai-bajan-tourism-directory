@@ -30,6 +30,7 @@ export const TABLE_NAMES = [
   'settings',
   'error_events',
   'schema_migrations',
+  'applications',
 ] as const;
 export type TableName = (typeof TABLE_NAMES)[number];
 

@@ -242,3 +242,21 @@ export const bulkDeleteListings = (ids) =>
     },
     { write: true },
   );
+
+export const setListingVerified = (id, verified) =>
+  simulate(
+    () => {
+      const existing = db.listings.find(id);
+      if (!existing) throw notFound('Listing');
+      const next = db.listings.patch(id, { verified, updatedAt: nowIso() });
+      logActivity({
+        action: 'listing_updated',
+        entityType: 'listing',
+        entityId: id,
+        entityName: existing.name,
+        summary: verified ? 'Marked “Verified by AI Bajan”.' : 'Verification removed.',
+      });
+      return next;
+    },
+    { write: true },
+  );

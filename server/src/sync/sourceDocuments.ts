@@ -83,6 +83,8 @@ export async function loadListingSource(q: Queryable, db: Database, id: string):
   if (l.languages?.length) facts.push(`Languages spoken: ${l.languages.join(', ')}`);
   if (l.booking_requirements) facts.push(`Booking: ${l.booking_requirements}`);
   if (l.public_notes) facts.push(`Notes: ${l.public_notes}`);
+  if (l.verified) facts.push('Verified by AI Bajan: yes');
+  if (l.info_confirmed_at) facts.push(`Information last confirmed by the business: ${String(l.info_confirmed_at).slice(0, 10)}`);
   if (l.chatbot_include_contact) {
     if (l.phone) facts.push(`Phone: ${l.phone}`);
     if (l.email) facts.push(`Email: ${l.email}`);

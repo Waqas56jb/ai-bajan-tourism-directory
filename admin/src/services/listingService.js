@@ -21,3 +21,4 @@ export const bulkSetListingStatus = (...args) => impl('bulkSetListingStatus')(..
 export const toggleListingFeatured = (...args) => impl('toggleListingFeatured')(...args);
 export const deleteListing = (...args) => impl('deleteListing')(...args);
 export const bulkDeleteListings = (...args) => impl('bulkDeleteListings')(...args);
+export const setListingVerified = (...args) => impl('setListingVerified')(...args);

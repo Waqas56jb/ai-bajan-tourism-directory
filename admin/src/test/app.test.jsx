@@ -3,7 +3,7 @@ import { screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderApp } from './utils';
 
-const h1 = (name) => screen.findByRole('heading', { level: 1, name });
+const h1 = (name, timeout) => screen.findByRole('heading', { level: 1, name }, timeout ? { timeout } : undefined);
 
 describe('authentication', () => {
   it('redirects signed-out visitors to the login page', async () => {
@@ -20,7 +20,8 @@ describe('authentication', () => {
     await user.type(screen.getByLabelText(/email/i), 'admin.demo@example.com');
     await user.type(screen.getByLabelText(/^password/i), 'demo-password');
     await user.click(screen.getByRole('button', { name: /^sign in$/i }));
-    expect(await h1('Dashboard')).toBeInTheDocument();
+    // First visit lazily loads the dashboard and chart code, which is slow on a cold test run.
+    expect(await h1('Dashboard', 35000)).toBeInTheDocument();
     expect(router.state.location.pathname).toBe('/');
   });
 

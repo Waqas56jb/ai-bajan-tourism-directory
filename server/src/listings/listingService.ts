@@ -39,7 +39,7 @@ export async function getListingRow(q: Queryable, db: Database, id: string, lock
   return r.rows[0];
 }
 
-async function uniqueSlug(q: Queryable, db: Database, base: string, excludeId?: string) {
+export async function uniqueSlug(q: Queryable, db: Database, base: string, excludeId?: string) {
   const root = slugify(base) || 'listing';
   for (let i = 0; i < 50; i++) {
     const candidate = i === 0 ? root : `${root.slice(0, 75)}-${i + 1}`;

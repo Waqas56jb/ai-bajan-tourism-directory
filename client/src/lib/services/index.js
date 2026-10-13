@@ -21,4 +21,6 @@ export const {
   submitContactForm,
   submitNewsletter,
   getAssistantStatus,
+  submitApplication,
+  getSignupOptions,
 } = api;

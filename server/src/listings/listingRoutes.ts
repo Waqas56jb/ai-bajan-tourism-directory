@@ -5,6 +5,8 @@ import { requirePermission } from '../middleware/auth.js';
 import { body, paged, params, query, uuidParam, validate } from '../middleware/core.js';
 import { likeEscape } from '../database/sqlBuilder.js';
 import { notFound } from '../utils/errors.js';
+import { recordAudit } from '../audit/auditService.js';
+import { enqueueSync } from '../sync/syncQueue.js';
 import { toAdminListing, toPublicListing, type ListingRow } from './listingMapper.js';
 import {
   adminListQuery,
@@ -89,6 +91,30 @@ export function adminListingRoutes(ctx: AppContext) {
     validate({ params: uuidParam, body: z.strictObject({ featured: z.boolean() }) }),
     async (req, res) => {
       res.json(await setListingFeatured(ctx, req, params<{ id: string }>(req).id, body<{ featured: boolean }>(req).featured));
+    },
+  );
+
+  /** "Verified by AI Bajan": set after the team has checked the business's details. */
+  r.post(
+    '/:id/verified',
+    requirePermission('listings:publish'),
+    validate({ params: uuidParam, body: z.strictObject({ verified: z.boolean() }) }),
+    async (req, res) => {
+      const id = params<{ id: string }>(req).id;
+      const { verified } = body<{ verified: boolean }>(req);
+      const row = await db.tx(async (client) => {
+        const u = await client.query<{ content_version: number; status: string; include_in_chatbot: boolean }>(
+          `update ${db.t('listings')} set verified = $2, verified_at = case when $2 then now() else null end,
+                  content_version = content_version + 1, updated_by = $3
+            where id = $1 returning content_version, status, include_in_chatbot`,
+          [id, verified, req.admin!.id],
+        );
+        if (!u.rowCount) throw notFound('Listing');
+        await enqueueSync(client, db, { sourceType: 'listing', sourceId: id, operation: 'upsert', version: u.rows[0].content_version, requestedBy: req.admin!.id });
+        await recordAudit(client, db, req, { action: verified ? 'listing.verified' : 'listing.unverified', entityType: 'listing', entityId: id });
+        return getListingRow(client, db, id);
+      });
+      res.json(toAdminListing(row));
     },
   );
 

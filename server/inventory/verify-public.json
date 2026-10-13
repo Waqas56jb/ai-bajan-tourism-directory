@@ -1,11 +1,11 @@
 {
-  "at": "2026-10-13T06:07:36.768Z",
+  "at": "2026-10-13T21:56:47.780Z",
   "schema": "public",
   "results": [
     {
       "check": "AI Bajan tables present",
       "ok": true,
-      "detail": "22 tables: admins, ads, audit_logs, categories, content_revisions, conversation_notes, conversations, error_events, faqs, featured_listings, feedback, index_state, knowledge_chunks, knowledge_documents, listings, locations, messages, retrieval_logs, schema_migrations, settings, sync_jobs, users"
+      "detail": "23 tables: admins, ads, applications, audit_logs, categories, content_revisions, conversation_notes, conversations, error_events, faqs, featured_listings, feedback, index_state, knowledge_chunks, knowledge_documents, listings, locations, messages, retrieval_logs, schema_migrations, settings, sync_jobs, users"
     },
     {
       "check": "RLS enabled on every AI Bajan table",
@@ -55,7 +55,7 @@
     {
       "check": "migrations recorded",
       "ok": true,
-      "detail": "0001, 0002, 0003"
+      "detail": "0001, 0002, 0003, 0004"
     },
     {
       "check": "no unrelated public table removed",
@@ -95,7 +95,7 @@
     {
       "check": "unrelated row counts (informational; other apps are live)",
       "ok": true,
-      "detail": "identical to baseline"
+      "detail": "changed by their own traffic: shopify_store_database_conversations: 12 → 14; shopify_store_database_messages: 52 → 64; whatsapp_visitor_management_conversation_log: 2816 → 2883; whatsapp_visitor_management_conversation_states: 29 → 30; whatsapp_visitor_management_usage_daily: 27 → 29"
     },
     {
       "check": "REST API refuses anon access to website_with_rag_listings",

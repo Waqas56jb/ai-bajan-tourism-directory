@@ -40,6 +40,7 @@ export const NAV_GROUPS = [
       { label: 'All Listings', to: '/listings', icon: Building2, end: true, matchPrefix: ['/listings/lst'] },
       { label: 'Add Listing', to: '/listings/new', icon: FilePlus2 },
       { label: 'Pending Submissions', to: '/listings/submissions', icon: Inbox, badge: 'pending' },
+      { label: 'Applications', to: '/listings/applications', icon: ShieldCheck },
       { label: 'Categories', to: '/categories', icon: FolderTree },
       { label: 'Locations', to: '/locations', icon: MapPin },
     ],

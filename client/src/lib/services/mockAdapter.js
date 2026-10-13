@@ -22,6 +22,18 @@ const published = () => mockBusinesses.filter((b) => b.status === 'published');
 export const mockAdapter = {
   mode: 'mock',
 
+  async submitApplication() {
+    await wait(MOCK_LATENCY_MS ? 700 : 0);
+    return { received: true, demo: true };
+  },
+
+  async getSignupOptions() {
+    return {
+      categories: categories.map((c) => ({ id: c.slug, name: c.name })),
+      locations: [],
+    };
+  },
+
   async getAssistantStatus() {
     return { available: true, welcomeMessage: '', suggestedQuestions: [] };
   },

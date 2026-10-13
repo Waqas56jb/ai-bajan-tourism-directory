@@ -1,6 +1,8 @@
 /** Route builders — the single source of truth for public URLs. */
 export const routes = {
   home: () => '/',
+  forBusiness: () => '/for-business',
+  businessSignup: (kind) => (kind ? `/for-business/apply?type=${kind}` : '/for-business/apply'),
   ask: (q) => (q ? `/ask?q=${encodeURIComponent(q)}` : '/ask'),
   businesses: (params) => {
     const qs = params ? new URLSearchParams(cleanParams(params)).toString() : '';

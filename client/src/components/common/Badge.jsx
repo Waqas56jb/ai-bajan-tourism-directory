@@ -44,7 +44,7 @@ export function ListingBadges({ business, className = '', showDemo = true }) {
   if (business.isVerified)
     items.push(
       <Badge key="v" variant="verified">
-        Verified
+        Verified by AI Bajan
       </Badge>,
     );
   if (showDemo && business.demoContent)

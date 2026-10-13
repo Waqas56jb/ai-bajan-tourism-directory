@@ -79,7 +79,7 @@ export function Header({ overlay = false }) {
               </Button>
               <Button
                 variant={light ? 'light' : 'primary'}
-                to={routes.contact('listing')}
+                to={routes.forBusiness()}
                 className="hidden !rounded-full px-6 lg:inline-flex"
               >
                 List your business

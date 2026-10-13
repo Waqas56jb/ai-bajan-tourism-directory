@@ -43,7 +43,7 @@ export function BusinessOwnerCTA() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
-                to={routes.contact('listing')}
+                to={routes.forBusiness()}
                 variant="coral"
                 size="lg"
                 iconRight={<ArrowRight className="h-5 w-5" aria-hidden="true" />}

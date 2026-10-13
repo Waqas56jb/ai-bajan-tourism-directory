@@ -246,3 +246,8 @@ export async function deleteLocation(id) {
   await api(`/admin/locations/${id}`, { method: 'DELETE' });
   return { id };
 }
+
+/** "Verified by AI Bajan" — set after the team has checked the business's details. */
+export async function setListingVerified(id, verified) {
+  return fromServerListing(await api(`/admin/listings/${id}/verified`, { method: 'POST', body: { verified } }));
+}

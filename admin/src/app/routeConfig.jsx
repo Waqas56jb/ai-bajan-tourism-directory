@@ -14,6 +14,7 @@ const EditListingPage = page(() => import('@/pages/listings/EditListingPage'));
 const ListingDetailsPage = page(() => import('@/pages/listings/ListingDetailsPage'));
 const ListingPreviewPage = page(() => import('@/pages/listings/ListingPreviewPage'));
 const ListingSubmissionsPage = page(() => import('@/pages/listings/ListingSubmissionsPage'));
+const ApplicationsPage = page(() => import('@/pages/listings/ApplicationsPage'));
 const CategoriesPage = page(() => import('@/pages/categories/CategoriesPage'));
 const LocationsPage = page(() => import('@/pages/locations/LocationsPage'));
 const KnowledgeBasePage = page(() => import('@/pages/knowledge/KnowledgeBasePage'));
@@ -67,6 +68,7 @@ export const routes = [
           { index: true, element: <ListingsPage /> },
           { path: 'new', element: <CreateListingPage />, ...c('Add listing') },
           { path: 'submissions', element: <ListingSubmissionsPage />, ...c('Pending submissions') },
+          { path: 'applications', element: <ApplicationsPage />, ...c('Applications') },
           {
             path: ':id',
             ...c('Listing details', { dynamic: true }),
