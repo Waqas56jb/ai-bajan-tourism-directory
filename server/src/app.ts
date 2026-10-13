@@ -18,12 +18,15 @@ import { healthRoutes } from './monitoring/healthRoutes.js';
 import { analyticsRoutes, auditRoutes, monitoringRoutes, publicSettingsRoutes, settingsRoutes, syncRoutes } from './monitoring/opsRoutes.js';
 import { categoryRoutes, locationRoutes, publicTaxonomyRoutes } from './taxonomy/taxonomyRoutes.js';
 import { administratorRoutes, meRoutes, userRoutes } from './users/userRoutes.js';
+import { adminSyncRunRoutes, internalSyncRoutes } from './sync/syncRunRoutes.js';
 import { logger } from './utils/logger.js';
 
 export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {}) {
   const app = express();
   app.disable('x-powered-by');
-  if (ctx.config.TRUST_PROXY) app.set('trust proxy', ctx.config.TRUST_PROXY);
+  // On Vercel requests always arrive through one proxy hop.
+  const proxies = ctx.config.TRUST_PROXY || (process.env.VERCEL ? 1 : 0);
+  if (proxies) app.set('trust proxy', proxies);
   app.set('query parser', 'simple');
 
   app.use(requestId);
@@ -53,6 +56,9 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
     );
   }
 
+  app.get('/', (_req, res) => {
+    res.json({ name: 'AI Bajan API', version: 'v1', health: '/health/ready', api: '/api/v1' });
+  });
   app.use('/health', healthRoutes(ctx));
 
   const api = Router();
@@ -66,6 +72,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   api.use('/public', publicTaxonomyRoutes(ctx));
   api.use('/chat', chatRoutes(ctx));
   api.use('/feedback', publicFeedbackRoutes(ctx));
+  api.use('/internal', internalSyncRoutes(ctx));
 
   // Admin (verified Supabase session + active AI Bajan administrator + per-route permission)
   const admin = Router();
@@ -76,6 +83,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   admin.use('/locations', locationRoutes(ctx));
   admin.use('/faqs', faqRoutes(ctx));
   admin.use('/knowledge/documents', documentRoutes(ctx));
+  admin.use('/sync', adminSyncRunRoutes(ctx));
   admin.use('/sync', syncRoutes(ctx));
   admin.use('/conversations', conversationAdminRoutes(ctx));
   admin.use('/feedback', adminFeedbackRoutes(ctx));

@@ -18,5 +18,5 @@
     "rootDir": ".",
     "sourceMap": true
   },
-  "include": ["src", "tests", "supabase/seed", "scripts/*.ts", "vitest.config.ts"]
+  "include": ["src", "api", "tests", "supabase/seed", "scripts/*.ts", "vitest.config.ts"]
 }

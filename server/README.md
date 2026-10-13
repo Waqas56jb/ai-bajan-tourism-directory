@@ -38,6 +38,18 @@ composed deterministically from the retrieved sources (`meta.generation = "extra
 `POST /api/v1/admin/sync/reindex-all {"confirm":true}` to add embeddings, then run
 `npm run eval:rag -- --openai` to calibrate `RETRIEVAL_MIN_SIMILARITY` on real vectors.
 
+## Deploying on Vercel
+
+* Project **Root Directory**: `server`. `vercel.json` routes every path to the serverless function
+  `api/index.ts` (the Express app); no `tsc` build step runs on Vercel.
+* Set the environment variables from `.env.example` in Vercel (Production). `FRONTEND_ORIGINS`
+  must list the deployed sites, e.g.
+  `https://ai-bajan-tourism-directory.vercel.app,https://ai-bajan-tourism-directory-admin.vercel.app`.
+* There is no always-on worker on Vercel. The sync queue is processed by
+  `POST /api/v1/admin/sync/run` (admin "process now", needs `sync:manage`) and by the daily Vercel
+  Cron (`GET /api/v1/internal/sync/run`, requires `CRON_SECRET`). For near-real-time indexing run
+  `npm run worker:prod` on any always-on host — it is safe alongside the cron.
+
 ## Admin authentication
 
 Admins sign in with **Supabase Auth** in the admin app and send the access token as

@@ -72,6 +72,8 @@ const EnvSchema = z.object({
   WORKER_POLL_INTERVAL_MS: int(5000, 500),
   WORKER_LEASE_SECONDS: int(120, 10, 3600),
   RUN_WORKER_IN_PROCESS: bool,
+  /** Vercel Cron sends `Authorization: Bearer <CRON_SECRET>`; required for the internal sync endpoint. */
+  CRON_SECRET: z.string().min(16).optional(),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
