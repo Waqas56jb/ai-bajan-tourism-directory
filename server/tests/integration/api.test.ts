@@ -144,7 +144,7 @@ describe('listings', () => {
     const pub = await request(app).get('/api/v1/public/listings/bathsheba-surf-shack');
     expect(pub.status).toBe(200);
     expect(JSON.stringify(pub.body)).not.toContain('owner prefers email');
-    expect(pub.body).not.toHaveProperty('details.notes');
+    expect(pub.body.details.notes).toBe(''); // public notes only; private notes never exposed
     expect(pub.body).not.toHaveProperty('review');
   });
 
@@ -404,8 +404,13 @@ describe('ops endpoints', () => {
     const health = await request(app).get('/api/v1/admin/monitoring/health').set(bearer('super'));
     expect(health.body.services.database.status).toBe('up');
     expect(health.body.services.llm.status).toBe('not_configured');
-    const bad = await request(app).put('/api/v1/admin/settings/chatbot').set(bearer('super')).send({ enabled: true });
-    expect(bad.status).toBe(400);
+    const secret = await request(app).put('/api/v1/admin/settings/chatbot').set(bearer('super')).send({ enabled: true, openaiApiKey: 'sk-x' });
+    expect(secret.status).toBe(400);
+    const nested = await request(app).put('/api/v1/admin/settings/chatbot').set(bearer('super')).send({ nested: { a: 1 } });
+    expect(nested.status).toBe(400);
+    const saved = await request(app).put('/api/v1/admin/settings/chatbot').set(bearer('super')).send({ enabled: true, displayName: 'AI Bajan', includeSources: true, suggestedQuestions: ['Find hotels'] });
+    expect(saved.status).toBe(200);
+    expect((await request(app).put('/api/v1/admin/settings/chatbot').set(bearer('analyst')).send({ enabled: false })).status).toBe(403);
     expect((await request(app).put('/api/v1/admin/settings/secrets').set(bearer('super')).send({})).status).toBe(422);
     const pubSettings = await request(app).get('/api/v1/public/settings/chatbot');
     expect(pubSettings.body.displayName).toBe('AI Bajan');

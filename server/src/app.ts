@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import { pinoHttp } from 'pino-http';
 import type { AppContext } from './app/context.js';
 import { adRoutes, featuredRoutes, publicAdRoutes } from './advertising/advertisingRoutes.js';
-import { chatRoutes } from './chat/chatRoutes.js';
+import { adminChatTestRoutes, chatRoutes } from './chat/chatRoutes.js';
 import { conversationAdminRoutes } from './chat/conversationAdminRoutes.js';
 import { allowedOrigins } from './config/env.js';
 import { adminFeedbackRoutes, publicFeedbackRoutes } from './feedback/feedbackRoutes.js';
@@ -86,6 +86,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   admin.use('/sync', adminSyncRunRoutes(ctx));
   admin.use('/sync', syncRoutes(ctx));
   admin.use('/conversations', conversationAdminRoutes(ctx));
+  admin.use('/chat', adminChatTestRoutes(ctx));
   admin.use('/feedback', adminFeedbackRoutes(ctx));
   admin.use('/ads', adRoutes(ctx));
   admin.use('/featured', featuredRoutes(ctx));

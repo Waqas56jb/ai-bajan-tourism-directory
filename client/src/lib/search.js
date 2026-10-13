@@ -182,6 +182,7 @@ const GENERIC_CATEGORY_WORDS = {
   transportation: ['transport', 'transportation', 'getting around'],
   culture: ['culture', 'cultural', 'heritage'],
   wellness: ['wellness', 'relax', 'relaxation'],
+  services: ['pharmacy', 'pharmacies', 'chemist', 'chemists', 'drugstore', 'bank', 'banks', 'supermarket'],
 };
 
 const genericCategoryTokens = Object.fromEntries(

@@ -6,11 +6,9 @@ import { Drawer } from '@/components/common/Overlays';
 import { Icon } from '@/components/common/Icon';
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/common/Button';
-import { useUI } from '@/hooks/useUI';
 
 /** Slide-in drawer. Radix handles focus trap, Escape, focus return and scroll lock. */
 export function MobileNavigation({ open, onOpenChange }) {
-  const { openChat } = useUI();
   const close = () => onOpenChange(false);
 
   return (
@@ -27,12 +25,10 @@ export function MobileNavigation({ open, onOpenChange }) {
             size="lg"
             className="w-full"
             iconLeft={<MessageCircle className="h-5 w-5" aria-hidden="true" />}
-            onClick={() => {
-              close();
-              openChat();
-            }}
+            to={routes.ask()}
+            onClick={close}
           >
-            Ask AI Bajan
+            Start asking
           </Button>
           <Button
             variant="outline"

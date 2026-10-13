@@ -1,5 +1,5 @@
 import { useCallback, useContext, useReducer, useRef } from 'react';
-import { sendChatMessage } from '@/lib/services';
+import { api, sendChatMessage } from '@/lib/services';
 import { ChatContext } from '@/context/chatContext';
 
 const MAX_MESSAGE_LENGTH = 1000;
@@ -121,6 +121,7 @@ export function useChatState() {
 
   const clear = useCallback(() => {
     requestRef.current += 1;
+    api.resetChat?.();
     dispatch({ type: 'clear' });
   }, []);
 

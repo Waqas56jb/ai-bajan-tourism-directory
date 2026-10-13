@@ -126,3 +126,18 @@ describe('logging hygiene', () => {
     expect(row!.normalized_query).not.toContain('person@example.org');
   });
 });
+
+describe('public assistant gate', () => {
+  it('disables the public chat until an AI model is configured, but admins can still test', async () => {
+    const gated = createApp({ ...ctx, config: { ...ctx.config, PUBLIC_CHAT_REQUIRES_LLM: true } }, { httpLogging: false });
+    const pub = await request(gated).post('/api/v1/chat').send({ message: 'Find pharmacies' });
+    expect(pub.status).toBe(503);
+    expect(pub.body.error.code).toBe('ASSISTANT_UNAVAILABLE');
+    const settings = await request(gated).get('/api/v1/public/settings/chatbot');
+    expect(settings.body.aiAvailable).toBe(false);
+    const adminTest = await request(gated).post('/api/v1/admin/chat/test').set(bearer('analyst')).send({ message: 'Find pharmacies' });
+    expect(adminTest.status).toBe(200);
+    expect(adminTest.body.llmConfigured).toBe(false);
+    expect((await request(gated).post('/api/v1/admin/chat/test').send({ message: 'hi' })).status).toBe(401);
+  });
+});

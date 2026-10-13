@@ -3,7 +3,6 @@ import { Menu, MessageCircle, Search } from 'lucide-react';
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/common/Button';
 import { IconButton } from '@/components/common/IconButton';
-import { useUI } from '@/hooks/useUI';
 import { routes } from '@/lib/routes';
 import { AnnouncementBar } from './AnnouncementBar';
 import { DesktopNavigation } from './DesktopNavigation';
@@ -17,7 +16,6 @@ import { SearchDialog } from './SearchDialog';
  * page spacer can account for it.
  */
 export function Header({ overlay = false }) {
-  const { openChat } = useUI();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -76,10 +74,10 @@ export function Header({ overlay = false }) {
                 variant={light ? 'glass' : 'accent'}
                 size="sm"
                 className="hidden sm:inline-flex"
-                onClick={() => openChat()}
+                to={routes.ask()}
                 iconLeft={<MessageCircle className="h-4 w-4" aria-hidden="true" />}
               >
-                Ask AI Bajan
+                Start asking
               </Button>
               <Button
                 variant={light ? 'light' : 'primary'}

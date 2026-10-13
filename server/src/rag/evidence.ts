@@ -139,13 +139,17 @@ export function assessEvidence(
   if (!pool.length) {
     return { level: 'none', selected: [], listings: [], caveats, reasons: ['no source passed relevance checks'], clarification: null };
   }
+  // General knowledge questions are answered from knowledge documents/FAQs first; a listing that
+  // merely shares a word ("rooms in the capital") must not outrank an encyclopaedic source.
+  const knowledge = pool.filter((c) => c.sourceType !== 'listing');
+  if (knowledge.length) pool.sort((x, y) => Number(y.sourceType !== 'listing') - Number(x.sourceType !== 'listing') || y.score - x.score);
   const best = pool[0];
   const strong =
     best.coverage >= th.strongCoverage ||
     (best.signals.vectorSimilarity ?? 0) >= th.strongSimilarity ||
     (best.signals.structured && best.signals.categoryMatch);
   reasons.push(`best source coverage ${best.coverage.toFixed(2)}${best.signals.vectorSimilarity !== null ? `, similarity ${best.signals.vectorSimilarity.toFixed(2)}` : ''}`);
-  const listings = pool.filter((c) => c.sourceType === 'listing' && (c.signals.categoryMatch || c.coverage >= th.strongCoverage));
+  const listings = knowledge.length ? [] : pool.filter((c) => c.sourceType === 'listing' && (c.signals.categoryMatch || c.coverage >= th.strongCoverage));
   return { level: strong ? 'strong' : 'partial', selected: pool.slice(0, contextLimit), listings: listings.slice(0, contextLimit), caveats, reasons, clarification: null };
 }
 

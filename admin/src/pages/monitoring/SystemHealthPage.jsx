@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { IS_DEMO } from '@/config/environment';
 import {
   Activity,
   ArrowRight,
@@ -33,9 +34,9 @@ const ICONS = {
   files: FileCog,
 };
 const SAMPLE = {
-  operational: { label: 'Sample: operational', tone: 'success' },
-  degraded: { label: 'Sample: degraded', tone: 'warning' },
-  outage: { label: 'Sample: outage', tone: 'danger' },
+  operational: { label: IS_DEMO ? 'Sample: operational' : 'Operational', tone: 'success' },
+  degraded: { label: IS_DEMO ? 'Sample: degraded' : 'Needs attention', tone: 'warning' },
+  outage: { label: IS_DEMO ? 'Sample: outage' : 'Down', tone: 'danger' },
 };
 
 export default function SystemHealthPage() {

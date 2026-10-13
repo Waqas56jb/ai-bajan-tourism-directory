@@ -40,6 +40,7 @@ export interface ListingRow {
   rejection_reason: string;
   review_feedback: string;
   private_notes: string;
+  public_notes: string;
   owner_user_id: string | null;
   created_by: string | null;
   updated_by: string | null;
@@ -92,6 +93,7 @@ export const LISTING_COLUMNS: Record<string, string> = {
   audiences: 'audiences',
   bookingRequirements: 'booking_requirements',
   notes: 'private_notes',
+  publicNotes: 'public_notes',
   media: 'images',
   seo: 'seo',
   includeInChatbot: 'include_in_chatbot',
@@ -170,6 +172,7 @@ export function toAdminListing(r: ListingRow) {
       audiences: r.audiences,
       bookingRequirements: r.booking_requirements,
       notes: r.private_notes,
+      publicNotes: r.public_notes ?? '',
     },
     media: {
       featuredImage: r.images.featuredImage ?? '',
@@ -230,6 +233,7 @@ export function toPublicListing(r: ListingRow) {
       accessibility: r.accessibility,
       languages: r.languages,
       bookingRequirements: r.booking_requirements,
+      notes: r.public_notes ?? '',
     },
     media: {
       featuredImage: safeUrl(r.images.featuredImage ?? ''),

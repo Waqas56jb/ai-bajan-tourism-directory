@@ -311,6 +311,35 @@ export const categories = [
       'Show wellness retreats on the east coast.',
     ],
   },
+  {
+    slug: 'services',
+    name: 'Health & Local Services',
+    shortName: 'Services',
+    singular: 'service',
+    icon: 'Briefcase',
+    image: 'colourfulStreet',
+    heroImage: 'stoneBuilding',
+    tagline: 'Pharmacies, banks and everyday essentials',
+    description: 'Pharmacies, clinics, banks, supermarkets and other practical services.',
+    intro:
+      'Practical help during your stay: pharmacies and chemists, clinics, banks and other everyday services listed in the directory. Contact providers directly to confirm opening hours and what they offer.',
+    synonyms: [
+      'pharmacy',
+      'pharmacies',
+      'chemist',
+      'chemists',
+      'drugstore',
+      'clinic',
+      'clinics',
+      'doctor',
+      'bank',
+      'banks',
+      'atm',
+      'supermarket',
+      'grocery',
+    ],
+    aiPrompts: ['Find pharmacies.', 'Which pharmacies are listed in Bridgetown?', 'Where is the nearest bank?'],
+  },
 ];
 
 export const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]));

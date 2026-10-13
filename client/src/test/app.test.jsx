@@ -9,20 +9,22 @@ describe('homepage', () => {
   it('renders the hero, search and key sections', async () => {
     renderApp('/');
     expect(
-      screen.getByRole('heading', { level: 1, name: /find your own piece of/i }),
+      screen.getByRole('heading', { level: 1, name: /ask barbados. get a bajan answer/i }),
     ).toBeInTheDocument();
+    // One prominent question box leads the page; the directory search is a secondary section.
+    expect(screen.getByRole('search', { name: /ask ai bajan/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/what would you like to know about barbados/i)).toBeInTheDocument();
     expect(
       screen.getByRole('search', { name: /search the barbados directory/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /explore the island your way/i }),
+      screen.getByRole('heading', { name: /find places and businesses across barbados/i }),
     ).toBeInTheDocument();
     expect(
       await screen.findByRole('heading', { name: /local favorites worth discovering/i }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /your barbados questions, answered/i }),
-    ).toBeInTheDocument();
+    // No duplicate "Ask AI Bajan" entry points on the homepage.
+    expect(screen.queryByRole('button', { name: /open the ai bajan assistant/i })).not.toBeInTheDocument();
   });
 
   it('hero search navigates to the directory with query params', async () => {
@@ -75,13 +77,13 @@ describe('navigation', () => {
     const user = userEvent.setup();
     renderApp('/');
     const nav = screen.getByRole('navigation', { name: 'Main' });
-    await user.click(within(nav).getByRole('link', { name: 'Travel Guides' }));
+    await user.click(within(nav).getByRole('link', { name: 'Businesses' }));
     expect(
-      await screen.findByRole('heading', { level: 1, name: /stories and practical tips/i }),
+      await screen.findByRole('heading', { level: 1, name: /explore barbados businesses/i }),
     ).toBeInTheDocument();
     await user.click(screen.getAllByRole('link', { name: /ai bajan home/i })[0]);
     expect(
-      await screen.findByRole('heading', { level: 1, name: /find your own piece of/i }),
+      await screen.findByRole('heading', { level: 1, name: /ask barbados/i }),
     ).toBeInTheDocument();
   });
 });
@@ -203,11 +205,19 @@ describe('business detail', () => {
   });
 });
 
+/** Ask a question through the homepage hero box (the single entry point). */
+async function askFromHero(user, text) {
+  const input = screen.getByLabelText(/what would you like to know about barbados/i);
+  await waitFor(() => expect(input).toBeEnabled());
+  await user.type(input, text);
+  await user.click(screen.getByRole('button', { name: /^ask ai bajan/i }));
+}
+
 describe('AI chatbot', () => {
   it('opens and closes', async () => {
     const user = userEvent.setup();
     renderApp('/');
-    await user.click(screen.getByRole('button', { name: /open the ai bajan travel assistant/i }));
+    await askFromHero(user, 'Hello');
     const dialog = await screen.findByRole('dialog', { name: 'AI Bajan' });
     expect(within(dialog).getByText(/demo mode/i)).toBeInTheDocument();
     await user.click(within(dialog).getByRole('button', { name: /close chat/i }));
@@ -219,17 +229,21 @@ describe('AI chatbot', () => {
   it('does not send empty messages', async () => {
     const user = userEvent.setup();
     renderApp('/');
-    await user.click(screen.getByRole('button', { name: /open the ai bajan travel assistant/i }));
+    await askFromHero(user, 'Hello');
     const dialog = await screen.findByRole('dialog', { name: 'AI Bajan' });
+    await waitFor(() => expect(within(dialog).getAllByText('Hello').length).toBe(1));
+    const before = within(dialog).getAllByText(/./).length;
     await user.click(within(dialog).getByRole('button', { name: /send message/i }));
     expect(within(dialog).getByText(/type a question first/i)).toBeInTheDocument();
-    expect(within(dialog).queryByText(/you said/i)).not.toBeInTheDocument();
+    // Nothing was sent: only the hint was added.
+    expect(within(dialog).getAllByText('Hello')).toHaveLength(1);
+    expect(within(dialog).getAllByText(/./).length).toBeLessThanOrEqual(before + 1);
   });
 
   it('answers with relevant directory results', async () => {
     const user = userEvent.setup();
     renderApp('/');
-    await user.click(screen.getByRole('button', { name: /open the ai bajan travel assistant/i }));
+    await askFromHero(user, 'Hello');
     const dialog = await screen.findByRole('dialog', { name: 'AI Bajan' });
     await user.type(
       within(dialog).getByLabelText(/ask ai bajan a question/i),
@@ -246,7 +260,7 @@ describe('AI chatbot', () => {
   it('shows a retry action when a request fails', async () => {
     const user = userEvent.setup();
     renderApp('/');
-    await user.click(screen.getByRole('button', { name: /open the ai bajan travel assistant/i }));
+    await askFromHero(user, 'Hello');
     const dialog = await screen.findByRole('dialog', { name: 'AI Bajan' });
     await user.type(
       within(dialog).getByLabelText(/ask ai bajan a question/i),
@@ -316,7 +330,7 @@ describe('mobile navigation', () => {
 
     await user.click(screen.getByRole('button', { name: /open menu/i }));
     const again = await screen.findByRole('dialog', { name: 'Menu' });
-    await user.click(within(again).getByRole('link', { name: /explore businesses/i }));
+    await user.click(within(again).getByRole('link', { name: /^businesses$/i }));
     expect(
       await screen.findByRole('heading', { level: 1, name: /explore barbados businesses/i }),
     ).toBeInTheDocument();

@@ -123,7 +123,7 @@ export default function AIChatbotWindow() {
               />
               {IS_DEMO
                 ? 'Demo mode · answers from sample listings, not a live AI'
-                : 'Answers from the AI Bajan directory'}
+                : 'Answers backed by Barbadian sources'}
             </p>
           </div>
           <div className="flex items-center">

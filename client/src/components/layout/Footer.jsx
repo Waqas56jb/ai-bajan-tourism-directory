@@ -56,8 +56,9 @@ export function Footer() {
           <div className="max-w-md">
             <Logo tone="light" />
             <p className="mt-5 text-white/75">
-              A modern digital guide to Barbados — combining local business discovery with an AI
-              travel assistant, so you can experience the island with confidence.
+              Barbados’s trusted AI knowledge assistant — clear answers about our history, culture,
+              food, places, businesses, government services and everyday life, for Bajans and
+              visitors alike.
             </p>
             <div className="mt-8 rounded-card bg-white/5 p-5 ring-1 ring-white/10">
               <p className="mb-3 font-bold">Island notes, now and then</p>

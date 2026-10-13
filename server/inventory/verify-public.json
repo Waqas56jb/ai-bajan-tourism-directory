@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-13T02:05:33.610Z",
+  "at": "2026-10-13T06:07:36.768Z",
   "schema": "public",
   "results": [
     {
@@ -55,7 +55,7 @@
     {
       "check": "migrations recorded",
       "ok": true,
-      "detail": "0001, 0002"
+      "detail": "0001, 0002, 0003"
     },
     {
       "check": "no unrelated public table removed",

@@ -41,7 +41,7 @@ function buildUrl(path, query) {
 
 export async function request(
   path,
-  { method = 'GET', query, body, signal, timeout = DEFAULT_TIMEOUT_MS } = {},
+  { method = 'GET', query, body, signal, headers = {}, timeout = DEFAULT_TIMEOUT_MS } = {},
 ) {
   const controller = new AbortController();
   const timer = setTimeout(
@@ -57,6 +57,7 @@ export async function request(
       headers: {
         Accept: 'application/json',
         ...(body ? { 'Content-Type': 'application/json' } : {}),
+        ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,
       signal: controller.signal,
@@ -74,11 +75,12 @@ export async function request(
             ? 'Too many requests — please wait a moment and try again.'
             : response.status >= 500
               ? 'The AI Bajan service is having trouble right now.'
-              : (typeof data?.message === 'string' && data.message) ||
+              : (typeof data?.error?.message === 'string' && data.error.message) ||
+                (typeof data?.message === 'string' && data.message) ||
                 'The request could not be completed.';
       throw new ApiError(message, {
         status: response.status,
-        code: data?.code ?? `HTTP_${response.status}`,
+        code: data?.error?.code ?? data?.code ?? `HTTP_${response.status}`,
         retryable: response.status >= 500 || response.status === 429,
       });
     }

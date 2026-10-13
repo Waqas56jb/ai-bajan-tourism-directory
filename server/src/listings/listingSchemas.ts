@@ -57,6 +57,8 @@ const detailsInput = z.strictObject({
   bookingRequirements: text(500).optional(),
   /** Private admin notes: never public, never indexed. */
   notes: text(4000).optional(),
+  /** Public additional notes: shown on the listing page and available to the chatbot. */
+  publicNotes: text(1000).optional(),
 });
 
 const mediaInput = z.strictObject({

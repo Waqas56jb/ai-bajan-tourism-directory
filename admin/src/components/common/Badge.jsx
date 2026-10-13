@@ -1,3 +1,4 @@
+import { IS_LIVE } from '@/config/environment';
 import { FlaskConical } from 'lucide-react';
 
 const TONES = {
@@ -36,6 +37,7 @@ export function StatusBadge({ status, map, className = '' }) {
 
 /** Explicit marker for sample/demo values. */
 export function DemoBadge({ children = 'Sample data', className = '' }) {
+  if (IS_LIVE) return null;
   return (
     <Badge tone="sand" icon={FlaskConical} className={className}>
       {children}

@@ -1,33 +1,15 @@
-import { db } from './db';
-import { simulate, newId, notFound } from './mockApi';
-import { getSessionAdmin } from './authService';
+/**
+ * feedbackService — facade. VITE_DATA_MODE=live calls the AI Bajan API (./live/*);
+ * otherwise the in-browser demo implementation in ./feedbackService.mock.js is used.
+ * Generated: keep page imports pointing at this file.
+ */
+import { IS_LIVE } from '@/config/environment';
+import * as mock from './feedbackService.mock';
+import * as l0 from './live/opsLive';
 
-const nowIso = () => new Date().toISOString();
+const live = IS_LIVE ? { ...l0 } : {};
+const impl = (n) => (n in live ? live[n] : mock[n]);
 
-export const getFeedback = () =>
-  simulate(() => [...db.feedback.all()].sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt)));
-
-export const updateFeedback = (id, changes) =>
-  simulate(
-    () => {
-      if (!db.feedback.find(id)) throw notFound('Feedback');
-      return db.feedback.patch(id, { ...changes, updatedAt: nowIso() });
-    },
-    { write: true },
-  );
-
-export const addFeedbackNote = (id, text) =>
-  simulate(
-    () => {
-      const fb = db.feedback.find(id);
-      if (!fb) throw notFound('Feedback');
-      const note = {
-        id: newId('fn'),
-        author: getSessionAdmin()?.name ?? 'Demo administrator',
-        text: text.trim(),
-        at: nowIso(),
-      };
-      return db.feedback.patch(id, { notes: [...(fb.notes ?? []), note], updatedAt: nowIso() });
-    },
-    { write: true },
-  );
+export const getFeedback = (...args) => impl('getFeedback')(...args);
+export const updateFeedback = (...args) => impl('updateFeedback')(...args);
+export const addFeedbackNote = (...args) => impl('addFeedbackNote')(...args);

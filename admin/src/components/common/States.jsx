@@ -1,5 +1,6 @@
 import { Inbox, RefreshCw, TriangleAlert, FlaskConical } from 'lucide-react';
 import { Button } from './Button';
+import { IS_LIVE } from '@/config/environment';
 
 export function EmptyState({
   icon: Icon = Inbox,
@@ -89,6 +90,8 @@ export function PageLoading() {
 
 /** Inline notice explaining demo-only behaviour. */
 export function DemoNotice({ children, className = '', title = 'Demo mode' }) {
+  // Demo explanations are irrelevant once the dashboard runs on the real API.
+  if (IS_LIVE) return null;
   return (
     <div
       className={`flex gap-3 rounded-xl border border-sand/50 bg-sand/10 px-4 py-3 text-sm ${className}`}

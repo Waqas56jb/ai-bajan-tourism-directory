@@ -42,7 +42,12 @@ export interface GeneratedAnswer {
 const line = (text: string, label: string) => text.match(new RegExp(`^${label}:\\s*(.+)$`, 'm'))?.[1]?.trim() ?? '';
 
 export function toSourceRef(c: Candidate): SourceRef {
-  const url = c.sourceType === 'listing' && typeof c.metadata.url === 'string' ? c.metadata.url : null;
+  const url =
+    c.sourceType === 'listing' && typeof c.metadata.url === 'string'
+      ? c.metadata.url
+      : typeof c.metadata.sourceUrl === 'string' && /^https?:\/\//i.test(c.metadata.sourceUrl)
+        ? c.metadata.sourceUrl
+        : null;
   return { id: c.sourceId, type: c.sourceType, title: c.title, url };
 }
 
@@ -74,13 +79,13 @@ const plural = (name: string) => name.toLowerCase();
 // ------------------------------------------------------------------ fixed responses (no retrieval)
 export const TEMPLATES = {
   greeting:
-    'Hi! I can help you find places to stay, eat, shop and explore in Barbados, and look up details of businesses listed in the AI Bajan directory. What are you looking for?',
+    'Hi! Ask me anything about Barbados — history, culture, food, places, businesses, government services or everyday life. What would you like to know?',
   security_probe:
     'I can’t share internal instructions, keys or private data. I’m happy to help you search the AI Bajan directory — for example places to eat, stay or visit in Barbados.',
   fabrication_request:
     'I can only share businesses that are actually listed in the AI Bajan directory, so I won’t make up businesses, phone numbers or other details. Tell me what kind of place you’re after and I’ll show you real listings.',
   out_of_scope:
-    'That’s outside what I can help with here — I’m focused on the AI Bajan directory and visiting Barbados. I can help you find places to stay, eat, shop or explore, or look up details of a listed business.',
+    'That’s outside what I can help with — AI Bajan answers questions about Barbados: our history, culture, food, people, places, businesses, government services and everyday life.',
   technical_failure:
     'Sorry — I couldn’t search the directory just now because of a technical problem on our side. This isn’t a missing answer; please try again in a moment.',
   live: {
@@ -196,7 +201,7 @@ export function noEvidenceAnswer(a: QueryAnalysis): GeneratedAnswer {
   else if (a.categories.length) text = `I couldn’t find any ${plural(a.categories[0].name)} listed in the AI Bajan directory${where} yet.`;
   else
     text =
-      'I couldn’t find information about that in the AI Bajan directory. I can help with places to stay, eat, shop and explore in Barbados, or look up a listed business.';
+      'I don’t have a reliable Barbadian source that answers that yet, so I won’t guess. Try rephrasing, or ask about Barbados’s history, culture, food, places, businesses or government services.';
   return { ...templateAnswer('no_evidence', text), fallbackUsed: true, fallbackReason: 'no_relevant_evidence' };
 }
 

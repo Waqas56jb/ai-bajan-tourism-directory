@@ -20,4 +20,5 @@ export const {
   sendChatMessage,
   submitContactForm,
   submitNewsletter,
+  getAssistantStatus,
 } = api;

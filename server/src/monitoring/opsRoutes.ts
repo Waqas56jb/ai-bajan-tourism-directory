@@ -108,9 +108,9 @@ export function syncRoutes(ctx: AppContext) {
   r.get(
     '/jobs',
     requirePermission('knowledge:read'),
-    validate({ query: z.strictObject({ ...paginationQuery, status: csv(z.enum(['pending', 'running', 'completed', 'failed', 'superseded'])).optional(), sourceType: z.enum(['listing', 'faq', 'document']).optional() }) }),
+    validate({ query: z.strictObject({ ...paginationQuery, status: csv(z.enum(['pending', 'running', 'completed', 'failed', 'superseded'])).optional(), sourceType: z.enum(['listing', 'faq', 'document']).optional(), sourceId: z.uuid().optional() }) }),
     async (req, res) => {
-      const f = query<{ page: number; pageSize: number; status?: string[]; sourceType?: string }>(req);
+      const f = query<{ page: number; pageSize: number; status?: string[]; sourceType?: string; sourceId?: string }>(req);
       const where: string[] = [];
       const p: unknown[] = [];
       if (f.status?.length) {
@@ -119,7 +119,11 @@ export function syncRoutes(ctx: AppContext) {
       }
       if (f.sourceType) {
         p.push(f.sourceType);
-        where.push(`j.source_type = $${p.length}`);
+        where.push(`j.source_type = ${p.length}`);
+      }
+      if (f.sourceId) {
+        p.push(f.sourceId);
+        where.push(`j.source_id = ${p.length}`);
       }
       const w = where.length ? `where ${where.join(' and ')}` : '';
       const total = await db.one<{ n: number }>(`select count(*)::int as n from ${db.t('sync_jobs')} j ${w}`, p);
@@ -279,24 +283,23 @@ export function monitoringRoutes(ctx: AppContext) {
 }
 
 // ------------------------------------------------------------------ settings
-const SETTINGS_SCHEMAS = {
-  chatbot: z.strictObject({
-    enabled: z.boolean(),
-    displayName: z.string().trim().min(1).max(60),
-    welcomeMessage: z.string().trim().max(500),
-    fallbackMessage: z.string().trim().max(500),
-    tone: z.enum(['friendly', 'professional', 'concise']),
-    answerLength: z.enum(['concise', 'balanced', 'detailed']),
-    showSources: z.boolean(),
-    suggestedQuestions: z.array(z.string().trim().min(3).max(150)).max(8),
-  }),
-  general: z.strictObject({
-    siteName: z.string().trim().min(1).max(80),
-    supportEmail: z.union([z.email().max(200), z.literal('')]),
-    defaultLanguage: z.enum(['en', 'es', 'fr', 'de', 'pt']),
-    timezone: z.string().trim().max(60),
-  }),
-} as const;
+/**
+ * Settings documents are flat objects of display/configuration values edited in the admin
+ * dashboard. Keys and value types are bounded; secrets must never be stored here (keys that look
+ * like credentials are rejected).
+ */
+const settingValue = z.union([
+  z.string().max(2000),
+  z.number().finite(),
+  z.boolean(),
+  z.null(),
+  z.array(z.string().max(300)).max(30),
+]);
+const settingsDocument = z
+  .record(z.string().regex(/^[A-Za-z][A-Za-z0-9_]{0,59}$/, 'Invalid setting name'), settingValue)
+  .refine((o) => Object.keys(o).length <= 80, 'Too many settings')
+  .refine((o) => !Object.keys(o).some((k) => /(secret|password|apikey|api_key|token|servicerole)/i.test(k)), 'Secrets cannot be stored in settings');
+const SETTINGS_SCHEMAS = { chatbot: settingsDocument, general: settingsDocument } as const;
 type SettingsKey = keyof typeof SETTINGS_SCHEMAS;
 
 export function settingsRoutes(ctx: AppContext) {
@@ -336,7 +339,19 @@ export function publicSettingsRoutes(ctx: AppContext) {
     const row = await ctx.db.one<{ value: Record<string, unknown> }>(`select value from ${ctx.db.t('settings')} where key = 'chatbot'`);
     const v = row?.value ?? {};
     res.set('Cache-Control', 'public, max-age=120');
-    res.json({ enabled: v.enabled ?? true, displayName: v.displayName ?? 'AI Bajan', welcomeMessage: v.welcomeMessage ?? '', suggestedQuestions: v.suggestedQuestions ?? [], showSources: v.showSources ?? true });
+    res.json({
+      enabled: v.enabled ?? true,
+      /** False until a real AI model is connected (or when admins disable the assistant). */
+      aiAvailable: Boolean((v.enabled ?? true) && (ctx.llm.available || !ctx.config.PUBLIC_CHAT_REQUIRES_LLM)),
+      displayName: v.displayName ?? 'AI Bajan',
+      welcomeMessage: v.welcomeMessage ?? '',
+      widgetTitle: v.widgetTitle ?? '',
+      widgetSubtitle: v.widgetSubtitle ?? '',
+      brandColor: typeof v.brandColor === 'string' && /^#[0-9a-f]{6}$/i.test(v.brandColor) ? v.brandColor : null,
+      suggestedQuestions: Array.isArray(v.suggestedQuestions) ? v.suggestedQuestions : [],
+      showSources: v.showSources ?? v.includeSources ?? true,
+      sensitiveDataNotice: v.sensitiveDataNotice ?? '',
+    });
   });
   return r;
 }

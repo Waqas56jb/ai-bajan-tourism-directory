@@ -1,6 +1,7 @@
 /** Route builders — the single source of truth for public URLs. */
 export const routes = {
   home: () => '/',
+  ask: () => '/#ask',
   businesses: (params) => {
     const qs = params ? new URLSearchParams(cleanParams(params)).toString() : '';
     return qs ? `/businesses?${qs}` : '/businesses';
@@ -30,9 +31,8 @@ function cleanParams(params) {
 }
 
 export const primaryNav = [
-  { label: 'Discover', to: '/discover' },
-  { label: 'Explore Businesses', to: '/businesses' },
-  { label: 'Categories', to: '/businesses', menu: 'categories' },
-  { label: 'Travel Guides', to: '/guides' },
+  { label: 'Ask AI Bajan', to: '/#ask' },
+  { label: 'Explore Barbados', to: '/discover' },
+  { label: 'Businesses', to: '/businesses' },
   { label: 'About', to: '/about' },
 ];

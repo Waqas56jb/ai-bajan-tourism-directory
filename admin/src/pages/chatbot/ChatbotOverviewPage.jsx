@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { AssistantTestConsole } from '@/components/chatbot/AssistantTestConsole';
+import { IS_LIVE } from '@/config/environment';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -59,6 +61,7 @@ export default function ChatbotOverviewPage() {
           />
         }
       />
+      {IS_LIVE && <AssistantTestConsole />}
       <DemoNotice className="mb-5" title="Sample data">
         These metrics are illustrative and not measured from a live assistant. They will be replaced by real
         analytics once the chatbot backend is connected.

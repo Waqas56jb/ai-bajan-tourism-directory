@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useAssistant } from '@/hooks/useAssistant';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
@@ -32,6 +33,11 @@ export function AIChatbotLauncher() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  // One obvious place to ask: on the homepage the hero question box is the entry point, and the
+  // launcher only appears to resume an existing conversation. Hidden entirely while the assistant
+  // is not yet available.
+  const { available } = useAssistant();
+  const hideLauncher = !available || (pathname === '/' && !hasConversation);
   const hideOnHero =
     !isDesktop &&
     pathname === '/' &&
@@ -57,7 +63,7 @@ export function AIChatbotLauncher() {
   return (
     <>
       <AnimatePresence>
-        {chatView !== 'open' && !hideOnHero && (
+        {chatView !== 'open' && !hideOnHero && !hideLauncher && (
           <motion.div
             key="launcher"
             initial={{ opacity: 0, y: 16, scale: 0.9 }}
@@ -75,7 +81,7 @@ export function AIChatbotLauncher() {
               aria-label={
                 chatView === 'minimized'
                   ? 'Continue your conversation with AI Bajan'
-                  : 'Open the AI Bajan travel assistant'
+                  : 'Open the AI Bajan assistant'
               }
               className="pulse-ring group relative isolate flex items-center gap-2.5 rounded-full bg-navy p-1.5 text-white shadow-lift transition-transform hover:-translate-y-0.5 focus-visible:outline-offset-4 sm:pr-5"
             >

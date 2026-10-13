@@ -12,6 +12,7 @@ import { afterSourceWrite, isDocumentEligible } from '../sync/syncQueue.js';
 import { AppError, badRequest, conflict, forbidden, notFound, validationError } from '../utils/errors.js';
 import { cleanText, sha256 } from '../utils/text.js';
 import { ExtractionError, extractText, MAX_UPLOAD_BYTES, safeFileName } from './fileExtraction.js';
+import { fetchPageText } from './urlImport.js';
 
 const DOC_STATUSES = ['draft', 'review', 'published', 'archived'] as const;
 const SOURCE_TYPES = ['guide', 'article', 'policy', 'upload'] as const;
@@ -252,6 +253,42 @@ export function documentRoutes(ctx: AppContext) {
     });
     res.status(201).json(toDocument(doc));
   });
+
+  /**
+   * Import a page from a trusted website. The text is stored with its source URL (used for
+   * citations). Imported pages are drafts unless a publisher asks to publish immediately.
+   */
+  r.post(
+    '/import-url',
+    requirePermission('knowledge:write'),
+    validate({
+      body: z.strictObject({
+        url: z.string().trim().url().max(2000),
+        title: z.string().trim().min(3).max(200).optional(),
+        categoryId: z.uuid().optional(),
+        locationId: z.uuid().optional(),
+        publish: z.boolean().default(false),
+      }),
+    }),
+    async (req, res) => {
+      const b = body<{ url: string; title?: string; categoryId?: string; locationId?: string; publish: boolean }>(req);
+      const status = b.publish ? 'published' : 'draft';
+      checkPublishRights(req, { status });
+      const page = await fetchPageText(b.url);
+      const doc = await insertDocument(ctx, req, {
+        title: (b.title || page.title || new URL(page.url).hostname).slice(0, 200),
+        content: page.text,
+        summary: `Imported from ${new URL(page.url).hostname}`,
+        sourceType: 'article',
+        sourceReference: page.url,
+        categoryId: b.categoryId,
+        locationId: b.locationId,
+        status,
+        ...(b.publish ? { approvalStatus: 'approved' } : {}),
+      });
+      res.status(201).json(toDocument(doc));
+    },
+  );
 
   r.patch(
     '/:id',

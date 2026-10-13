@@ -1,23 +1,14 @@
-import { db } from './db';
-import { simulate, newId } from './mockApi';
-import { getSessionAdmin } from './authService';
-
-export const getActivityLogs = () => simulate(() => db.activity.all());
-
 /**
- * Record a demo activity event (called by other services after successful writes).
- * Browser-side only — the real audit trail must be written by the backend.
+ * activityService — facade. VITE_DATA_MODE=live calls the AI Bajan API (./live/*);
+ * otherwise the in-browser demo implementation in ./activityService.mock.js is used.
+ * Generated: keep page imports pointing at this file.
  */
-export function logActivity({ action, entityType, entityId, entityName, summary, status = 'success' }) {
-  db.activity.insert({
-    id: newId('evt'),
-    at: new Date().toISOString(),
-    actor: getSessionAdmin()?.name ?? 'Demo administrator',
-    action,
-    entityType,
-    entityId,
-    entityName,
-    summary,
-    status,
-  });
-}
+import { IS_LIVE } from '@/config/environment';
+import * as mock from './activityService.mock';
+import * as l0 from './live/opsLive';
+
+const live = IS_LIVE ? { ...l0 } : {};
+const impl = (n) => (n in live ? live[n] : mock[n]);
+
+export const logActivity = (...args) => impl('logActivity')(...args);
+export const getActivityLogs = (...args) => impl('getActivityLogs')(...args);

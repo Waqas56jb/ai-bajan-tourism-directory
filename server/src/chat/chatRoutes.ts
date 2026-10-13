@@ -4,7 +4,7 @@ import type { AppContext } from '../app/context.js';
 import { visitorSession } from '../middleware/auth.js';
 import { body, params, uuidParam, validate } from '../middleware/core.js';
 import { createLimiter } from '../middleware/rateLimit.js';
-import { badRequest, unauthorized } from '../utils/errors.js';
+import { AppError, badRequest, unauthorized } from '../utils/errors.js';
 import { cleanLine } from '../utils/text.js';
 import { getVisitorConversation, handleChat, type ChatRequest } from './chatService.js';
 
@@ -32,6 +32,9 @@ export function chatRoutes(ctx: AppContext) {
   });
 
   r.post('/', visitorSession(ctx, { mint: true }), limiter, validate({ body: chatRequestSchema }), async (req, res) => {
+    if (!ctx.llm.available && ctx.config.PUBLIC_CHAT_REQUIRES_LLM) {
+      throw new AppError(503, 'ASSISTANT_UNAVAILABLE', 'AI Bajan answers are coming soon. The assistant is being connected to its AI model.');
+    }
     const input = body<ChatRequest>(req);
     if (input.conversationId && req.issuedVisitorToken) {
       // A conversation id without a valid visitor token cannot be continued (ownership unknown).
@@ -46,5 +49,19 @@ export function chatRoutes(ctx: AppContext) {
     res.json(await getVisitorConversation(ctx, params<{ id: string }>(req).id, req.visitorId));
   });
 
+  return r;
+}
+
+/**
+ * Admin test console: same pipeline as the public chat, available even while the public chat is
+ * disabled, so answers can be evaluated before launch. Each admin gets their own test conversations.
+ */
+export function adminChatTestRoutes(ctx: AppContext) {
+  const r = Router();
+  r.post('/test', validate({ body: chatRequestSchema }), async (req, res) => {
+    const input = body<ChatRequest>(req);
+    const result = await handleChat(ctx, input, `admin-test-${req.admin!.id}`, req.requestId);
+    res.json({ ...result, llmConfigured: ctx.llm.available });
+  });
   return r;
 }

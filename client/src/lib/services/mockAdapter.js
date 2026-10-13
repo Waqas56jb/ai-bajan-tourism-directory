@@ -22,6 +22,10 @@ const published = () => mockBusinesses.filter((b) => b.status === 'published');
 export const mockAdapter = {
   mode: 'mock',
 
+  async getAssistantStatus() {
+    return { available: true, welcomeMessage: '', suggestedQuestions: [] };
+  },
+
   async getBusinesses() {
     await wait();
     return published();

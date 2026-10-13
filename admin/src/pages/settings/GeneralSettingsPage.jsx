@@ -1,3 +1,4 @@
+import { IS_DEMO } from '@/config/environment';
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
@@ -287,7 +288,7 @@ export default function GeneralSettingsPage() {
       ) : (
         <div className="space-y-6">
           <GeneralForm values={data} />
-          <DemoTools />
+          {IS_DEMO && <DemoTools />}
         </div>
       )}
     </>

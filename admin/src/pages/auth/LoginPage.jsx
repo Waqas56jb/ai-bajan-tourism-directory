@@ -7,6 +7,7 @@ import { Eye, EyeOff, FlaskConical, LogIn } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
 import { DEMO_ACCOUNT_EMAIL } from '@/services/authService';
+import { IS_DEMO } from '@/config/environment';
 import { TextField, CheckboxField } from '@/components/common/Fields';
 import { Button } from '@/components/common/Button';
 
@@ -105,6 +106,7 @@ export default function LoginPage() {
         </Button>
       </form>
 
+      {IS_DEMO && (
       <div className="mt-6 rounded-xl border border-sand/50 bg-sand/10 p-4 text-sm">
         <p className="flex items-center gap-1.5 font-semibold text-ink">
           <FlaskConical className="h-4 w-4 text-sand-600" aria-hidden="true" /> Demo account (frontend only)
@@ -121,6 +123,7 @@ export default function LoginPage() {
           Use demo email
         </button>
       </div>
+      )}
     </div>
   );
 }

@@ -413,6 +413,10 @@ export function pexelsPageUrl(id) {
  * @param {{ width?: number, widths?: number[] }} [opts]
  */
 export function getImage(key, opts = {}) {
+  // Images supplied by the API are full URLs; only http(s) is accepted.
+  if (typeof key === 'string' && /^https?:\/\//i.test(key)) {
+    return { src: key, srcSet: undefined, alt: '', record: null };
+  }
   const record = images[key];
   if (!record) return { src: FALLBACK_IMAGE, srcSet: undefined, alt: '', record: null };
   const widths = opts.widths ?? RESPONSIVE_WIDTHS;

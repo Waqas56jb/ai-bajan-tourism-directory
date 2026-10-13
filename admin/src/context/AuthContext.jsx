@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { setUnauthorizedHandler } from '@/services/live/http';
 import * as auth from '@/services/authService';
 
 const AuthContext = createContext(null);
@@ -19,6 +20,14 @@ export function AuthProvider({ children }) {
   const logout = useCallback(() => {
     auth.logout();
     setSession(null);
+  }, []);
+
+  // Live mode: an expired or revoked session (API 401) signs the user out.
+  useEffect(() => {
+    setUnauthorizedHandler(() => {
+      auth.logout();
+      setSession(null);
+    });
   }, []);
 
   const value = useMemo(

@@ -82,6 +82,7 @@ export async function loadListingSource(q: Queryable, db: Database, id: string):
   if (l.accessibility) facts.push(`Accessibility: ${l.accessibility}`);
   if (l.languages?.length) facts.push(`Languages spoken: ${l.languages.join(', ')}`);
   if (l.booking_requirements) facts.push(`Booking: ${l.booking_requirements}`);
+  if (l.public_notes) facts.push(`Notes: ${l.public_notes}`);
   if (l.chatbot_include_contact) {
     if (l.phone) facts.push(`Phone: ${l.phone}`);
     if (l.email) facts.push(`Email: ${l.email}`);
@@ -133,7 +134,13 @@ export async function loadDocumentSource(q: Queryable, db: Database, id: string)
     chunks: chunkDocument(d.title, body),
     categoryIds: cats.ids,
     locationIds: await ancestorsOfLocation(q, db, d.location_id),
-    metadata: { title: d.title, sourceType: d.source_type, relatedListingId: d.related_listing_id },
+    metadata: {
+      title: d.title,
+      sourceType: d.source_type,
+      relatedListingId: d.related_listing_id,
+      // Original web page for citations (imported or referenced documents only).
+      sourceUrl: /^https?:\/\//i.test(d.source_reference ?? '') ? d.source_reference : null,
+    },
   };
 }
 

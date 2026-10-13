@@ -65,6 +65,7 @@ const INJECTION =
 const FABRICATION = /\b(invent|make up|made[- ]up|fabricate|fake|imaginary|pretend)\b.{0,60}\b(business(?:es)?|listings?|phone|numbers?|addresses|reviews?|places?|hotels?|restaurants?)\b/i;
 const OUT_OF_SCOPE =
   /\b(capital of|write (?:me )?(?:a |an )?(?:python|javascript|java|code|script|program|function|essay|poem)|python script|solve|equation|derivative|integral|translate (?:this|the following)|stock price|bitcoin|crypto(?:currency)?|who won|election|recipe for)\b/i;
+const ABOUT_BARBADOS = /\b(barbados|barbadian|barbadians|bajan|bajans|bimshire)\b/;
 const GREETING = /^(hi|hello|hey|hiya|good (?:morning|afternoon|evening)|thanks|thank you|cheers|ok(?:ay)?|bye|goodbye)[\s!.?,]*$/i;
 const LIVE: Array<[NonNullable<QueryAnalysis['liveKind']>, RegExp]> = [
   ['weather', /\b(weather|forecast|raining|temperature)\b.*\b(now|today|tomorrow|current|right now|this week)\b|\b(current|today'?s|right now)\b.*\bweather\b/i],
@@ -174,7 +175,8 @@ export function analyzeQuery(input: string, lexicon: Lexicon): QueryAnalysis {
   if (INJECTION.test(original)) intent = 'security_probe';
   else if (FABRICATION.test(norm)) intent = 'fabrication_request';
   else if (GREETING.test(original.trim())) intent = 'greeting';
-  else if (OUT_OF_SCOPE.test(norm) && !categories.length && !listings.length) intent = 'out_of_scope';
+  // Questions about Barbados itself ("capital of Barbados", "Bajan history") are always in scope.
+  else if (OUT_OF_SCOPE.test(norm) && !categories.length && !listings.length && !locations.length && !ABOUT_BARBADOS.test(norm)) intent = 'out_of_scope';
   else if (liveKind) intent = 'live_info';
   else if (relation === 'user_sells_to') intent = 'business_prospecting';
   else if (listings.length && (attribute || anaphora || words.length <= 8)) intent = 'listing_detail';

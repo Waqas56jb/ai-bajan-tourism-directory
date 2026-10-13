@@ -9,6 +9,7 @@ import {
   FileEdit,
   FilePlus2,
   FileText,
+  Globe,
   MoreHorizontal,
   Pencil,
   RefreshCw,
@@ -39,6 +40,9 @@ import { DropdownMenu } from '@/components/common/DropdownMenu';
 import { StatusBadge } from '@/components/common/Badge';
 import { StatCard } from '@/components/common/StatCard';
 import { Modal } from '@/components/common/Modal';
+import { ImportFromWebsite } from '@/components/knowledge/ImportFromWebsite';
+import { IS_LIVE } from '@/config/environment';
+import { useAuth } from '@/context/AuthContext';
 import { FileUpload } from '@/components/common/FileUpload';
 import { ContentPreview } from '@/components/common/ContentPreview';
 import { DemoNotice, Skeleton } from '@/components/common/States';
@@ -96,6 +100,8 @@ export default function KnowledgeBasePage() {
   const actions = useDocumentActions();
   const [preview, setPreview] = useState(null);
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
+  const { admin } = useAuth();
   const [files, setFiles] = useState([]);
 
   const config = useMemo(
@@ -190,6 +196,11 @@ export default function KnowledgeBasePage() {
         description="Approved content the AI assistant may use to answer questions."
         actions={
           <>
+            {IS_LIVE && (
+              <Button variant="outline" icon={Globe} onClick={() => setImportOpen(true)}>
+                Import from website
+              </Button>
+            )}
             <Button variant="outline" icon={Upload} onClick={() => setUploadOpen(true)}>
               Upload documents
             </Button>
@@ -199,6 +210,7 @@ export default function KnowledgeBasePage() {
           </>
         }
       />
+      <ImportFromWebsite open={importOpen} onOpenChange={setImportOpen} canPublish={['super_admin', 'administrator', 'content_editor'].includes(admin?.role)} />
       <DemoNotice className="mb-5">
         Indexing statuses are simulated. Real chunking, embedding and indexing will run in the Node.js
         backend.

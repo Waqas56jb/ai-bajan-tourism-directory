@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { useAssistant } from '@/hooks/useAssistant';
 import { MessageCircle, Sparkles } from 'lucide-react';
 import { categories, categoryBySlug } from '@/data/categories';
 import { sponsoredPlacements } from '@/data/sponsoredPlacements';
@@ -26,9 +27,11 @@ const RELATED = {
   transportation: ['hotels', 'tours', 'attractions'],
   culture: ['attractions', 'shopping', 'tours'],
   wellness: ['hotels', 'restaurants', 'attractions'],
+  services: ['transportation', 'shopping', 'hotels'],
 };
 
 export default function CategoryPage() {
+  const assistant = useAssistant();
   const { slug } = useParams();
   const category = categoryBySlug[slug];
   const { openChat } = useUI();
@@ -104,8 +107,8 @@ export default function CategoryPage() {
         />
       </section>
 
-      {/* AI prompts for this category */}
-      <section aria-labelledby="cat-ai" className="bg-navy py-16 text-white md:py-20">
+      {/* AI prompts for this category (only when the assistant is live) */}
+      {assistant.available && <section aria-labelledby="cat-ai" className="bg-navy py-16 text-white md:py-20">
         <div className="container-page grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <p className="eyebrow eyebrow-light mb-4">Ask AI Bajan</p>
@@ -135,7 +138,7 @@ export default function CategoryPage() {
             ))}
           </ul>
         </div>
-      </section>
+      </section>}
 
       {placement && (
         <section aria-label="Sponsored" className="container-page pt-16 md:pt-20">
@@ -150,7 +153,7 @@ export default function CategoryPage() {
           title="Plan the rest of your trip"
         />
         <ul className="grid gap-5 sm:grid-cols-3">
-          {RELATED[slug]
+          {(RELATED[slug] ?? [])
             .map((s) => categories.find((c) => c.slug === s))
             .map((c) => (
               <li key={c.slug}>

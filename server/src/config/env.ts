@@ -74,6 +74,11 @@ const EnvSchema = z.object({
   RUN_WORKER_IN_PROCESS: bool,
   /** Vercel Cron sends `Authorization: Bearer <CRON_SECRET>`; required for the internal sync endpoint. */
   CRON_SECRET: z.string().min(16).optional(),
+  /**
+   * When true (default) the PUBLIC chat endpoint is disabled until an OpenAI key is configured, so
+   * visitors never get keyword-only answers. Admins can still test via /admin/chat/test.
+   */
+  PUBLIC_CHAT_REQUIRES_LLM: z.enum(['true', 'false', '1', '0']).default('true').transform((v) => v === 'true' || v === '1'),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

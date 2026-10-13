@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { useAssistant } from '@/hooks/useAssistant';
 import * as Accordion from '@radix-ui/react-accordion';
 import { ChevronDown, MessageCircle } from 'lucide-react';
 import { faqGroups, faqs } from '@/data/faq';
@@ -10,6 +11,7 @@ import { Button } from '@/components/common/Button';
 
 /** Radix Accordion: keyboard support (Enter/Space, arrow keys), aria-expanded/controls built in. */
 export default function FAQPage() {
+  const assistant = useAssistant();
   const { hash } = useLocation();
   const { openChat } = useUI();
   const initiallyOpen = hash ? [hash.slice(1)] : [];
@@ -74,13 +76,13 @@ export default function FAQPage() {
             <h2 className="text-xl font-extrabold text-white">Still have a question?</h2>
             <p className="mt-2 text-white/75">Ask the assistant, or send us a message.</p>
             <div className="mt-5 grid gap-2">
-              <Button
+              {assistant.available && <Button
                 variant="coral"
                 onClick={() => openChat()}
                 iconLeft={<MessageCircle className="h-4 w-4" aria-hidden="true" />}
               >
                 Ask AI Bajan
-              </Button>
+              </Button>}
               <Button variant="glass" to="/contact">
                 Contact us
               </Button>

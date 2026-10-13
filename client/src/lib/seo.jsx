@@ -13,7 +13,7 @@ import { SITE_NAME, SITE_URL } from './config';
 import { getImage } from './imageSources';
 
 const DEFAULT_DESCRIPTION =
-  'Discover restaurants, stays, tours, beaches and local businesses across Barbados — and ask the AI Bajan travel assistant.';
+  'Ask Barbados. Get a Bajan answer. AI Bajan answers questions about Barbados — history, culture, food, people, places, businesses, government services and everyday life — with reliable Barbadian sources.';
 const DEFAULT_IMAGE = '/images/og-default.jpg';
 
 function absolute(url) {

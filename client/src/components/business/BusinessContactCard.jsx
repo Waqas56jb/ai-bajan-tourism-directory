@@ -1,4 +1,5 @@
 import { ExternalLink, Globe, Mail, MapPin, MessageCircle, Navigation, Phone } from 'lucide-react';
+import { useAssistant } from '@/hooks/useAssistant';
 import { safeEmail, safeExternalUrl, safePhone, displayHost } from '@/lib/safeUrl';
 import { areaByName } from '@/data/destinations';
 import { useUI } from '@/hooks/useUI';
@@ -38,6 +39,7 @@ function Action({ href, icon: IconComponent, label, detail, external = true }) {
  * validation. No booking or payment flows.
  */
 export function BusinessContactCard({ business }) {
+  const assistant = useAssistant();
   const { openChat } = useUI();
   const website = safeExternalUrl(business.website);
   const email = safeEmail(business.email);
@@ -100,6 +102,7 @@ export function BusinessContactCard({ business }) {
         </p>
       )}
 
+      {assistant.available && (
       <button
         type="button"
         onClick={() =>
@@ -117,6 +120,7 @@ export function BusinessContactCard({ business }) {
         <MessageCircle className="h-5 w-5 text-lagoon" aria-hidden="true" />
         Ask AI Bajan about this business
       </button>
+      )}
 
       {business.demoContent && (
         <DemoNotice className="mt-4">
