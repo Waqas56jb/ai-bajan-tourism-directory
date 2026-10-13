@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "npm install --include=dev",
-  "buildCommand": "node -e \"require('fs').mkdirSync('public',{recursive:true})\"",
+  "buildCommand": "node -e \"const fs=require('fs');fs.mkdirSync('public',{recursive:true});fs.writeFileSync('public/robots.txt','User-agent: *\\nDisallow: /\\n')\"",
   "outputDirectory": "public",
   "functions": {
     "api/index.ts": { "maxDuration": 60 }
