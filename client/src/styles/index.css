@@ -1,0 +1,121 @@
+@import './animations.css';
+@import './components.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand palette */
+  --color-navy: #123044;
+  --color-navy-700: #1b4058;
+  --color-navy-900: #0b2131;
+  --color-ocean: #13a6a0;
+  --color-ocean-600: #0f8f8a;
+  --color-ocean-700: #0b7671;
+  --color-lagoon: #40c9c1;
+  --color-coral: #ff786b;
+  --color-coral-600: #e85d50;
+  --color-sand: #f7f1e7;
+  --color-cream: #fcfaf6;
+  --color-palm: #327c61;
+  --color-ink: #1d2935;
+  --color-muted: #5b6973; /* slightly darkened from #64727C for AA contrast on cream */
+  --color-line: #e5e8e6;
+  --color-white: #ffffff;
+
+  /* Type scale (fluid) */
+  --text-hero: clamp(2.6rem, 1.4rem + 5.2vw, 5.75rem);
+  --text-page: clamp(2.2rem, 1.5rem + 3vw, 3.9rem);
+  --text-section: clamp(1.85rem, 1.35rem + 2vw, 3rem);
+  --text-card: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --text-lead: clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem);
+
+  /* Spacing */
+  --space-section: clamp(4rem, 2.8rem + 5vw, 7.5rem);
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+
+  /* Radii & shadows */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-soft: 0 1px 2px rgb(18 48 68 / 0.05), 0 4px 16px rgb(18 48 68 / 0.06);
+  --shadow-card: 0 1px 2px rgb(18 48 68 / 0.06), 0 12px 32px -12px rgb(18 48 68 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(18 48 68 / 0.06), 0 24px 48px -16px rgb(18 48 68 / 0.28);
+
+  --header-h: 72px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-navy;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: rgb(64 201 193 / 0.35);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ocean);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img {
+    @apply max-w-full;
+  }
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: 1360px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section-y {
+    padding-block: var(--space-section);
+  }
+  .text-hero {
+    font-size: var(--text-hero);
+  }
+  .text-page {
+    font-size: var(--text-page);
+  }
+  .text-section {
+    font-size: var(--text-section);
+  }
+  .text-card {
+    font-size: var(--text-card);
+  }
+  .text-lead {
+    font-size: var(--text-lead);
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

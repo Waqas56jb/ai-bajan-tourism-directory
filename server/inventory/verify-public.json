@@ -1,0 +1,121 @@
+{
+  "at": "2026-10-13T02:05:33.610Z",
+  "schema": "public",
+  "results": [
+    {
+      "check": "AI Bajan tables present",
+      "ok": true,
+      "detail": "22 tables: admins, ads, audit_logs, categories, content_revisions, conversation_notes, conversations, error_events, faqs, featured_listings, feedback, index_state, knowledge_chunks, knowledge_documents, listings, locations, messages, retrieval_logs, schema_migrations, settings, sync_jobs, users"
+    },
+    {
+      "check": "RLS enabled on every AI Bajan table",
+      "ok": true,
+      "detail": "all enabled"
+    },
+    {
+      "check": "indexes on AI Bajan tables are prefixed",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "check": "triggers on AI Bajan tables are prefixed",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "check": "AI Bajan functions present",
+      "ok": true,
+      "detail": "claim_sync_jobs, keyword_search, listings_search_document, locations_check_hierarchy, touch_updated_at, vector_search"
+    },
+    {
+      "check": "anon has no privileges on AI Bajan tables",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "check": "anon cannot execute AI Bajan functions",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "check": "authenticated has no privileges on AI Bajan tables",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "check": "authenticated cannot execute AI Bajan functions",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "check": "no permissive RLS policies on AI Bajan tables (deny-by-default)",
+      "ok": true,
+      "detail": "0 policies"
+    },
+    {
+      "check": "migrations recorded",
+      "ok": true,
+      "detail": "0001, 0002"
+    },
+    {
+      "check": "no unrelated public table removed",
+      "ok": true,
+      "detail": "125 unchanged"
+    },
+    {
+      "check": "no unrelated public table added",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "check": "RLS flags of unrelated tables unchanged",
+      "ok": true,
+      "detail": "unchanged"
+    },
+    {
+      "check": "unrelated public functions unchanged",
+      "ok": true,
+      "detail": "14 functions"
+    },
+    {
+      "check": "unrelated RLS policies unchanged",
+      "ok": true,
+      "detail": "65 policies"
+    },
+    {
+      "check": "extensions unchanged",
+      "ok": true,
+      "detail": "plpgsql@1.0, pg_stat_statements@1.11, uuid-ossp@1.1, pgcrypto@1.3, supabase_vault@0.3.1, vector@0.8.0"
+    },
+    {
+      "check": "storage buckets unchanged",
+      "ok": true,
+      "detail": "shopify_store_database_assets, ai_knowledge_chat_documents, ai-workspace-files"
+    },
+    {
+      "check": "unrelated row counts (informational; other apps are live)",
+      "ok": true,
+      "detail": "identical to baseline"
+    },
+    {
+      "check": "REST API refuses anon access to website_with_rag_listings",
+      "ok": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "check": "REST API refuses anon access to website_with_rag_conversations",
+      "ok": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "check": "REST API refuses anon access to website_with_rag_admins",
+      "ok": true,
+      "detail": "HTTP 401"
+    },
+    {
+      "check": "REST API refuses anon RPC to retrieval functions",
+      "ok": true,
+      "detail": "HTTP 401"
+    }
+  ]
+}

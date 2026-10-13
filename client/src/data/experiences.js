@@ -1,0 +1,51 @@
+/** Editorial experience themes. Each links to real directory results, a category, a place or a guide. */
+export const experiences = [
+  {
+    id: 'catamaran',
+    title: 'Catamaran sailing',
+    text: 'Sail the calm west coast, swim from the boat and watch the shoreline slide by.',
+    image: 'catamaranAerial',
+    to: '/businesses?q=catamaran',
+    cta: 'Find cruises',
+  },
+  {
+    id: 'snorkel',
+    title: 'Snorkelling & marine life',
+    text: 'Clear water, shallow reefs and — often — a turtle or two.',
+    image: 'turtleReef',
+    to: '/businesses?q=snorkeling&category=tours',
+    cta: 'Find snorkel trips',
+  },
+  {
+    id: 'food',
+    title: 'Caribbean food experiences',
+    text: 'Flying fish and cou-cou, fish cakes and pepper sauce — eat like a Bajan.',
+    image: 'grilledFish',
+    to: '/guides/where-to-experience-local-bajan-food',
+    cta: 'Read the food guide',
+  },
+  {
+    id: 'surf',
+    title: 'Surfing & water sports',
+    text: 'Atlantic breaks for the experienced, calmer bays for first-timers.',
+    image: 'surfTurquoise',
+    to: '/places/bathsheba',
+    cta: 'Explore Bathsheba',
+  },
+  {
+    id: 'heritage',
+    title: 'Culture & heritage',
+    text: 'UNESCO-listed streets, rum heritage and the rhythms of tuk.',
+    image: 'churchPalms',
+    to: '/category/culture',
+    cta: 'Discover culture',
+  },
+  {
+    id: 'gardens',
+    title: 'Nature walks & gardens',
+    text: 'Royal palms, shaded gullies and quiet country trails.',
+    image: 'huntesGardens',
+    to: '/guides/discovering-barbados-beyond-the-beaches',
+    cta: 'Go beyond the beach',
+  },
+];

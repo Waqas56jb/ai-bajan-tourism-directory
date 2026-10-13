@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens. Colours are space-separated RGB channels so Tailwind opacity modifiers work
+ * (e.g. bg-accent/10). Change these to re-theme the whole dashboard.
+ */
+:root {
+  --canvas: 247 248 247; /* page background */
+  --surface: 255 255 255; /* cards, tables */
+  --subtle: 242 244 243; /* hover rows, inputs */
+  --line: 227 231 230; /* borders */
+  --ink: 26 36 46; /* primary text */
+  --muted: 98 110 120; /* secondary text (AA on white) */
+
+  --navy: 15 42 61;
+  --navy-600: 30 62 84;
+  --navy-800: 9 28 41;
+  --accent: 13 148 142; /* turquoise / teal */
+  --accent-600: 10 120 115;
+  --accent-50: 230 246 245;
+  --sand: 233 184 114;
+  --sand-600: 176 125 54;
+
+  --success: 22 128 72;
+  --warning: 180 108 6;
+  --danger: 196 48 43;
+  --info: 37 99 199;
+
+  --chart-1: 13 148 142;
+  --chart-2: 15 42 61;
+  --chart-3: 233 184 114;
+  --chart-4: 99 140 214;
+  --chart-5: 196 98 87;
+  --chart-6: 150 160 168;
+
+  --sidebar-w: 264px;
+  --sidebar-w-collapsed: 76px;
+  --topbar-h: 64px;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --canvas: 12 19 26;
+  --surface: 19 28 37;
+  --subtle: 27 38 49;
+  --line: 41 54 66;
+  --ink: 230 236 240;
+  --muted: 150 163 174;
+
+  --navy: 214 232 240; /* inverted: "navy" text/buttons become light */
+  --navy-600: 190 214 226;
+  --navy-800: 236 244 248;
+  --accent: 45 190 182;
+  --accent-600: 70 206 198;
+  --accent-50: 20 52 56;
+  --sand: 233 184 114;
+  --sand-600: 236 196 140;
+
+  --success: 74 196 128;
+  --warning: 236 168 60;
+  --danger: 240 104 96;
+  --info: 110 160 240;
+
+  --chart-2: 140 180 205;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-canvas font-sans text-[0.9rem] leading-relaxed text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold tracking-tight text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: rgb(var(--accent) / 0.2);
+  }
+  /* Native controls follow the theme */
+  input,
+  select,
+  textarea {
+    color-scheme: inherit;
+  }
+}
+
+@layer components {
+  .card {
+    @apply min-w-0 rounded-card border border-line bg-surface shadow-card;
+  }
+  .field {
+    @apply block w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted/70 transition-colors;
+    @apply hover:border-muted/40 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+    @apply disabled:cursor-not-allowed disabled:bg-subtle disabled:text-muted;
+  }
+  .field[aria-invalid='true'] {
+    @apply border-danger focus:ring-danger/20;
+  }
+  .label {
+    @apply mb-1.5 block text-[0.8rem] font-medium text-ink;
+  }
+  .helper {
+    @apply mt-1.5 text-xs text-muted;
+  }
+  .error-text {
+    @apply mt-1.5 text-xs font-medium text-danger;
+  }
+  .kbd {
+    @apply rounded border border-line bg-subtle px-1.5 py-0.5 font-sans text-2xs font-medium text-muted;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgb(var(--subtle));
+  border-radius: 6px;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(var(--surface) / 0.6), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Recharts: keep text on-token */
+.recharts-cartesian-axis-tick-value {
+  fill: rgb(var(--muted));
+  font-size: 11px;
+}
+.recharts-default-tooltip {
+  border-radius: 10px !important;
+}

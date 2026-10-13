@@ -1,0 +1,313 @@
+/* Component-level styles that are clearer as CSS than as utility strings. Plain CSS (no @apply). */
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.875rem;
+  padding: 0.7rem 1.35rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.985);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-sm {
+  min-height: 2.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+.btn-lg {
+  min-height: 3.25rem;
+  padding: 0.85rem 1.7rem;
+  font-size: 1rem;
+}
+.btn-primary {
+  background: var(--color-navy);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-navy-700);
+  box-shadow: 0 10px 24px -10px rgb(18 48 68 / 0.55);
+}
+.btn-accent {
+  background: var(--color-ocean-700);
+  color: #fff;
+}
+.btn-accent:hover:not(:disabled) {
+  background: var(--color-ocean-600);
+  box-shadow: 0 10px 24px -10px rgb(19 166 160 / 0.6);
+}
+.btn-coral {
+  background: var(--color-coral);
+  color: var(--color-navy-900);
+}
+.btn-coral:hover:not(:disabled) {
+  background: #ff8f84;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: rgb(18 48 68 / 0.22);
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--color-navy);
+  background: rgb(18 48 68 / 0.04);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--color-navy);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgb(18 48 68 / 0.06);
+}
+.btn-light {
+  background: #fff;
+  color: var(--color-navy);
+}
+.btn-light:hover:not(:disabled) {
+  background: var(--color-sand);
+}
+.btn-glass {
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+  border-color: rgb(255 255 255 / 0.45);
+  backdrop-filter: blur(6px);
+}
+.btn-glass:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.24);
+  border-color: #fff;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  color: var(--color-navy);
+  transition:
+    background-color 180ms var(--ease-out),
+    color 180ms var(--ease-out);
+}
+.icon-btn:hover {
+  background: rgb(18 48 68 / 0.07);
+}
+
+/* ---------- Form fields ---------- */
+.field-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 0.4rem;
+}
+.field-input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.85rem;
+  border: 1.5px solid var(--color-line);
+  background: #fff;
+  color: var(--color-ink);
+  font-size: 1rem;
+  transition:
+    border-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+.field-input::placeholder {
+  color: #8a969e;
+}
+.field-input:hover {
+  border-color: #cfd6d3;
+}
+.field-input:focus {
+  outline: none;
+  border-color: var(--color-ocean);
+  box-shadow: 0 0 0 4px rgb(19 166 160 / 0.16);
+}
+.field-input[aria-invalid='true'] {
+  border-color: var(--color-coral-600);
+  box-shadow: 0 0 0 4px rgb(255 120 107 / 0.14);
+}
+textarea.field-input {
+  min-height: 9rem;
+  resize: vertical;
+}
+select.field-input {
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23123044' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+.field-error {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b4382d;
+}
+
+/* ---------- Eyebrow / labels ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ocean-700);
+}
+.eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+.eyebrow-light {
+  color: var(--color-lagoon);
+}
+
+/* ---------- Image treatments ---------- */
+.img-zoom img {
+  transition: transform 700ms var(--ease-out);
+}
+.img-zoom:hover img,
+.img-zoom:focus-within img {
+  transform: scale(1.05);
+}
+.overlay-bottom::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(11 33 49 / 0) 35%, rgb(11 33 49 / 0.82) 100%);
+  pointer-events: none;
+}
+
+/* ---------- Article typography ---------- */
+.prose-article {
+  font-size: 1.075rem;
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+.prose-article p {
+  margin-block: 1.1em;
+}
+.prose-article h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+  margin-top: 2.2em;
+  margin-bottom: 0.4em;
+  letter-spacing: -0.01em;
+}
+.prose-article h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: 1.6em;
+}
+.prose-article ul {
+  list-style: disc;
+  padding-left: 1.4em;
+  margin-block: 1em;
+}
+.prose-article li {
+  margin-block: 0.35em;
+}
+.prose-article li::marker {
+  color: var(--color-ocean);
+}
+.prose-article a {
+  color: var(--color-ocean-700);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-article blockquote {
+  border-left: 3px solid var(--color-coral);
+  padding-left: 1.2em;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* ---------- Chat markdown ---------- */
+.chat-md p {
+  margin: 0 0 0.6em;
+}
+.chat-md p:last-child {
+  margin-bottom: 0;
+}
+.chat-md ul,
+.chat-md ol {
+  padding-left: 1.2em;
+  margin: 0.4em 0 0.6em;
+}
+.chat-md ul {
+  list-style: disc;
+}
+.chat-md ol {
+  list-style: decimal;
+}
+.chat-md strong {
+  color: var(--color-navy);
+  font-weight: 800;
+}
+.chat-md a {
+  color: var(--color-ocean-700);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.chat-md code {
+  font-size: 0.85em;
+  background: var(--color-sand);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* ---------- Leaflet tweaks ---------- */
+.leaflet-container {
+  font-family: inherit;
+  border-radius: inherit;
+  z-index: 0;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+}
+.map-pin {
+  background: var(--color-navy);
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  box-shadow: 0 6px 14px rgb(11 33 49 / 0.35);
+}
+.map-pin--active {
+  background: var(--color-coral);
+  color: var(--color-navy-900);
+}
