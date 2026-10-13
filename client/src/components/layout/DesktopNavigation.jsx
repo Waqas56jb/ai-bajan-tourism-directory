@@ -137,7 +137,7 @@ export function DesktopNavigation({ light }) {
             <li key={item.label}>
               <NavLink
                 to={item.to}
-                end={item.to === '/businesses' || item.to.startsWith('/#')}
+                end={item.to === '/businesses'}
                 className={({ isActive }) => navItemClass(isActive, light)}
               >
                 {({ isActive }) => (

@@ -1,0 +1,177 @@
+{
+  "description": "Starter knowledge for AI Bajan: reliable, publicly available reference pages about Barbados. Add official sources (gov.bb ministries, Barbados Museum, Parliament) via Admin → Knowledge base → Import from website as the team curates them.",
+  "sources": [
+    {
+      "topic": "overview",
+      "url": "https://en.wikipedia.org/wiki/Barbados"
+    },
+    {
+      "topic": "history",
+      "url": "https://en.wikipedia.org/wiki/History_of_Barbados"
+    },
+    {
+      "topic": "history",
+      "url": "https://en.wikipedia.org/wiki/Errol_Barrow"
+    },
+    {
+      "topic": "history",
+      "url": "https://en.wikipedia.org/wiki/National_Heroes_of_Barbados"
+    },
+    {
+      "topic": "history",
+      "url": "https://en.wikipedia.org/wiki/Bussa"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/Crop_Over"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/Bajan_Creole"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/Tuk_band"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/Chattel_house"
+    },
+    {
+      "topic": "culture",
+      "url": "https://en.wikipedia.org/wiki/National_symbols_of_Barbados"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Barbadian_cuisine"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Cou-cou"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Fish_cake"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Flying_fish"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Mount_Gay_Rum"
+    },
+    {
+      "topic": "food",
+      "url": "https://en.wikipedia.org/wiki/Conkie"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/Politics_of_Barbados"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/Constitution_of_Barbados"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/Parliament_of_Barbados"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/President_of_Barbados"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/Prime_Minister_of_Barbados"
+    },
+    {
+      "topic": "government",
+      "url": "https://en.wikipedia.org/wiki/Visa_policy_of_Barbados"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Parishes_of_Barbados"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Bridgetown"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Geography_of_Barbados"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Harrison%27s_Cave"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Bathsheba,_Barbados"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Speightstown"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Holetown"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Oistins"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Mount_Hillaby"
+    },
+    {
+      "topic": "geography",
+      "url": "https://en.wikipedia.org/wiki/Animal_Flower_Cave"
+    },
+    {
+      "topic": "economy",
+      "url": "https://en.wikipedia.org/wiki/Economy_of_Barbados"
+    },
+    {
+      "topic": "economy",
+      "url": "https://en.wikipedia.org/wiki/Barbadian_dollar"
+    },
+    {
+      "topic": "everyday",
+      "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+    },
+    {
+      "topic": "everyday",
+      "url": "https://en.wikipedia.org/wiki/Education_in_Barbados"
+    },
+    {
+      "topic": "everyday",
+      "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Barbados"
+    },
+    {
+      "topic": "everyday",
+      "url": "https://en.wikipedia.org/wiki/Health_in_Barbados"
+    },
+    {
+      "topic": "people",
+      "url": "https://en.wikipedia.org/wiki/Demographics_of_Barbados"
+    },
+    {
+      "topic": "history",
+      "url": "https://en.wikipedia.org/wiki/Garrison_Savannah"
+    },
+    {
+      "topic": "sport",
+      "url": "https://en.wikipedia.org/wiki/Barbados_national_cricket_team"
+    },
+    {
+      "topic": "economy",
+      "url": "https://en.wikipedia.org/wiki/Barbados_Stock_Exchange"
+    }
+  ]
+}

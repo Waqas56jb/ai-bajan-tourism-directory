@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef } from 'react';
 import { useAssistant } from '@/hooks/useAssistant';
+import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import { useUI } from '@/hooks/useUI';
@@ -24,7 +25,9 @@ export function AIChatbotLauncher() {
   // The floating launcher (bottom-right) is the assistant's entry point on every page. It is only
   // hidden if the server reports the assistant as switched off.
   const { available } = useAssistant();
-  const hideLauncher = !available;
+  // The Ask AI Bajan page is itself the conversation, so the floating launcher is not needed there.
+  const { pathname } = useLocation();
+  const hideLauncher = !available || pathname === '/ask';
 
   useLockBodyScroll(chatView === 'open' && !isDesktop);
 

@@ -20,7 +20,7 @@ function TypingIndicator() {
           <span className="typing-dot h-2 w-2 rounded-full bg-ocean" />
           <span className="typing-dot h-2 w-2 rounded-full bg-ocean" />
         </span>
-        <span className="text-sm text-muted">Searching the directory…</span>
+        <span className="text-sm text-muted">Searching Barbadian sources…</span>
       </span>
     </li>
   );

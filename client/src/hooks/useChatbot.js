@@ -12,7 +12,7 @@ export const WELCOME_MESSAGE = {
   role: 'assistant',
   status: 'ok',
   content:
-    'Hello! I’m **AI Bajan**, your guide to discovering Barbados. Tell me what you’re looking for, and I’ll help you explore the available businesses and travel information.',
+    'Hello! I’m **AI Bajan**. Ask me anything about Barbados — history, culture, food, places, businesses, government services or everyday life — and I’ll answer from reliable Barbadian sources.',
   businesses: [],
   sources: [],
   followUps: [],

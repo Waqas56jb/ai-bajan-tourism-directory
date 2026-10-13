@@ -18,6 +18,7 @@ const DiscoverPage = lazy(() => import('@/pages/DiscoverPage'));
 const TravelGuidesPage = lazy(() => import('@/pages/TravelGuidesPage'));
 const GuideDetailPage = lazy(() => import('@/pages/GuideDetailPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const AskPage = lazy(() => import('@/pages/AskPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
@@ -27,6 +28,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 /** Pages whose hero sits under a transparent header. */
 const OVERLAY_ROUTES = [
   '/',
+  '/ask',
   '/discover',
   '/about',
   '/category/:slug',
@@ -45,6 +47,7 @@ export function AppRoutes() {
       <Route path="/discover" element={<DiscoverPage />} />
       <Route path="/guides" element={<TravelGuidesPage />} />
       <Route path="/guides/:slug" element={<GuideDetailPage />} />
+      <Route path="/ask" element={<AskPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/faq" element={<FAQPage />} />

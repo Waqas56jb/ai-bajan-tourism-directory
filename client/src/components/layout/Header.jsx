@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Menu, MessageCircle, Search } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/common/Button';
 import { IconButton } from '@/components/common/IconButton';
@@ -50,7 +50,7 @@ export function Header({ overlay = false }) {
   return (
     <>
       <div ref={chromeRef} className="fixed inset-x-0 top-0 z-50">
-        {!scrolled && <AnnouncementBar />}
+        {!scrolled && !overlay && <AnnouncementBar />}
         <header
           className={`transition-[background-color,box-shadow,border-color] duration-300 ${
             transparent
@@ -68,24 +68,21 @@ export function Header({ overlay = false }) {
                 label="Search"
                 icon={Search}
                 onClick={() => setSearchOpen(true)}
-                className={light ? 'text-white hover:!bg-white/10' : ''}
+                className={`lg:hidden ${light ? 'text-white hover:!bg-white/10' : ''}`}
               />
               <Button
-                variant={light ? 'glass' : 'accent'}
-                size="sm"
-                className="hidden sm:inline-flex"
+                variant={light ? 'glass' : 'outline'}
                 to={routes.ask()}
-                iconLeft={<MessageCircle className="h-4 w-4" aria-hidden="true" />}
+                className={`hidden !rounded-full px-6 sm:inline-flex ${light ? '!border !border-white/35 !bg-transparent hover:!bg-white/10' : ''}`}
               >
                 Start asking
               </Button>
               <Button
                 variant={light ? 'light' : 'primary'}
-                size="sm"
                 to={routes.contact('listing')}
-                className="hidden xl:inline-flex"
+                className="hidden !rounded-full px-6 lg:inline-flex"
               >
-                List Your Business
+                List your business
               </Button>
               <IconButton
                 label="Open menu"

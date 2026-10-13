@@ -70,7 +70,7 @@ export function htmlToText(html: string): { title: string; text: string } {
   const cut = lines.findIndex((l) => END.test(l));
   const text = (cut > 0 ? lines.slice(0, cut) : lines)
     .filter((l) => !/^\^|^↑|retrieved \d{1,2} \w+ \d{4}|archived from the original|^\[\d+\]$|^\[edit\]$/i.test(l))
-    .map((l) => l.replace(/\[\d+\]|\[edit\]|\[citation needed\]/gi, '').trim())
+    .map((l) => l.replace(/\[\s*(?:\d+|[a-z]|edit|citation needed)\s*\]/gi, '').replace(/\s+([,.;:!?)])/g, '$1').trim())
     .filter(Boolean)
     .join('\n');
   return { title, text };

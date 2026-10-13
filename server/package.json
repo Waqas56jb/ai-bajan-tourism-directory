@@ -22,7 +22,8 @@
     "db:verify": "tsx src/database/verify.ts",
     "db:seed:reference": "tsx supabase/seed/seedReference.ts",
     "admin:grant": "tsx scripts/grantAdmin.ts",
-    "eval:rag": "tsx tests/evaluation/runEvaluation.ts"
+    "eval:rag": "tsx tests/evaluation/runEvaluation.ts",
+    "knowledge:import": "tsx scripts/importKnowledge.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

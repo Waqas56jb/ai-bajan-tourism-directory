@@ -5,7 +5,7 @@ import { validateModelAnswer } from './answerValidation.js';
 import { candidateText, type EvidenceAssessment } from './evidence.js';
 import { ANSWER_SCHEMA, buildMessages, type PromptSource } from './prompts.js';
 import type { QueryAnalysis } from './queryAnalysis.js';
-import type { Candidate } from './retrieval.js';
+import { textHasTerm, type Candidate } from './retrieval.js';
 
 export type AnswerStatus =
   | 'answered'
@@ -101,6 +101,80 @@ export function templateAnswer(status: AnswerStatus, text: string): GeneratedAns
   return { text, status, sources: [], needsClarification: false, fallbackUsed: false, fallbackReason: null, generation: 'template', validationProblems: [], shownListings: [] };
 }
 
+// ------------------------------------------------------------------ sentence selection
+/** Remove reference markers and page furniture that web/encyclopedia pages leave in text. */
+export function stripDebris(s: string): string {
+  return s
+    .replace(/\[\s*(?:\d+|[a-z]|edit|citation needed|note \d+|nb \d+)\s*\]/gi, '')
+    .replace(/\s+([,.;:!?)])/g, '$1')
+    .replace(/\(\s+/g, '(')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+/** Chunk text as clean lines: no "Title › Heading" prefix, list markers, tables or debris. */
+function cleanLines(text: string, type: string): string[] {
+  const lines = text.split('\n');
+  return (type === 'faq' ? lines : lines.slice(1))
+    .map((l) => stripDebris(l.replace(/^#+\s*/, '').replace(/^-\s+/, '')))
+    .filter((l) => l && !l.includes(' | ') && !/ › /.test(l));
+}
+
+function cleanChunk(text: string, type: string) {
+  return cleanLines(text, type).join(' ');
+}
+
+const STOP_SENT =
+  /^(see also|references|external links|this article|for other uses)|coordinates\s*:|from wikipedia|imported from|the free encyclopedia|^(retrieved|archived)\b|isbn|doi:/i;
+const DEFINITION_Q = /^(what|who|where)\s+(is|are|was|were)\b/;
+const LOCAL = /\b(barbad\w*|bajan\w*|bridgetown)\b/i;
+
+/**
+ * Pick the sentences that best answer the question, quoted verbatim from the sources (nothing is
+ * paraphrased or invented). Scoring: share of question terms present, exact phrase match,
+ * Barbados relevance for Barbados questions, and — for "what/who is X" — the opening sentences
+ * of the article whose title is X.
+ */
+export function bestSentences(a: QueryAnalysis, candidates: Candidate[]): { sentences: string[]; sources: Candidate[] } {
+  const terms = [...new Set([...a.keyTerms.filter((t) => t.length > 2), ...a.phrases])];
+  if (!terms.length) return { sentences: [], sources: [] };
+  const wantsLocal = LOCAL.test(a.normalized);
+  const definition = DEFINITION_Q.test(a.normalized);
+  const scored: Array<{ s: string; score: number; c: Candidate; order: number }> = [];
+  candidates.forEach((c, ci) => {
+    const titleTerms = c.title.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2);
+    const titleMatch = titleTerms.length > 0 && titleTerms.every((w) => terms.some((t) => t.includes(w) || w.includes(t)));
+    const lines = cleanLines(candidateText(c), c.sourceType);
+    let index = 0;
+    for (const line of lines) {
+      for (const raw of line.split(/(?<=[.!?])\s+(?=[A-Z0-9“"(])/)) {
+        const s = raw.trim();
+        const i = index++;
+        if (s.length < 40 || s.length > 420 || STOP_SENT.test(s) || !/[a-z]/.test(s) || !/[.!?]$/.test(s)) continue;
+        const hits = terms.filter((t) => textHasTerm(s, t)).length;
+        if (!hits) continue;
+        let score = hits / terms.length;
+        if (a.phrases.some((p) => textHasTerm(s, p))) score += 0.5;
+        if (wantsLocal && LOCAL.test(s)) score += 0.6;
+        if (definition && titleMatch && i < 3) score += 0.9 - i * 0.2;
+        if (/\b(is|are|was|were)\b/.test(s) && definition) score += 0.1;
+        score -= ci * 0.06 + Math.min(i, 30) * 0.004;
+        scored.push({ s, score, c, order: ci * 1000 + i });
+      }
+    }
+  });
+  if (!scored.length) return { sentences: [], sources: [] };
+  const ranked = scored.sort((x, y) => y.score - x.score);
+  const best = ranked[0].score;
+  const chosen = ranked
+    .filter((x, i, arr) => arr.findIndex((y) => y.s === x.s) === i)
+    .filter((x) => x.score >= best * 0.7)
+    .slice(0, 3)
+    .sort((x, y) => x.order - y.order);
+  const sources = [...new Map(chosen.map((x) => [x.c.key, x.c])).values()];
+  return { sentences: chosen.map((x) => x.s), sources };
+}
+
 // ------------------------------------------------------------------ extractive (deterministic) answers
 export function extractiveAnswer(a: QueryAnalysis, ev: EvidenceAssessment): GeneratedAnswer {
   const parts: string[] = [];
@@ -165,13 +239,15 @@ export function extractiveAnswer(a: QueryAnalysis, ev: EvidenceAssessment): Gene
     }
     if (a.attribute === 'contact') parts.push('Contact details are shown as provided to the directory; AI Bajan has not independently verified them.');
   } else if (ev.selected.length) {
-    used = ev.selected.slice(0, 2);
-    parts.push('Here’s what the AI Bajan knowledge base says:');
-    for (const c of used) {
-      const body = candidateText(c).split('\n').slice(c.sourceType === 'faq' ? 0 : 1).join(' ');
-      parts.push(`- ${c.title}: ${truncate(body, 320)}`);
+    const picked = bestSentences(a, ev.selected.slice(0, 4));
+    if (picked.sentences.length) {
+      used = picked.sources;
+      parts.push(picked.sentences.join(' '));
+    } else {
+      used = ev.selected.slice(0, 2);
+      for (const c of used) parts.push(`- ${c.title}: ${truncate(cleanChunk(candidateText(c), c.sourceType), 320)}`);
     }
-    if (ev.level === 'partial') parts.push('This may not fully answer your question — the directory doesn’t have more detail on it.');
+    if (ev.level === 'partial') parts.push('The sources only partly cover this question.');
   }
   if (ev.caveats.includes('location_unresolved')) parts.push('Tell me which area you’re in and I’ll narrow these down.');
 

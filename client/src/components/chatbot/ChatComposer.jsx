@@ -10,7 +10,7 @@ export const ChatComposer = forwardRef(function ChatComposer({ onSend, pending }
 
   const submit = () => {
     if (!value.trim()) {
-      setHint('Type a question first — for example, “restaurants in Oistins”.');
+      setHint('Type a question first — for example, “What is Crop Over?”');
       return;
     }
     if (pending) return;
@@ -51,7 +51,7 @@ export const ChatComposer = forwardRef(function ChatComposer({ onSend, pending }
               submit();
             }
           }}
-          placeholder="Ask about places, food, stays…"
+          placeholder="Ask anything about Barbados…"
           aria-describedby="chat-composer-hint"
           className="max-h-32 min-h-[2.5rem] flex-1 resize-none bg-transparent px-2 py-2 text-[0.95rem] text-ink placeholder:text-muted/80 focus:outline-none"
         />
@@ -76,7 +76,7 @@ export const ChatComposer = forwardRef(function ChatComposer({ onSend, pending }
         {hint ||
           (value.length > MAX - 100
             ? `${MAX - value.length} characters left`
-            : 'AI Bajan can make mistakes. Confirm important details with businesses.')}
+            : 'AI Bajan answers from Barbadian sources and can make mistakes — check the sources for important details.')}
       </p>
     </form>
   );
