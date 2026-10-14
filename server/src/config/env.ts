@@ -67,7 +67,8 @@ const EnvSchema = z.object({
   RETRIEVAL_TIMEOUT_MS: int(8000, 500, 60000),
   MEMORY_TURNS: int(6, 0, 30),
   CONVERSATION_TTL_DAYS: int(30, 1, 365),
-  RETRIEVAL_LOG_RETENTION_DAYS: int(30, 1, 365),
+  /** Questions are kept (anonymised) long enough to rank what Barbadians actually ask. */
+  RETRIEVAL_LOG_RETENTION_DAYS: int(120, 7, 730),
 
   WORKER_POLL_INTERVAL_MS: int(5000, 500),
   WORKER_LEASE_SECONDS: int(120, 10, 3600),

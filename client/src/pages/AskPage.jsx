@@ -1,7 +1,38 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { BookOpen, Landmark, RotateCcw, ShieldCheck, Utensils, MapPinned, Building2, Sparkles } from 'lucide-react';
+import {
+  Banknote,
+  Briefcase,
+  Building2,
+  Bus,
+  CalendarDays,
+  Car,
+  CloudSun,
+  CreditCard,
+  GraduationCap,
+  HandCoins,
+  Home,
+  Landmark,
+  MapPin,
+  Megaphone,
+  Newspaper,
+  Plane,
+  RotateCcw,
+  Scale,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+  Stethoscope,
+  Tag,
+  Utensils,
+  Waves,
+  Wrench,
+  Zap,
+} from 'lucide-react';
+import { useAudience } from '@/hooks/useAudience';
+import { AudienceSwitch } from '@/components/chatbot/AudienceSwitch';
+import { RESIDENT_TOPICS, VISITOR_TOPICS } from '@/data/starterTopics';
 import { Seo } from '@/lib/seo';
 import { useChatbot } from '@/hooks/useChatbot';
 import { LogoMark } from '@/components/common/Logo';
@@ -10,14 +41,8 @@ import { AskBox } from '@/components/home/HeroSection';
 import { ChatMessage } from '@/components/chatbot/ChatMessage';
 import { ChatComposer } from '@/components/chatbot/ChatComposer';
 
-const TOPICS = [
-  { icon: Landmark, label: 'History', q: 'When did Barbados become independent?' },
-  { icon: Utensils, label: 'Food', q: 'What are Bajan fish cakes?' },
-  { icon: Sparkles, label: 'Culture', q: 'What is Crop Over?' },
-  { icon: Building2, label: 'Government', q: 'How do I apply for a Barbados passport?' },
-  { icon: MapPinned, label: 'Places', q: 'What is Harrison’s Cave?' },
-  { icon: BookOpen, label: 'Everyday life', q: 'Do taxis in Barbados have meters?' },
-];
+/** Icons used by the starter topics (only these are bundled). */
+const ICONS = { Banknote, Briefcase, Building2, Bus, CalendarDays, Car, CloudSun, CreditCard, GraduationCap, HandCoins, Home, Landmark, MapPin, Megaphone, Newspaper, Plane, Scale, ShoppingCart, Sparkles, Stethoscope, Tag, Utensils, Waves, Wrench, Zap };
 
 function Typing() {
   return (
@@ -41,6 +66,8 @@ function Typing() {
  */
 export default function AskPage() {
   const { messages, pending, send, retry, clear } = useChatbot();
+  const [audience] = useAudience();
+  const topics = audience === 'resident' ? RESIDENT_TOPICS : VISITOR_TOPICS;
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const listRef = useRef(null);
@@ -95,10 +122,16 @@ export default function AskPage() {
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="mt-9 max-w-3xl">
               <AskBox onAsk={send} autoFocus examples={[]} inputId="ask-question" />
+              <AudienceSwitch className="mt-4" />
             </motion.div>
-            <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-8 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Suggested questions">
-              {TOPICS.map(({ icon: Icon, label, q }) => (
-                <li key={label}>
+            <h2 className="mt-9 text-sm font-extrabold uppercase tracking-[0.18em] text-white/70">
+              {audience === 'resident' ? 'Popular questions from Barbadians' : 'Popular questions from visitors'}
+            </h2>
+            <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-4 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-label="Suggested questions">
+              {topics.map(({ icon, group: label, q }) => {
+                const Icon = ICONS[icon] ?? Sparkles;
+                return (
+                <li key={q}>
                   <button
                     type="button"
                     onClick={() => send(q)}
@@ -113,7 +146,8 @@ export default function AskPage() {
                     </span>
                   </button>
                 </li>
-              ))}
+                );
+              })}
             </motion.ul>
             <p className="mt-8 flex items-center gap-2 text-sm text-white/65">
               <ShieldCheck className="h-4 w-4 text-lagoon" aria-hidden="true" />
@@ -137,6 +171,7 @@ export default function AskPage() {
                 <RotateCcw className="h-4 w-4" aria-hidden="true" />
                 New conversation
               </button>
+              <AudienceSwitch className="order-first sm:order-none" />
             </div>
             <div className="flex min-h-[60svh] flex-1 flex-col overflow-hidden rounded-[1.75rem] bg-cream shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] ring-1 ring-white/10">
               <ol

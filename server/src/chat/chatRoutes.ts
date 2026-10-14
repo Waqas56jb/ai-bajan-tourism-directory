@@ -20,6 +20,8 @@ export const chatRequestSchema = z.strictObject({
   language: z.enum(SUPPORTED_LANGUAGES).default('en'),
   clientMessageId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional(),
   context: z.strictObject({ listingId: z.uuid().optional() }).optional(),
+  /** Resident or visitor: shapes how answers are framed (e.g. NIS and bus routes vs tours and airport transfers). */
+  audience: z.enum(['resident', 'visitor']).optional(),
 });
 
 export function chatRoutes(ctx: AppContext) {

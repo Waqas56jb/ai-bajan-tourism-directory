@@ -15,6 +15,8 @@ const ListingDetailsPage = page(() => import('@/pages/listings/ListingDetailsPag
 const ListingPreviewPage = page(() => import('@/pages/listings/ListingPreviewPage'));
 const ListingSubmissionsPage = page(() => import('@/pages/listings/ListingSubmissionsPage'));
 const ApplicationsPage = page(() => import('@/pages/listings/ApplicationsPage'));
+const ClassifiedsPage = page(() => import('@/pages/listings/ClassifiedsPage'));
+const QuestionsReportPage = page(() => import('@/pages/chatbot/QuestionsReportPage'));
 const CategoriesPage = page(() => import('@/pages/categories/CategoriesPage'));
 const LocationsPage = page(() => import('@/pages/locations/LocationsPage'));
 const KnowledgeBasePage = page(() => import('@/pages/knowledge/KnowledgeBasePage'));
@@ -69,6 +71,7 @@ export const routes = [
           { path: 'new', element: <CreateListingPage />, ...c('Add listing') },
           { path: 'submissions', element: <ListingSubmissionsPage />, ...c('Pending submissions') },
           { path: 'applications', element: <ApplicationsPage />, ...c('Applications') },
+          { path: 'classifieds', element: <ClassifiedsPage />, ...c('Jobs & classifieds') },
           {
             path: ':id',
             ...c('Listing details', { dynamic: true }),
@@ -113,6 +116,7 @@ export const routes = [
               { path: ':id', element: <ConversationDetailsPage />, ...c('Conversation', { dynamic: true }) },
             ],
           },
+          { path: 'questions', element: <QuestionsReportPage />, ...c('Questions report') },
           { path: 'settings', element: <ChatbotSettingsPage />, ...c('Chatbot settings') },
         ],
       },

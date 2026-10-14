@@ -1,0 +1,11 @@
+{
+  "description": "Websites AI Bajan learns from (client-approved). Each site is crawled within its own domain, respecting robots.txt; every page is stored with its URL for citations and indexed for RAG. Re-run `npm run knowledge:crawl` to refresh.",
+  "sites": [
+    { "name": "Government of Barbados – Alpha services", "start": "https://alpha.gov.bb/services", "topic": "government", "maxPages": 80 },
+    { "name": "GOV.BB", "start": "https://www.gov.bb/", "topic": "government", "maxPages": 40 },
+    { "name": "Ministry of Labour (jobs & employment)", "start": "https://labour.gov.bb/", "topic": "jobs", "maxPages": 30 },
+    { "name": "Ministry of Transport & Works (licences, vehicles)", "start": "https://mtw.gov.bb/", "topic": "transport", "maxPages": 30 },
+    { "name": "Transit246 (bus schedules)", "start": "https://transit246.com/", "topic": "transport", "maxPages": 40 },
+    { "name": "Visit Barbados (dining, history & culture, things to do)", "start": "https://www.visitbarbados.org/", "topic": "tourism", "maxPages": 80, "render": true }
+  ]
+}

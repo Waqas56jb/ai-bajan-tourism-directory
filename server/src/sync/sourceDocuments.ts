@@ -1,6 +1,6 @@
 import type { Database, Queryable } from '../database/db.js';
 import { chunkDocument, chunkFaq, packText, type Chunk } from '../indexing/chunker.js';
-import { isDocumentEligible, isFaqEligible, isListingEligible, type SourceType } from './syncQueue.js';
+import { isClassifiedEligible, isDocumentEligible, isFaqEligible, isListingEligible, type SourceType } from './syncQueue.js';
 
 /** Everything the indexer needs to (re)build a source's chunks. */
 export interface SourceSnapshot {
@@ -146,12 +146,56 @@ export async function loadDocumentSource(q: Queryable, db: Database, id: string)
   };
 }
 
+export async function loadClassifiedSource(q: Queryable, db: Database, id: string): Promise<SourceSnapshot> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw row
+  const c = (await q.query<Record<string, any>>(
+    `select c.*, l.name as location_name from ${db.t('classifieds')} c left join ${db.t('locations')} l on l.id = c.location_id where c.id = $1`,
+    [id],
+  )).rows[0];
+  if (!c) return MISSING;
+  const isJob = c.kind === 'job';
+  const where = [c.area, c.location_name].filter(Boolean).join(', ');
+  const header = `${isJob ? 'Job vacancy' : 'Classified ad'}: ${c.title}${c.employer ? ` — ${c.employer}` : ''}${where ? ` — ${where}` : ''}`;
+  const facts = [
+    c.category && `Category: ${c.category}`,
+    isJob && c.employment_type && `Type: ${c.employment_type}`,
+    isJob && c.salary && `Salary: ${c.salary}`,
+    isJob && c.qualifications && `Qualifications: ${c.qualifications}`,
+    isJob && c.apply_deadline && `Apply by: ${String(c.apply_deadline).slice(0, 10)}`,
+    isJob && c.apply_url && `How to apply: ${c.apply_url}`,
+    !isJob && c.price && `Price: ${c.price}`,
+    !isJob && c.item_condition && `Condition: ${c.item_condition}`,
+    `Contact: ${c.contact_name}`,
+    c.contact_phone && `Phone: ${c.contact_phone}`,
+    c.contact_whatsapp && `WhatsApp: ${c.contact_whatsapp}`,
+    c.contact_email && `Email: ${c.contact_email}`,
+    c.expires_at && `Listing expires: ${String(c.expires_at).slice(0, 10)}`,
+    `Posted: ${new Date(c.created_at).toISOString().slice(0, 10)}`,
+  ].filter(Boolean);
+  return {
+    exists: true,
+    eligible: isClassifiedEligible(c as never),
+    version: c.content_version,
+    title: c.title,
+    chunks: [{ kind: isJob ? 'job' : 'classified', title: c.title, text: [header, c.description, ...facts].join('\n') }],
+    categoryIds: [],
+    locationIds: await ancestorsOfLocation(q, db, c.location_id),
+    metadata: { kind: c.kind, url: `/classifieds?view=${c.id}`, expiresAt: c.expires_at ? String(c.expires_at).slice(0, 10) : null },
+  };
+}
+
 export function loadSource(q: Queryable, db: Database, type: SourceType, id: string) {
-  return type === 'listing' ? loadListingSource(q, db, id) : type === 'faq' ? loadFaqSource(q, db, id) : loadDocumentSource(q, db, id);
+  return type === 'listing'
+    ? loadListingSource(q, db, id)
+    : type === 'faq'
+      ? loadFaqSource(q, db, id)
+      : type === 'classified'
+        ? loadClassifiedSource(q, db, id)
+        : loadDocumentSource(q, db, id);
 }
 
 export async function currentVersion(q: Queryable, db: Database, type: SourceType, id: string): Promise<number | null> {
-  const table = type === 'listing' ? 'listings' : type === 'faq' ? 'faqs' : 'knowledge_documents';
+  const table = type === 'listing' ? 'listings' : type === 'faq' ? 'faqs' : type === 'classified' ? 'classifieds' : 'knowledge_documents';
   const r = await q.query<{ v: number }>(`select content_version as v from ${db.t(table)} where id = $1`, [id]);
   return r.rows[0]?.v ?? null;
 }

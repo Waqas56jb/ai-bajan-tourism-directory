@@ -5,6 +5,7 @@ import { pinoHttp } from 'pino-http';
 import type { AppContext } from './app/context.js';
 import { adRoutes, featuredRoutes, publicAdRoutes } from './advertising/advertisingRoutes.js';
 import { adminApplicationRoutes, publicApplicationRoutes } from './applications/applicationRoutes.js';
+import { adminClassifiedRoutes, publicClassifiedRoutes } from './classifieds/classifiedRoutes.js';
 import { adminChatTestRoutes, chatRoutes } from './chat/chatRoutes.js';
 import { conversationAdminRoutes } from './chat/conversationAdminRoutes.js';
 import { allowedOrigins } from './config/env.js';
@@ -71,6 +72,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   api.use('/public/ads', publicAdRoutes(ctx));
   api.use('/public/settings', publicSettingsRoutes(ctx));
   api.use('/public/applications', publicApplicationRoutes(ctx));
+  api.use('/public/classifieds', publicClassifiedRoutes(ctx));
   api.use('/public', publicTaxonomyRoutes(ctx));
   api.use('/chat', chatRoutes(ctx));
   api.use('/feedback', publicFeedbackRoutes(ctx));
@@ -82,6 +84,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   admin.use('/me', meRoutes());
   admin.use('/listings', adminListingRoutes(ctx));
   admin.use('/applications', adminApplicationRoutes(ctx));
+  admin.use('/classifieds', adminClassifiedRoutes(ctx));
   admin.use('/categories', categoryRoutes(ctx));
   admin.use('/locations', locationRoutes(ctx));
   admin.use('/faqs', faqRoutes(ctx));

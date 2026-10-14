@@ -1,6 +1,7 @@
 /** Route builders — the single source of truth for public URLs. */
 export const routes = {
   home: () => '/',
+  classifieds: (kind) => (kind ? `/classifieds?kind=${kind}` : '/classifieds'),
   forBusiness: () => '/for-business',
   businessSignup: (kind) => (kind ? `/for-business/apply?type=${kind}` : '/for-business/apply'),
   ask: (q) => (q ? `/ask?q=${encodeURIComponent(q)}` : '/ask'),
@@ -35,5 +36,6 @@ function cleanParams(params) {
 export const primaryNav = [
   { label: 'Ask AI Bajan', to: '/ask' },
   { label: 'Explore Barbados', to: '/discover' },
+  { label: 'Jobs & Classifieds', to: '/classifieds' },
   { label: 'About', to: '/about' },
 ];

@@ -6,7 +6,7 @@ import { buildTsQuery } from './queryBuilder.js';
 
 export interface ChunkHit {
   chunk_id: string;
-  source_type: 'listing' | 'faq' | 'document';
+  source_type: 'listing' | 'faq' | 'document' | 'classified';
   source_id: string;
   source_version: number;
   chunk_kind: string;
@@ -209,7 +209,22 @@ export async function retrieve(ctx: AppContext, a: QueryAnalysis): Promise<Retri
   }
 
   const failed = attempted.length > 0 && errors.filter((e) => attempted.includes(e.method)).length === attempted.length;
-  const candidates = fuse(a, lists, cfg.RETRIEVAL_KEYWORD_WEIGHT, cfg.RETRIEVAL_SEMANTIC_WEIGHT, cfg.RETRIEVAL_MIN_SIMILARITY);
+  let candidates = fuse(a, lists, cfg.RETRIEVAL_KEYWORD_WEIGHT, cfg.RETRIEVAL_SEMANTIC_WEIGHT, cfg.RETRIEVAL_MIN_SIMILARITY);
+
+  // Classified ads are time-limited: confirm each one is still approved and unexpired right now.
+  const adIds = candidates.filter((c) => c.sourceType === 'classified').map((c) => c.sourceId);
+  if (adIds.length) {
+    try {
+      const live = await ctx.db.many<{ id: string }>(
+        `select id from ${ctx.db.t('classifieds')} where id = any($1) and status = 'approved' and (expires_at is null or expires_at >= current_date)`,
+        [adIds],
+      );
+      const ok = new Set(live.map((r) => r.id));
+      candidates = candidates.filter((c) => c.sourceType !== 'classified' || ok.has(c.sourceId));
+    } catch {
+      candidates = candidates.filter((c) => c.sourceType !== 'classified');
+    }
+  }
   return { candidates, methods, errors, failed, timings, tsquery, refinementUsed };
 }
 
@@ -296,6 +311,9 @@ export function fuse(
   }
 
   // Cross-source near-duplicate removal (identical text published twice, e.g. FAQ copied into a doc).
+  // Expired classified ads are never used, even before the worker deactivates them.
+  const today = new Date().toISOString().slice(0, 10);
+  for (const [k, c] of bySource) if (typeof c.metadata.expiresAt === 'string' && c.metadata.expiresAt < today) bySource.delete(k);
   const sorted = [...bySource.values()].sort((x, y) => y.score - x.score || x.key.localeCompare(y.key));
   const fingerprints = new Set<string>();
   return sorted.filter((c) => {

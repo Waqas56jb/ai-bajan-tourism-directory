@@ -1,6 +1,6 @@
 import type { Database, Queryable } from '../database/db.js';
 
-export type SourceType = 'listing' | 'faq' | 'document';
+export type SourceType = 'listing' | 'faq' | 'document' | 'classified';
 
 /**
  * Queue a synchronisation job. At most one *pending* job exists per source (partial unique index),
@@ -64,6 +64,10 @@ export const isDocumentEligible = (d: {
   d.include_in_chatbot &&
   d.visibility === 'public' &&
   d.content.trim().length > 0;
+
+/** Approved and not past its expiry date. */
+export const isClassifiedEligible = (c: { status: string; expires_at: string | null }) =>
+  c.status === 'approved' && (!c.expires_at || String(c.expires_at).slice(0, 10) >= new Date().toISOString().slice(0, 10));
 
 /** Apply the right chunk/queue side effects after a source write. */
 export async function afterSourceWrite(

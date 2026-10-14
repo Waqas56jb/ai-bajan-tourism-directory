@@ -20,7 +20,7 @@ export type AnswerStatus =
 
 export interface SourceRef {
   id: string;
-  type: 'listing' | 'faq' | 'document';
+  type: 'listing' | 'faq' | 'document' | 'classified';
   title: string;
   url: string | null;
 }
@@ -43,7 +43,7 @@ const line = (text: string, label: string) => text.match(new RegExp(`^${label}:\
 
 export function toSourceRef(c: Candidate): SourceRef {
   const url =
-    c.sourceType === 'listing' && typeof c.metadata.url === 'string'
+    (c.sourceType === 'listing' || c.sourceType === 'classified') && typeof c.metadata.url === 'string'
       ? c.metadata.url
       : typeof c.metadata.sourceUrl === 'string' && /^https?:\/\//i.test(c.metadata.sourceUrl)
         ? c.metadata.sourceUrl
@@ -302,6 +302,7 @@ export async function generateAnswer(
     history: Array<{ role: 'user' | 'assistant'; content: string }>;
     memorySummary: string;
     language: string;
+    audience?: 'resident' | 'visitor';
   },
 ): Promise<GeneratedAnswer> {
   const { analysis, evidence } = args;

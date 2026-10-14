@@ -14,6 +14,7 @@ export interface ChatRequest {
   language: string;
   clientMessageId?: string;
   context?: { listingId?: string };
+  audience?: 'resident' | 'visitor';
 }
 
 export interface ChatResponse {
@@ -177,7 +178,7 @@ export async function handleChat(ctx: AppContext, req: ChatRequest, visitorId: s
         answer = noEvidenceAnswer(analysis);
       } else {
         const g0 = performance.now();
-        answer = await generateAnswer(ctx, { analysis, evidence, history, memorySummary: summarizeMemory(memoryState), language: req.language });
+        answer = await generateAnswer(ctx, { analysis, evidence, history, memorySummary: summarizeMemory(memoryState), language: req.language, audience: req.audience });
         timings.generation = Math.round(performance.now() - g0);
       }
       if (analysis.intent === 'live_info' && analysis.liveKind) {
@@ -241,6 +242,7 @@ export async function handleChat(ctx: AppContext, req: ChatRequest, visitorId: s
         listings: analysis.listings.map((l) => l.id),
         productTerms: analysis.productTerms,
         attribute: analysis.attribute,
+        audience: req.audience ?? null,
         memoryUsed: resolution.used,
         memoryCleared: resolution.cleared,
         tsquery: retrieval?.tsquery ?? null,

@@ -5,6 +5,7 @@ import type { LlmProvider } from '../llm/provider.js';
 import { ProviderError, backoffDelay } from '../llm/retry.js';
 import { logger, scrub } from '../utils/logger.js';
 import { processIndexJob, type IndexJob } from './indexer.js';
+import { afterSourceWrite } from './syncQueue.js';
 
 interface ClaimedJob extends IndexJob {
   attempts: number;
@@ -115,13 +116,26 @@ export class SyncWorker {
   }
 
   /** Purge data past its retention window (only AI Bajan tables). */
+  /** Mark approved ads past their expiry date as expired and remove them from the assistant's knowledge. */
+  async expireClassifieds() {
+    const rows = await this.db.many<{ id: string; content_version: number }>(
+      `update ${this.db.t('classifieds')} set status = 'expired', content_version = content_version + 1
+        where status = 'approved' and expires_at < current_date returning id, content_version`,
+    );
+    for (const r of rows) {
+      await afterSourceWrite(this.db, this.db, { sourceType: 'classified', sourceId: r.id, version: r.content_version, eligible: false });
+    }
+    return rows.length;
+  }
+
   async purgeExpired(retrievalLogDays: number, conversationDays: number) {
     const logs = await this.db.query(`delete from ${this.db.t('retrieval_logs')} where created_at < now() - make_interval(days => $1)`, [retrievalLogDays]);
     const convs = await this.db.query(
       `delete from ${this.db.t('conversations')} where last_activity_at < now() - make_interval(days => $1) and review_status <> 'flagged'`,
       [conversationDays],
     );
-    return { retrievalLogs: logs.rowCount ?? 0, conversations: convs.rowCount ?? 0 };
+    const expired = await this.expireClassifieds();
+    return { retrievalLogs: logs.rowCount ?? 0, conversations: convs.rowCount ?? 0, classifiedsExpired: expired };
   }
 
   async loop(pollMs: number) {

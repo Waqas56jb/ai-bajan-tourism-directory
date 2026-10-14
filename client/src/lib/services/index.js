@@ -23,4 +23,6 @@ export const {
   getAssistantStatus,
   submitApplication,
   getSignupOptions,
+  getClassifieds,
+  submitClassified,
 } = api;

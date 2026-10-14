@@ -25,7 +25,7 @@ function isPrivateIp(ip: string): boolean {
   return v === '::1' || v === '::' || v.startsWith('fc') || v.startsWith('fd') || v.startsWith('fe80') || v.startsWith('::ffff:127.') || v.startsWith('::ffff:10.') || v.startsWith('::ffff:192.168.');
 }
 
-async function assertPublicUrl(raw: string): Promise<URL> {
+export async function assertPublicUrl(raw: string): Promise<URL> {
   let url: URL;
   try {
     url = new URL(raw);
@@ -76,7 +76,8 @@ export function htmlToText(html: string): { title: string; text: string } {
   return { title, text };
 }
 
-export async function fetchPageText(rawUrl: string): Promise<{ url: string; title: string; text: string }> {
+/** Fetch a public page's raw body (same safety rules). Used by the importer and the site crawler. */
+export async function fetchPageRaw(rawUrl: string): Promise<{ url: string; type: string; raw: string }> {
   let url = await assertPublicUrl(rawUrl);
   for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
     const controller = new AbortController();
@@ -123,10 +124,14 @@ export async function fetchPageText(rawUrl: string): Promise<{ url: string; titl
       }
     }
     clearTimeout(timer);
-    const raw = Buffer.concat(chunks).toString('utf8');
-    const { title, text } = /text\/plain/i.test(type) ? { title: '', text: cleanText(raw) } : htmlToText(raw);
-    if (text.length < 200) throw new AppError(422, 'NOT_ENOUGH_TEXT', 'The page does not contain enough readable text to import.');
-    return { url: url.toString(), title, text: text.slice(0, 190_000) };
+    return { url: url.toString(), type, raw: Buffer.concat(chunks).toString('utf8') };
   }
   throw new AppError(502, 'TOO_MANY_REDIRECTS', 'The website redirected too many times.');
+}
+
+export async function fetchPageText(rawUrl: string): Promise<{ url: string; title: string; text: string }> {
+  const { url, type, raw } = await fetchPageRaw(rawUrl);
+  const { title, text } = /text\/plain/i.test(type) ? { title: '', text: cleanText(raw) } : htmlToText(raw);
+  if (text.length < 200) throw new AppError(422, 'NOT_ENOUGH_TEXT', 'The page does not contain enough readable text to import.');
+  return { url, title, text: text.slice(0, 190_000) };
 }

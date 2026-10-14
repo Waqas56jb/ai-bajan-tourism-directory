@@ -56,6 +56,34 @@ export function analyticsRoutes(ctx: AppContext) {
       topSources,
     });
   });
+  /**
+   * What people actually ask (anonymised), and which questions get poor or no answers.
+   * "Poor" = no evidence, technical failure, clarification/partial, a fallback, or a "not helpful" rating.
+   */
+  r.get('/questions', requirePermission('analytics:read'), validate({ query: z.strictObject({ days: z.coerce.number().int().min(1).max(730).default(90), limit: z.coerce.number().int().min(5).max(200).default(50) }) }), async (req, res) => {
+    const { days, limit } = query<{ days: number; limit: number }>(req);
+    const key = `btrim(regexp_replace(lower(l.normalized_query), '[^a-z0-9 ]+', ' ', 'g'))`;
+    const base = `from ${db.t('retrieval_logs')} l
+      left join ${db.t('feedback')} f on f.message_id = l.message_id and f.helpful = false
+      where l.created_at >= now() - make_interval(days => $1) and l.normalized_query <> ''`;
+    const poor = `(l.outcome in ('no_evidence','technical_failure','partial','clarification') or l.fallback_reason <> '' or f.id is not null)`;
+    const [totals, top, weak, intents] = await Promise.all([
+      db.one(`select count(*)::int as questions, count(distinct ${key})::int as "uniqueQuestions",
+                count(*) filter (where ${poor})::int as "poorlyAnswered",
+                count(*) filter (where l.outcome = 'no_evidence')::int as "noAnswer" ${base}`, [days]),
+      db.many(`select ${key} as question, count(*)::int as asked, max(l.created_at) as "lastAsked",
+                count(*) filter (where ${poor})::int as "poorAnswers", mode() within group (order by l.intent) as intent
+               ${base} group by 1 order by asked desc, "lastAsked" desc limit $2`, [days, limit]),
+      db.many(`select ${key} as question, count(*)::int as asked, max(l.created_at) as "lastAsked",
+                array_agg(distinct coalesce(nullif(l.outcome, ''), 'unknown')) as outcomes,
+                array_agg(distinct nullif(l.fallback_reason, '')) filter (where l.fallback_reason <> '') as reasons,
+                count(f.id)::int as "notHelpful"
+               ${base} and ${poor} group by 1 order by asked desc, "lastAsked" desc limit $2`, [days, limit]),
+      db.many(`select coalesce(nullif(l.intent, ''), 'unknown') as intent, count(*)::int as n ${base} group by 1 order by n desc`, [days]),
+    ]);
+    res.json({ days, totals, top, poor: weak, intents });
+  });
+
   return r;
 }
 
@@ -108,7 +136,7 @@ export function syncRoutes(ctx: AppContext) {
   r.get(
     '/jobs',
     requirePermission('knowledge:read'),
-    validate({ query: z.strictObject({ ...paginationQuery, status: csv(z.enum(['pending', 'running', 'completed', 'failed', 'superseded'])).optional(), sourceType: z.enum(['listing', 'faq', 'document']).optional(), sourceId: z.uuid().optional() }) }),
+    validate({ query: z.strictObject({ ...paginationQuery, status: csv(z.enum(['pending', 'running', 'completed', 'failed', 'superseded'])).optional(), sourceType: z.enum(['listing', 'faq', 'document', 'classified']).optional(), sourceId: z.uuid().optional() }) }),
     async (req, res) => {
       const f = query<{ page: number; pageSize: number; status?: string[]; sourceType?: string; sourceId?: string }>(req);
       const where: string[] = [];
@@ -148,7 +176,7 @@ export function syncRoutes(ctx: AppContext) {
       const job = (await client.query(`select * from ${db.t('sync_jobs')} where id = $1 for update`, [id])).rows[0];
       if (!job) throw notFound('Sync job');
       if (job.status !== 'failed') throw conflict(`Only failed jobs can be retried (this one is ${job.status}).`);
-      const table = job.source_type === 'listing' ? 'listings' : job.source_type === 'faq' ? 'faqs' : 'knowledge_documents';
+      const table = job.source_type === 'listing' ? 'listings' : job.source_type === 'faq' ? 'faqs' : job.source_type === 'classified' ? 'classifieds' : 'knowledge_documents';
       const src = (await client.query(`select content_version from ${db.t(table)} where id = $1`, [job.source_id])).rows[0];
       const q = await enqueueSync(client, db, { sourceType: job.source_type, sourceId: job.source_id, operation: src ? 'upsert' : 'delete', version: src?.content_version ?? job.source_version, requestedBy: req.admin?.id });
       await client.query(`update ${db.t('sync_jobs')} set result = result || jsonb_build_object('retriedAs', $2::text) where id = $1`, [id, q.id]);
@@ -159,7 +187,7 @@ export function syncRoutes(ctx: AppContext) {
   });
 
   /** Re-index everything eligible (e.g. after adding an OpenAI key or changing the embedding model). */
-  r.post('/reindex-all', requirePermission('sync:manage'), validate({ body: z.strictObject({ sourceType: z.enum(['listing', 'faq', 'document']).optional(), confirm: z.literal(true) }) }), async (req, res) => {
+  r.post('/reindex-all', requirePermission('sync:manage'), validate({ body: z.strictObject({ sourceType: z.enum(['listing', 'faq', 'document', 'classified']).optional(), confirm: z.literal(true) }) }), async (req, res) => {
     const { sourceType } = body<{ sourceType?: string }>(req);
     const queued = await db.tx(async (client) => {
       let n = 0;
@@ -167,6 +195,7 @@ export function syncRoutes(ctx: AppContext) {
         ['listing', `select id, content_version from ${db.t('listings')} where status = 'published'`],
         ['faq', `select id, content_version from ${db.t('faqs')} where status = 'published'`],
         ['document', `select id, content_version from ${db.t('knowledge_documents')} where status = 'published'`],
+        ['classified', `select id, content_version from ${db.t('classifieds')} where status = 'approved'`],
       ];
       for (const [type, sql] of sets) {
         if (sourceType && sourceType !== type) continue;

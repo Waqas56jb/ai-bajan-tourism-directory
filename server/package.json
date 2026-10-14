@@ -23,7 +23,8 @@
     "db:seed:reference": "tsx supabase/seed/seedReference.ts",
     "admin:grant": "tsx scripts/grantAdmin.ts",
     "eval:rag": "tsx tests/evaluation/runEvaluation.ts",
-    "knowledge:import": "tsx scripts/importKnowledge.ts"
+    "knowledge:import": "tsx scripts/importKnowledge.ts",
+    "knowledge:crawl": "tsx scripts/crawlSites.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",
@@ -47,6 +48,7 @@
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.2.1",
     "pino-pretty": "^13.2.0",
+    "playwright-core": "^1.64.0",
     "supertest": "^7.3.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",

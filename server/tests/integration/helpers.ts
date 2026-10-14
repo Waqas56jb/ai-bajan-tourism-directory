@@ -73,6 +73,7 @@ export async function resetTestSchema(db: Database) {
     'audit_logs',
     'error_events',
     'applications',
+    'classifieds',
     'faqs',
     'knowledge_documents',
     'listings',

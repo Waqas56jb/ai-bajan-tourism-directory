@@ -31,6 +31,7 @@ export const TABLE_NAMES = [
   'error_events',
   'schema_migrations',
   'applications',
+  'classifieds',
 ] as const;
 export type TableName = (typeof TABLE_NAMES)[number];
 

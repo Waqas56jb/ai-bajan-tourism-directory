@@ -24,6 +24,7 @@ async function drain(ctx: AppContext, budgetMs: number) {
     processed += n;
     if (!n) break;
   }
+  await worker.expireClassifieds();
   await worker.heartbeat();
   const remaining = await ctx.db.one<{ n: number }>(`select count(*)::int as n from ${ctx.db.t('sync_jobs')} where status = 'pending'`);
   return { worker, processed, remainingPending: remaining?.n ?? 0, ms: Date.now() - started };

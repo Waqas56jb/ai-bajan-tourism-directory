@@ -16,6 +16,7 @@ import { destinations, destinationBySlug } from '@/data/destinations';
 import { travelGuides, guideBySlug } from '@/data/travelGuides';
 import { amenities as amenityVocabulary } from '@/data/amenities';
 import { searchDirectory } from '@/lib/search';
+import { getAudience } from '@/hooks/useAudience';
 
 const enc = encodeURIComponent;
 
@@ -164,6 +165,7 @@ async function sendChat(payload) {
       {
         message: payload.message,
         language: 'en',
+        audience: getAudience(),
         ...(withConversation && store.get(CONVERSATION_KEY) ? { conversationId: store.get(CONVERSATION_KEY) } : {}),
       },
       { timeout: 45000, headers: store.get(TOKEN_KEY) ? { 'X-Visitor-Token': store.get(TOKEN_KEY) } : {} },
@@ -211,6 +213,10 @@ export const liveAdapter = {
   mode: 'live',
   /** Business sign-up or content-provider application (reviewed by the AI Bajan team). */
   submitApplication: (payload) => apiClient.post('/public/applications', payload),
+  /** Approved, unexpired jobs and classified ads. */
+  getClassifieds: (filters = {}, { signal } = {}) => apiClient.get('/public/classifieds', { query: { pageSize: 50, ...filters }, signal }),
+  /** Submit a job or classified ad (published only after admin approval). */
+  submitClassified: (payload) => apiClient.post('/public/classifieds', payload),
   /** Active categories and locations from the API (used by the sign-up form). */
   async getSignupOptions() {
     const [c, l] = await Promise.all([apiClient.get('/public/categories'), apiClient.get('/public/locations')]);

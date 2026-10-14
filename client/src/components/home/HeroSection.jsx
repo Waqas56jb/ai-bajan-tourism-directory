@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { routes } from '@/lib/routes';
 import { HeroBackdrop } from './HeroBackdrop';
+import { AudienceSwitch } from '@/components/chatbot/AudienceSwitch';
 
 const rise = (delay) => ({
   initial: { opacity: 0, y: 26 },
@@ -110,6 +111,7 @@ export function HeroSection() {
         </div>
         <motion.div {...rise(0.32)} className="mt-10 max-w-3xl">
           <AskBox onAsk={(q) => navigate(routes.ask(q))} />
+          <AudienceSwitch className="mt-5" />
         </motion.div>
       </div>
     </section>

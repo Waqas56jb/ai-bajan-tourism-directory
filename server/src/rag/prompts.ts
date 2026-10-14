@@ -65,8 +65,9 @@ export function buildMessages(args: {
   history: Array<{ role: 'user' | 'assistant'; content: string }>;
   memorySummary: string;
   language: string;
+  audience?: 'resident' | 'visitor';
 }) {
-  const { analysis, evidence, sources, history, memorySummary, language } = args;
+  const { analysis, evidence, sources, history, memorySummary, language, audience } = args;
   const mode = MODE_INSTRUCTIONS[analysis.intent] ?? MODE_INSTRUCTIONS.general_info;
   const caveats = evidence.caveats.map((c) => `- ${CAVEAT_TEXT[c]}`).join('\n');
   const productLine = analysis.productTerms.length ? `Product/feature mentioned by the user: ${analysis.productTerms.join(', ')}.` : '';
@@ -78,6 +79,11 @@ export function buildMessages(args: {
     productLine,
     caveats ? `Constraints for this answer:\n${caveats}` : '',
     memorySummary ? `Conversation context (from earlier turns; not a source of facts): ${memorySummary}` : '',
+    audience === 'resident'
+      ? 'The user LIVES in Barbados: give practical, local answers (government services, NIS, local transport, where locals go). Do not frame answers for tourists.'
+      : audience === 'visitor'
+        ? 'The user is VISITING Barbados: frame answers for a visitor (getting around, entry rules, attractions, where to eat and stay).'
+        : '',
     language !== 'en' ? `Reply in the language with ISO code "${language}".` : '',
     `SOURCES:\n${sourceBlock || '(none)'}`,
   ]

@@ -277,9 +277,9 @@ describe('Ask AI Bajan page', () => {
   it('suggested topics start a conversation', { timeout: 20000 }, async () => {
     const user = userEvent.setup();
     renderApp('/ask');
-    await user.click(await screen.findByRole('button', { name: /what is crop over/i }));
+    await user.click(await screen.findByRole('button', { name: /how do i register a business in barbados/i }));
     const convo = await screen.findByRole('list', { name: 'Conversation' });
-    expect(within(convo).getByText('What is Crop Over?')).toBeInTheDocument();
+    expect(within(convo).getByText('How do I register a business in Barbados?')).toBeInTheDocument();
     expect(screen.getByLabelText(/ask ai bajan a question/i)).toBeInTheDocument();
   });
 });
@@ -322,6 +322,40 @@ describe('business sign-up', () => {
     const links = await screen.findAllByRole('link', { name: /list your business/i });
     await user.click(links[0]);
     expect(await screen.findByRole('heading', { level: 1, name: /verified local information partner/i })).toBeInTheDocument();
+  });
+});
+
+describe('resident / visitor switch and starter topics', () => {
+  it('shows the 20 resident topics by default and visitor topics after switching', async () => {
+    const user = userEvent.setup();
+    renderApp('/ask');
+    const list = await screen.findByRole('list', { name: /suggested questions/i });
+    expect(within(list).getAllByRole('button')).toHaveLength(20);
+    expect(within(list).getByText(/what jobs are available in barbados right now/i)).toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: /i’m visiting/i }));
+    expect(screen.getByRole('radio', { name: /i’m visiting/i })).toHaveAttribute('aria-checked', 'true');
+    expect(within(screen.getByRole('list', { name: /suggested questions/i })).getByText(/what do i need to enter barbados/i)).toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: /i live here/i }));
+  });
+});
+
+describe('jobs and classifieds', () => {
+  it('lists adverts and validates the post form (demo mode)', { timeout: 30000 }, async () => {
+    const user = userEvent.setup();
+    renderApp('/classifieds');
+    expect(await screen.findByRole('heading', { level: 1, name: /jobs, items for sale and local services/i })).toBeInTheDocument();
+    expect(await screen.findByText(/no job vacancies are listed right now/i)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /post an advert/i }));
+    await user.click(screen.getByRole('button', { name: /submit for review/i }));
+    expect(await screen.findByText(/add a title/i)).toBeInTheDocument();
+    await user.type(screen.getByLabelText(/^title/i), 'Cashier wanted');
+    await user.type(screen.getByLabelText(/^description/i), 'Part-time cashier for a Bridgetown shop.');
+    await user.type(screen.getByLabelText(/^employer/i), 'Harbour Mart');
+    await user.type(screen.getByLabelText(/contact name/i), 'Sam');
+    await user.type(screen.getByLabelText(/^phone/i), '+1 246 555 0100');
+    await user.click(screen.getByLabelText(/this advert is genuine/i));
+    await user.click(screen.getByRole('button', { name: /submit for review/i }));
+    expect(await screen.findByText(/demo mode: your advert passed validation/i)).toBeInTheDocument();
   });
 });
 

@@ -22,6 +22,16 @@ const published = () => mockBusinesses.filter((b) => b.status === 'published');
 export const mockAdapter = {
   mode: 'mock',
 
+  async getClassifieds() {
+    await wait(0);
+    return { items: [], total: 0, page: 1, pageSize: 50, totalPages: 1 };
+  },
+
+  async submitClassified() {
+    await wait(MOCK_LATENCY_MS ? 600 : 0);
+    return { received: true, demo: true };
+  },
+
   async submitApplication() {
     await wait(MOCK_LATENCY_MS ? 700 : 0);
     return { received: true, demo: true };

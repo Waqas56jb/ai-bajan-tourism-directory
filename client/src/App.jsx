@@ -21,6 +21,7 @@ const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const AskPage = lazy(() => import('@/pages/AskPage'));
 const ForBusinessPage = lazy(() => import('@/pages/ForBusinessPage'));
 const BusinessSignupPage = lazy(() => import('@/pages/BusinessSignupPage'));
+const ClassifiedsPage = lazy(() => import('@/pages/ClassifiedsPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
@@ -53,6 +54,7 @@ export function AppRoutes() {
       <Route path="/ask" element={<AskPage />} />
       <Route path="/for-business" element={<ForBusinessPage />} />
       <Route path="/for-business/apply" element={<BusinessSignupPage />} />
+      <Route path="/classifieds" element={<ClassifiedsPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/faq" element={<FAQPage />} />
