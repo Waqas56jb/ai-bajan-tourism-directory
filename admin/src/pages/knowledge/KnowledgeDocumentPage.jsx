@@ -18,10 +18,19 @@ import {
   SYNC_OPERATIONS,
   SYNC_STATUSES,
 } from '@/utils/constants';
-import { formatDateTime, formatRelative } from '@/utils/formatDate';
+import { formatDate, formatDateTime, formatRelative } from '@/utils/formatDate';
 import { formatBytes } from '@/utils/formatNumber';
 import { useDocumentActions } from './KnowledgeBasePage';
 import NotFoundPage from '@/pages/errors/NotFoundPage';
+
+/** Barbados Trusted Information Network tiers (highest first), as ranked by the assistant. */
+const SOURCE_TIERS = {
+  official: '1 · Official government source',
+  institutional: '2 · Barbadian institution',
+  local: '3 · AI Bajan verified information',
+  publication: '4 · Local publication',
+  background: '5 · General background (lowest)',
+};
 
 export default function KnowledgeDocumentPage() {
   const { id } = useParams();
@@ -183,6 +192,28 @@ export default function KnowledgeDocumentPage() {
                 <dt className="text-xs text-muted">Created</dt>
                 <dd>{formatDateTime(d.createdAt)}</dd>
               </div>
+              {d.sourceUrl && (
+                <>
+                  <div className="col-span-2">
+                    <dt className="text-xs text-muted">Original web page</dt>
+                    <dd className="break-all">
+                      <a href={d.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-accent-600 hover:underline">{d.sourceUrl}</a>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted">Source priority</dt>
+                    <dd>{SOURCE_TIERS[d.sourceTier] ?? '—'}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted">Page last updated</dt>
+                    <dd>{d.sourceUpdatedAt ? formatDate(d.sourceUpdatedAt) : 'Not stated on the page'}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted">Last checked for changes</dt>
+                    <dd>{d.lastCheckedAt ? formatRelative(d.lastCheckedAt) : 'Not yet'}</dd>
+                  </div>
+                </>
+              )}
             </dl>
             {d.tags.length > 0 && (
               <ul className="mt-4 flex flex-wrap gap-1.5">

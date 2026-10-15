@@ -77,7 +77,7 @@ export function htmlToText(html: string): { title: string; text: string } {
 }
 
 /** Fetch a public page's raw body (same safety rules). Used by the importer and the site crawler. */
-export async function fetchPageRaw(rawUrl: string): Promise<{ url: string; type: string; raw: string }> {
+export async function fetchPageRaw(rawUrl: string): Promise<{ url: string; type: string; raw: string; lastModified: string | null }> {
   let url = await assertPublicUrl(rawUrl);
   for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
     const controller = new AbortController();
@@ -100,7 +100,7 @@ export async function fetchPageRaw(rawUrl: string): Promise<{ url: string; type:
     }
     if (!res.ok) {
       clearTimeout(timer);
-      throw new AppError(502, 'FETCH_FAILED', `The website responded with HTTP ${res.status}.`);
+      throw new AppError(502, 'FETCH_FAILED', `The website responded with HTTP ${res.status}.`, { httpStatus: res.status });
     }
     const type = res.headers.get('content-type') ?? '';
     if (!/text\/html|text\/plain|application\/xhtml/i.test(type)) {
@@ -124,14 +124,54 @@ export async function fetchPageRaw(rawUrl: string): Promise<{ url: string; type:
       }
     }
     clearTimeout(timer);
-    return { url: url.toString(), type, raw: Buffer.concat(chunks).toString('utf8') };
+    return { url: url.toString(), type, raw: Buffer.concat(chunks).toString('utf8'), lastModified: res.headers.get('last-modified') };
   }
   throw new AppError(502, 'TOO_MANY_REDIRECTS', 'The website redirected too many times.');
 }
 
-export async function fetchPageText(rawUrl: string): Promise<{ url: string; title: string; text: string }> {
-  const { url, type, raw } = await fetchPageRaw(rawUrl);
+export async function fetchPageText(rawUrl: string): Promise<{ url: string; title: string; text: string; updatedAt: string | null }> {
+  const { url, type, raw, lastModified } = await fetchPageRaw(rawUrl);
   const { title, text } = /text\/plain/i.test(type) ? { title: '', text: cleanText(raw) } : htmlToText(raw);
   if (text.length < 200) throw new AppError(422, 'NOT_ENOUGH_TEXT', 'The page does not contain enough readable text to import.');
-  return { url, title, text: text.slice(0, 190_000) };
+  return { url, title, text: text.slice(0, 190_000), updatedAt: pageUpdatedDate(raw, lastModified) };
+}
+
+const isoDay = (v: string | null | undefined): string | null => {
+  if (!v) return null;
+  const s = v.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return isoDay(`${s}T12:00:00Z`);
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return null;
+  // A date without a time ("5 June 2025") parses as local midnight: keep that calendar day.
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const day = /\d:\d\d/.test(s) ? d.toISOString().slice(0, 10) : `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  // Ignore impossible dates (future, or before the web).
+  return day > new Date(Date.now() + 86400_000).toISOString().slice(0, 10) || day < '1995-01-01' ? null : day;
+};
+
+/**
+ * The date a page says it was last updated (YYYY-MM-DD), or null when it does not say.
+ * Checks, in order: modified-time meta tags, JSON-LD dateModified, a visible "Last updated"
+ * line, then the HTTP Last-Modified header (often just the time the page was generated).
+ */
+export function pageUpdatedDate(html: string, lastModifiedHeader?: string | null): string | null {
+  const meta = (name: string) =>
+    html.match(new RegExp(`<meta[^>]+(?:property|name|itemprop)=["']${name}["'][^>]*content=["']([^"']+)["']`, 'i'))?.[1] ??
+    html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name|itemprop)=["']${name}["']`, 'i'))?.[1];
+  const candidates = [
+    meta('article:modified_time'),
+    meta('og:updated_time'),
+    meta('dateModified'),
+    meta('last-modified'),
+    html.match(/"dateModified"\s*:\s*"([^"]+)"/i)?.[1],
+    html.replace(/<[^>]+>/g, ' ').match(/(?:last\s+(?:updated|modified|reviewed)|updated\s+on)\s*:?\s*([0-9]{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+,?\s+[0-9]{4}|[A-Za-z]+\s+[0-9]{1,2},?\s+[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2})/i)?.[1]?.replace(/(\d)(st|nd|rd|th)/, '$1'),
+    meta('article:published_time'),
+    html.match(/"datePublished"\s*:\s*"([^"]+)"/i)?.[1],
+    lastModifiedHeader,
+  ];
+  for (const c of candidates) {
+    const day = isoDay(c);
+    if (day) return day;
+  }
+  return null;
 }

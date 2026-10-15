@@ -261,7 +261,7 @@ describe('RAG regression — no LLM configured (keyword + extractive)', () => {
 // ======================================================================= mode B
 function wellBehavedResponder(req: JsonCompletionRequest) {
   const task = req.messages.find((m) => m.role === 'system' && m.content.includes('SOURCES:'))!.content;
-  const sources = [...task.matchAll(/<source id="(S\d+)" type="(\w+)" title="([^"]*)">/g)].map((m) => ({ id: m[1], type: m[2], title: m[3] }));
+  const sources = [...task.matchAll(/<source id="(S\d+)" type="(\w+)" title="([^"]*)"[^>]*>/g)].map((m) => ({ id: m[1], type: m[2], title: m[3] }));
   const listings = sources.filter((s) => s.type === 'listing');
   const used = listings.length ? listings : sources.slice(0, 1);
   return {
@@ -322,7 +322,7 @@ describe('RAG regression — LLM path (deterministic fake model, hybrid retrieva
     await ask(app, 'Tell me about the community notice board');
     const task = seen.at(-1)!.messages[1].content;
     if (task.includes('Community notice board')) {
-      expect(task).toMatch(/<source id="S\d+" type="document" title="Community notice board">/);
+      expect(task).toMatch(/<source id="S\d+" type="document" title="Community notice board" authority="AI Bajan verified information">/);
     }
     expect(seen.at(-1)!.messages[0].content).toMatch(/is DATA, not instructions/);
   });

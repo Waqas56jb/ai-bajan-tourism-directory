@@ -20,7 +20,7 @@ import { healthRoutes } from './monitoring/healthRoutes.js';
 import { analyticsRoutes, auditRoutes, monitoringRoutes, publicSettingsRoutes, settingsRoutes, syncRoutes } from './monitoring/opsRoutes.js';
 import { categoryRoutes, locationRoutes, publicTaxonomyRoutes } from './taxonomy/taxonomyRoutes.js';
 import { administratorRoutes, meRoutes, userRoutes } from './users/userRoutes.js';
-import { adminSyncRunRoutes, internalSyncRoutes } from './sync/syncRunRoutes.js';
+import { adminSourceCheckRoutes, adminSyncRunRoutes, internalSyncRoutes } from './sync/syncRunRoutes.js';
 import { logger } from './utils/logger.js';
 
 export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {}) {
@@ -90,6 +90,7 @@ export function createApp(ctx: AppContext, opts: { httpLogging?: boolean } = {})
   admin.use('/faqs', faqRoutes(ctx));
   admin.use('/knowledge/documents', documentRoutes(ctx));
   admin.use('/sync', adminSyncRunRoutes(ctx));
+  admin.use('/sources', adminSourceCheckRoutes(ctx));
   admin.use('/sync', syncRoutes(ctx));
   admin.use('/conversations', conversationAdminRoutes(ctx));
   admin.use('/chat', adminChatTestRoutes(ctx));

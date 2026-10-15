@@ -25,7 +25,7 @@ interface Result {
   question: string;
   status: string;
   answer: string;
-  sources: Array<{ type: string; title: string; url?: string }>;
+  sources: Array<{ type: string; title: string; url?: string; tier?: string; updatedAt?: string | null }>;
   ms: number;
 }
 const results: Result[] = [];
@@ -75,6 +75,14 @@ const summary = {
   clarification: count('clarification'),
   failed: results.filter((r) => !['answered', 'partial', 'no_evidence', 'clarification'].includes(r.status)).length,
   withSources: results.filter((r) => r.sources.length > 0).length,
+  /** Answers citing at least one official government or Barbadian institutional source. */
+  withAuthoritativeSource: results.filter((r) => r.sources.some((s) => s.tier === 'official' || s.tier === 'institutional')).length,
+  /** Answers citing Wikipedia at all, and answers relying on it alone. */
+  citingWikipedia: results.filter((r) => r.sources.some((s) => s.tier === 'background')).length,
+  wikipediaOnly: results.filter((r) => r.sources.length > 0 && r.sources.every((s) => s.tier === 'background')).length,
+  citationsByTier: results
+    .flatMap((r) => r.sources.map((s) => s.tier ?? 'unknown'))
+    .reduce<Record<string, number>>((acc, t) => ((acc[t] = (acc[t] ?? 0) + 1), acc), {}),
 };
 writeFileSync(join(here, 'live-report.json'), JSON.stringify({ summary, results }, null, 2));
 

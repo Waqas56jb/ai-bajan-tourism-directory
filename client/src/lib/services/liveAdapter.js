@@ -197,6 +197,8 @@ async function sendChat(payload) {
       type: s.type === 'listing' ? 'listing' : 'page',
       title: s.title,
       url: s.url ? s.url.replace(/^\/listings\//, '/business/') : '/faq',
+      tier: s.tier ?? null,
+      updatedAt: s.updatedAt ?? null,
     }))
     .slice(0, 6);
   return {

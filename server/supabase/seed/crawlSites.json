@@ -1,11 +1,62 @@
 {
-  "description": "Websites AI Bajan learns from (client-approved). Each site is crawled within its own domain, respecting robots.txt; every page is stored with its URL for citations and indexed for RAG. Re-run `npm run knowledge:crawl` to refresh.",
+  "description": "Barbados Trusted Information Network: websites AI Bajan learns from (client-approved). Pages come from each site's sitemap and links, within its own domain and robots.txt rules; every page is stored with its URL and its own update date, indexed for RAG, and re-checked for changes daily (npm run knowledge:crawl -- --refresh re-checks everything). Source priority is set in server/src/rag/sourceTrust.ts.",
   "sites": [
-    { "name": "Government of Barbados – Alpha services", "start": "https://alpha.gov.bb/services", "topic": "government", "maxPages": 80 },
-    { "name": "GOV.BB", "start": "https://www.gov.bb/", "topic": "government", "maxPages": 40 },
-    { "name": "Ministry of Labour (jobs & employment)", "start": "https://labour.gov.bb/", "topic": "jobs", "maxPages": 30 },
-    { "name": "Ministry of Transport & Works (licences, vehicles)", "start": "https://mtw.gov.bb/", "topic": "transport", "maxPages": 30 },
+    { "name": "Government of Barbados – Alpha services", "start": "https://alpha.gov.bb/services", "topic": "government", "maxPages": 250, "sitemap": true },
+    { "name": "GOV.BB", "start": "https://www.gov.bb/", "topic": "government", "maxPages": 150, "sitemap": true },
+    { "name": "Barbados Revenue Authority", "start": "https://bra.gov.bb/", "topic": "tax", "maxPages": 80, "sitemap": true },
+    { "name": "Corporate Affairs and Intellectual Property Office (CAIPO)", "start": "https://caipo.gov.bb/", "topic": "business", "maxPages": 80, "sitemap": true },
+    { "name": "Barbados Licensing Authority", "start": "https://bla.gov.bb/", "topic": "transport", "maxPages": 60, "sitemap": true },
+    { "name": "Ministry of Transport & Works", "start": "https://mtw.gov.bb/", "topic": "transport", "maxPages": 80, "sitemap": true },
+    { "name": "Ministry of Labour", "start": "https://labour.gov.bb/", "topic": "jobs", "maxPages": 60, "sitemap": true },
+    { "name": "Barbados Transport Board", "start": "https://www.transportboard.com/", "topic": "transport", "maxPages": 80, "sitemap": true },
+    { "name": "Transport Authority", "start": "https://ta.gov.bb/", "topic": "transport", "maxPages": 40 },
     { "name": "Transit246 (bus schedules)", "start": "https://transit246.com/", "topic": "transport", "maxPages": 40 },
-    { "name": "Visit Barbados (dining, history & culture, things to do)", "start": "https://www.visitbarbados.org/", "topic": "tourism", "maxPages": 80, "render": true }
+    {
+      "name": "Visit Barbados",
+      "start": "https://www.visitbarbados.org/",
+      "topic": "tourism",
+      "maxPages": 450,
+      "render": true,
+      "sitemap": true,
+      "seeds": [
+        "https://www.visitbarbados.org/barbados-street-food",
+        "https://www.visitbarbados.org/barbadian-local-cuisine",
+        "https://www.visitbarbados.org/local-cuisine",
+        "https://www.visitbarbados.org/a-beginners-guide-to-dining-in-barbados",
+        "https://www.visitbarbados.org/street-food",
+        "https://www.visitbarbados.org/barbados-food-trucks"
+      ],
+      "priority": [
+        "food|cuisine|dining|dish|culinary|cook|eat|rum|fish|cutter|street|taste|oistins",
+        "histor|heritage|cultur|museum|garrison|church|plantation|national-trust|unesco|bridgetown|holetown|speightstown",
+        "festival|crop-over|music|art|craft|tradition|bajan|independence|emancipation",
+        "things-to-do|discover|plan-your-trip|your-stay|beach|parish|getting-around|weather|wildlife|nature|cave"
+      ]
+    },
+    { "name": "Barbados National Trust", "start": "https://barbadosnationaltrust.com/", "topic": "heritage", "maxPages": 80, "sitemap": true },
+    { "name": "Barbados Museum & Historical Society", "start": "https://barbmuse.org.bb/", "topic": "heritage", "maxPages": 60, "sitemap": true },
+    { "name": "National Cultural Foundation", "start": "https://ncf.bb/", "topic": "culture", "maxPages": 80, "sitemap": true },
+    {
+      "name": "Barbados.org",
+      "start": "https://barbados.org/",
+      "topic": "tourism",
+      "maxPages": 120,
+      "exclude": ["^/reports/", "^/blog/wp-", "^/do\\.htm", "^/apt/finest\\.htm"]
+    },
+    { "name": "Barbados Statistical Service", "start": "https://stats.gov.bb/", "topic": "statistics", "maxPages": 80, "sitemap": true },
+    { "name": "Central Bank of Barbados", "start": "https://www.centralbank.org.bb/", "topic": "economy", "maxPages": 80, "sitemap": true },
+    { "name": "Export Barbados (BIDC)", "start": "https://exportbarbados.org/", "topic": "business", "maxPages": 60, "sitemap": true },
+    { "name": "Barbados Hotel & Tourism Association", "start": "https://bhta.org/", "topic": "tourism", "maxPages": 80, "sitemap": true, "exclude": ["^/directory/"] },
+    {
+      "name": "UWI Cave Hill",
+      "start": "https://www.cavehill.uwi.edu/",
+      "topic": "education",
+      "maxPages": 120,
+      "sitemap": true,
+      "priority": ["admission|apply|programme|program|course|fee|scholarship|bursar|financial|student|faculty|undergraduate|postgraduate"]
+    },
+    { "name": "Barbados Meteorological Services", "start": "https://barbadosweather.org/", "topic": "weather", "maxPages": 40, "sitemap": true },
+    { "name": "Barbados Today", "start": "https://barbadostoday.bb/", "topic": "news", "maxPages": 0, "disabled": "waiting for the publisher's permission; the site also blocks automated access" },
+    { "name": "Nation News", "start": "https://nationnews.com/", "topic": "news", "maxPages": 0, "disabled": "waiting for the publisher's permission; the site also blocks automated access" }
   ]
 }

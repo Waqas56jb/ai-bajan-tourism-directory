@@ -1,4 +1,5 @@
 import type { AppContext } from '../app/context.js';
+import { needsAuthoritativeSource, trustTier, trustWeight, type TrustTier } from './sourceTrust.js';
 import { logger } from '../utils/logger.js';
 import { singular } from './lexicon.js';
 import type { QueryAnalysis } from './queryAnalysis.js';
@@ -39,6 +40,8 @@ export interface Candidate {
   coverage: number;
   /** Whether every product/refinement term appears in this candidate's text. */
   productMatch: boolean;
+  /** Trusted Information Network tier of the source (official, institutional, …). */
+  tier: TrustTier;
 }
 
 export interface RetrievalResult {
@@ -265,6 +268,7 @@ export function fuse(
           signals: { structured: false, keywordRank: null, vectorSimilarity: null, categoryMatch: false, locationMatch: false },
           coverage: 0,
           productMatch: false,
+          tier: trustTier(hit.source_type, hit.metadata ?? {}),
         };
         bySource.set(key, cand);
       }
@@ -280,6 +284,7 @@ export function fuse(
     }
   }
 
+  const authoritative = needsAuthoritativeSource(a.original);
   const terms = [...new Set([...a.keyTerms.filter((t) => t.length > 2), ...a.categories.map((c) => c.matched).filter((m) => m !== '(memory)')])];
   const product = a.productTerms;
   for (const cand of bySource.values()) {
@@ -298,6 +303,8 @@ export function fuse(
     if (locationIds.size && !cand.signals.locationMatch && cand.sourceType === 'listing') cand.score *= 0.7;
     if (cand.productMatch) cand.score *= 1.3;
     cand.score *= 0.6 + 0.4 * cand.coverage;
+    // Prefer official and Barbadian institutional sources; general references (Wikipedia) rank last.
+    cand.score *= trustWeight(cand.tier, authoritative);
     // Keep the most relevant chunks first and drop near-duplicates within a source.
     const seen = new Set<string>();
     cand.chunks = cand.chunks

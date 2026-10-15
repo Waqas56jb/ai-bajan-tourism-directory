@@ -123,6 +123,13 @@ export async function loadFaqSource(q: Queryable, db: Database, id: string): Pro
   };
 }
 
+/** A Postgres `date` (parsed by node-postgres as local midnight) as YYYY-MM-DD. */
+function dateOnly(v: unknown): string | null {
+  if (!v) return null;
+  if (v instanceof Date) return `${v.getFullYear()}-${String(v.getMonth() + 1).padStart(2, '0')}-${String(v.getDate()).padStart(2, '0')}`;
+  return String(v).slice(0, 10);
+}
+
 export async function loadDocumentSource(q: Queryable, db: Database, id: string): Promise<SourceSnapshot> {
   const d = (await q.query<Record<string, any>>(`select * from ${db.t('knowledge_documents')} where id = $1`, [id])).rows[0];
   if (!d) return MISSING;
@@ -142,6 +149,8 @@ export async function loadDocumentSource(q: Queryable, db: Database, id: string)
       relatedListingId: d.related_listing_id,
       // Original web page for citations (imported or referenced documents only).
       sourceUrl: /^https?:\/\//i.test(d.source_reference ?? '') ? d.source_reference : null,
+      // The page's own "last updated" date, kept so answers can say how current a source is.
+      sourceUpdatedAt: dateOnly(d.source_updated_at),
     },
   };
 }

@@ -3,6 +3,7 @@ import type { ProviderError } from '../llm/retry.js';
 import { truncate } from '../utils/text.js';
 import { validateModelAnswer } from './answerValidation.js';
 import { candidateText, type EvidenceAssessment } from './evidence.js';
+import { TIER_LABEL, type TrustTier } from './sourceTrust.js';
 import { ANSWER_SCHEMA, buildMessages, type PromptSource } from './prompts.js';
 import type { QueryAnalysis } from './queryAnalysis.js';
 import { textHasTerm, type Candidate } from './retrieval.js';
@@ -23,6 +24,10 @@ export interface SourceRef {
   type: 'listing' | 'faq' | 'document' | 'classified';
   title: string;
   url: string | null;
+  /** Trusted Information Network tier (official, institutional, local, publication, background). */
+  tier: TrustTier;
+  /** When the source page says it was last updated (YYYY-MM-DD), if known. */
+  updatedAt: string | null;
 }
 
 export interface GeneratedAnswer {
@@ -48,8 +53,10 @@ export function toSourceRef(c: Candidate): SourceRef {
       : typeof c.metadata.sourceUrl === 'string' && /^https?:\/\//i.test(c.metadata.sourceUrl)
         ? c.metadata.sourceUrl
         : null;
-  return { id: c.sourceId, type: c.sourceType, title: c.title, url };
+  return { id: c.sourceId, type: c.sourceType, title: c.title, url, tier: c.tier, updatedAt: sourceDate(c) };
 }
+
+const sourceDate = (c: Candidate) => (typeof c.metadata.sourceUpdatedAt === 'string' ? c.metadata.sourceUpdatedAt.slice(0, 10) : null);
 
 function listingSummary(c: Candidate) {
   const text = candidateText(c);
@@ -289,7 +296,7 @@ export function buildPromptSources(selected: Candidate[], maxChars: number): Pro
     if (budget <= 200) break;
     const text = truncate(candidateText(c), Math.min(1800, budget));
     budget -= text.length;
-    out.push({ id: `S${i + 1}`, type: c.sourceType, title: c.title, text });
+    out.push({ id: `S${i + 1}`, type: c.sourceType, title: c.title, text, authority: TIER_LABEL[c.tier], updated: sourceDate(c) });
   }
   return out;
 }

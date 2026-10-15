@@ -1,3 +1,4 @@
+import { trustTier } from '../rag/sourceTrust.js';
 import { Router, type Request } from 'express';
 import multer from 'multer';
 import { z } from 'zod';
@@ -52,6 +53,8 @@ const COLUMNS = {
   fileMime: 'file_mime',
   fileSize: 'file_size_bytes',
   extractionStatus: 'extraction_status',
+  sourceUpdatedAt: 'source_updated_at',
+  lastCheckedAt: 'last_checked_at',
 };
 
 interface DocRow {
@@ -78,12 +81,18 @@ interface DocRow {
   content_version: number;
   created_at: Date;
   updated_at: Date;
+  source_updated_at?: Date | string | null;
+  last_checked_at?: Date | null;
   index_status?: string | null;
   last_indexed_at?: Date | null;
   chunk_count?: number | null;
   indexed_version?: number | null;
   index_error?: string | null;
 }
+
+/** A Postgres `date` (node-postgres parses it as local midnight) as YYYY-MM-DD. */
+const localDay = (v: Date | string) =>
+  v instanceof Date ? `${v.getFullYear()}-${String(v.getMonth() + 1).padStart(2, '0')}-${String(v.getDate()).padStart(2, '0')}` : String(v).slice(0, 10);
 
 export const toDocument = (r: DocRow, includeContent = true) => ({
   id: r.id,
@@ -92,6 +101,9 @@ export const toDocument = (r: DocRow, includeContent = true) => ({
   ...(includeContent ? { content: r.content } : { contentLength: r.content.length }),
   sourceType: r.source_type,
   sourceReference: r.source_reference,
+  sourceTier: trustTier('document', { sourceUrl: r.source_reference }),
+  sourceUpdatedAt: r.source_updated_at ? localDay(r.source_updated_at) : null,
+  lastCheckedAt: r.last_checked_at ?? null,
   categoryId: r.category_id,
   locationId: r.location_id,
   relatedListingId: r.related_listing_id,
@@ -281,6 +293,8 @@ export function documentRoutes(ctx: AppContext) {
         summary: `Imported from ${new URL(page.url).hostname}`,
         sourceType: 'article',
         sourceReference: page.url,
+        sourceUpdatedAt: page.updatedAt,
+        lastCheckedAt: new Date().toISOString(),
         categoryId: b.categoryId,
         locationId: b.locationId,
         status,

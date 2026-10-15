@@ -5,8 +5,24 @@
   "buildCommand": "node -e \"const fs=require('fs');fs.mkdirSync('public',{recursive:true});fs.writeFileSync('public/robots.txt','User-agent: *\\nDisallow: /\\n')\"",
   "outputDirectory": "public",
   "functions": {
-    "api/index.ts": { "maxDuration": 60 }
+    "api/index.ts": {
+      "maxDuration": 60
+    }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
-  "crons": [{ "path": "/api/v1/internal/sync/run", "schedule": "0 5 * * *" }]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/v1/internal/sync/run",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/v1/internal/sources/check",
+      "schedule": "0 3 * * *"
+    }
+  ]
 }
