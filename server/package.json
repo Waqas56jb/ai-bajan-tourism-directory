@@ -23,6 +23,7 @@
     "db:seed:reference": "tsx supabase/seed/seedReference.ts",
     "admin:grant": "tsx scripts/grantAdmin.ts",
     "eval:rag": "tsx tests/evaluation/runEvaluation.ts",
+    "eval:live": "tsx tests/evaluation/runLiveTest.ts",
     "knowledge:import": "tsx scripts/importKnowledge.ts",
     "knowledge:crawl": "tsx scripts/crawlSites.ts"
   },

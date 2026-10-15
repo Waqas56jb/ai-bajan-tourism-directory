@@ -75,7 +75,7 @@ function links(html: string, base: URL): string[] {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let browser: any = null;
 async function rendered(url: string): Promise<{ url: string; html: string; title: string; text: string }> {
-  if (!browser) {
+  if (!browser?.isConnected()) {
     const { chromium } = await import('playwright-core');
     browser = await chromium.launch();
   }
@@ -89,7 +89,7 @@ async function rendered(url: string): Promise<{ url: string; html: string; title
     // browser's rendered text is more reliable than parsing the HTML.
     // (Passed as a string: this code runs in the browser, and the server has no DOM types.)
     const { title, text } = await page.evaluate(`(() => {
-      document.querySelectorAll('nav, header, footer, script, style, noscript, form, [role="navigation"], [aria-hidden="true"]').forEach((el) => el.remove());
+      document.querySelectorAll('nav, header, footer, script, style, noscript, [role="navigation"]').forEach((el) => el.remove());
       return { title: document.title, text: document.body.innerText };
     })()`);
     const clean = (text as string).split(/\n+/).map((l) => l.trim()).filter((l) => l.length > 1).join('\n');
@@ -146,6 +146,11 @@ try {
       } catch (err) {
         totals.failed++;
         console.log(`  ! ${url}: ${(err as Error).message.slice(0, 80)}`);
+        // A crashed browser is replaced on the next rendered page.
+        if (/crashed|closed/i.test((err as Error).message)) {
+          await browser?.close().catch(() => {});
+          browser = null;
+        }
       }
       await sleep(600); // be polite to the source websites
     }
