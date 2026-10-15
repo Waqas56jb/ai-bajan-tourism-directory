@@ -33,8 +33,19 @@ const results: Result[] = [];
 for (const [group, questions] of Object.entries(groups)) {
   if (only && group !== only) continue;
   for (const question of questions.filter((q) => !/to be supplied/i.test(q))) {
-    const started = Date.now();
+    let started = Date.now();
     let out: Result;
+    // Wait out short local network drops so they are not reported as assistant failures.
+    for (let attempt = 0; attempt < 10; attempt++) {
+      try {
+        await fetch(API.replace(/\/api\/v1$/, '/health/ready'), { signal: AbortSignal.timeout(10_000) });
+        break;
+      } catch {
+        console.log('  (network unavailable — retrying in 30s)');
+        await sleep(30_000);
+      }
+    }
+    started = Date.now();
     try {
       const res = await fetch(`${API}/chat`, {
         method: 'POST',
