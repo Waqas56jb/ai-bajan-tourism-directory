@@ -1,0 +1,1747 @@
+{
+  "summary": {
+    "at": "2026-10-15T08:09:13.959Z",
+    "api": "https://ai-bajan-tourism-directory-server.vercel.app/api/v1",
+    "total": 80,
+    "answered": 60,
+    "partial": 16,
+    "noEvidence": 1,
+    "clarification": 2,
+    "failed": 1,
+    "withSources": 72
+  },
+  "results": [
+    {
+      "group": "resident-top-20",
+      "question": "What jobs are available in Barbados right now?",
+      "status": "answered",
+      "answer": "Currently, there are 38 job postings available through the Barbados Employment and Career Counselling Service. One example is a position for a Sales Associate, which requires 2-5 years of experience and involves customer service tasks such as handling cash, restocking shelves, and monitoring inventory. \n\nFor a complete list of job opportunities, you can visit the Barbados Job Register, which connects job seekers with employers in Barbados.",
+      "sources": [
+        {
+          "id": "6f161df1-866a-4387-953a-7057761a482d",
+          "type": "document",
+          "title": "Home - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/"
+        }
+      ],
+      "ms": 9361
+    },
+    {
+      "group": "resident-top-20",
+      "question": "What is the latest news in Barbados today?",
+      "status": "limitation",
+      "answer": "I don’t have access to live news.\n\nI cannot provide live news updates. However, you can check the latest news on the official Government of Barbados website or local news outlets for current events and announcements.",
+      "sources": [
+        {
+          "id": "1b9dec09-6f2e-4f40-8a97-f0aa2a14d49c",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/News"
+        }
+      ],
+      "ms": 3531
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Is there a storm or hurricane warning for Barbados?",
+      "status": "answered",
+      "answer": "The directory does not have current information on storm or hurricane warnings for Barbados. For updates, you should check with the Department of Emergency Management (DEM) or the Barbados Met Office. You can contact the DEM at 246-438-7575 for emergency updates.",
+      "sources": [
+        {
+          "id": "5f84cc27-2393-4048-b40d-ce5d3c949920",
+          "type": "document",
+          "title": "StormReady Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/stormready"
+        },
+        {
+          "id": "cffcc41a-3183-486f-b63a-68037c89a6b7",
+          "type": "document",
+          "title": "Find an emergency shelter | Government of Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/find-an-emergency-shelter"
+        }
+      ],
+      "ms": 3496
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Where can I find a tyre repair shop near me?",
+      "status": "no_evidence",
+      "answer": "I couldn’t find any listing that mentions tyre repair. If you tell me what type of shop you’re looking for, I can list those in the directory.",
+      "sources": [],
+      "ms": 2279
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Which bus or route taxi should I take to Bridgetown?",
+      "status": "partial",
+      "answer": "To get to Bridgetown, you can take:\n- **Public Buses**: Buses heading northward to destinations like Holetown and Speightstown leave from the Princess Alice Bus Terminal. Buses for points east and south leave from the Fairchild Street Bus Terminal.\n- **Route Taxis**: These are privately owned minivans that operate as taxicabs for hire and can take you to Bridgetown directly.\n\nFor the most convenient option, check the nearest bus terminal based on your location to find the appropriate bus route or route taxi.",
+      "sources": [
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "1fe07026-c118-4966-8b43-848b23545e05",
+          "type": "document",
+          "title": "Bridgetown",
+          "url": "https://en.wikipedia.org/wiki/Bridgetown"
+        }
+      ],
+      "ms": 4417
+    },
+    {
+      "group": "resident-top-20",
+      "question": "How do I renew my Barbados passport?",
+      "status": "answered",
+      "answer": "To renew your Barbados passport, you need to follow these steps:\n\n1. **Application**: Complete the appropriate passport application form. You can download the forms from the Immigration Department's website.\n2. **Documents Required**: Submit your current passport along with the application. You will also need to provide an original birth certificate or proof of citizenship.\n3. **Appointment**: Make an appointment online at www.immigration.gov.bb to submit your application in person.\n4. **Fees**: The fee for renewing an adult passport is $150 Barbados dollars.\n5. **Collection**: Passports must be collected by the holder, and you will need to present your receipt and ID when collecting your new passport.\n\nFor more detailed information, visit the Immigration Department's website or contact them directly.",
+      "sources": [
+        {
+          "id": "412d1bba-ea59-436e-9805-c76e821ba11a",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/apply-passport"
+        },
+        {
+          "id": "01100f52-b32d-4b1a-8aa1-d0f1b1519f01",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/faq"
+        }
+      ],
+      "ms": 5407
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Why is my electricity or water off, and when will it return?",
+      "status": "partial",
+      "answer": "For electricity issues, you may need to contact the Barbados Light and Power Company Ltd. (BL&P) for specific outages or problems. They can provide information on why your electricity is off and an estimated time for restoration.\n\nFor water outages, the Barbados Water Authority (BWA) is responsible for water services. If you are experiencing a water outage, you can report it by calling 246-434-4292. They may not have published a notice yet, so it's best to reach out directly for the most accurate information regarding the cause and expected return of service.",
+      "sources": [
+        {
+          "id": "6f04b39b-23dc-4788-b83f-f13f4f95a431",
+          "type": "document",
+          "title": "Barbados Travel Information - Get Familiar with the Island",
+          "url": "https://www.visitbarbados.org/plan-your-trip/travel-information"
+        },
+        {
+          "id": "1fe07026-c118-4966-8b43-848b23545e05",
+          "type": "document",
+          "title": "Bridgetown",
+          "url": "https://en.wikipedia.org/wiki/Bridgetown"
+        },
+        {
+          "id": "0c227f64-294c-4d2f-a17b-b87fe05aa3b9",
+          "type": "document",
+          "title": "Check for water outages in your area | Government of Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/water-outages"
+        }
+      ],
+      "ms": 4374
+    },
+    {
+      "group": "resident-top-20",
+      "question": "What events are happening in Barbados this weekend?",
+      "status": "partial",
+      "answer": "This weekend, from December 4 to December 6, 2022, the following event is happening in Barbados:\n\n- **Run Barbados Marathon and Wellness Weekend**  \n  Description: The prestigious Run Barbados Marathon and Wellness Weekend has evolved into one of Barbados’ premier sporting activities on the island.  \n  Area: St. Michael",
+      "sources": [
+        {
+          "id": "097829c8-8819-453f-9391-fbfa44aea749",
+          "type": "document",
+          "title": "Barbados Events & Festivals 2022 - Calendar of Fun & Thrill",
+          "url": "https://www.visitbarbados.org/things-to-do/events-and-festivals?pageindex=1"
+        },
+        {
+          "id": "66a1348f-e945-4b7d-af29-f820754dbcf9",
+          "type": "document",
+          "title": "Things To Do in Barbados - Caribbean Top Sights & Activities",
+          "url": "https://www.visitbarbados.org/things-to-do"
+        },
+        {
+          "id": "5fcafd65-cb94-4ca7-8c99-baf645c747b2",
+          "type": "document",
+          "title": "Plan Your Caribbean Travel Itinerary & Make Most of Barbados",
+          "url": "https://www.visitbarbados.org/things-to-do/itineraries"
+        }
+      ],
+      "ms": 4801
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Where can I find the best price for building materials?",
+      "status": "partial",
+      "answer": "The directory does not have specific information on where to find building materials or their prices. However, you may want to consider contacting local construction suppliers or hardware stores in Barbados for pricing and availability. Here are some businesses you might check:\n\n- **Sandy Lane Hardware**  \n- **B & L Hardware**  \n- **C.O. Williams Construction**  \n\nIt's advisable to call ahead to confirm if they stock the materials you need and to inquire about prices.",
+      "sources": [],
+      "ms": 4036
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Where can I rent an affordable apartment in Christ Church?",
+      "status": "answered",
+      "answer": "Here are some options for affordable apartments in Christ Church:\n\n- **Adulo Apartments**: Best value for charming, comfortable and affordable accommodation on Barbados’ south coast. \n\n- **Best E Villas - Prospect**: Offers budget-friendly accommodations.\n\n- **Best E Villas - Providence**: Another option for affordable stays.\n\n- **Tropical Dream Villa**: Provides budget-friendly accommodation options.\n\n- **Waterside Penthouses and Condos**: Offers affordable rental options.\n\nFor more specific details like prices and availability, you may need to contact the properties directly or check local listings.",
+      "sources": [
+        {
+          "id": "d802b461-4c50-42c8-9fe1-5cbc85d72908",
+          "type": "document",
+          "title": "Guest Houses & Apartments in Barbados for Your Caribbean Stay",
+          "url": "https://www.visitbarbados.org/your-stay/where-to-stay/guest-houses-and-apartments?pageindex=1"
+        },
+        {
+          "id": "0dc69b72-9419-4da0-b591-c61612b2d8e6",
+          "type": "document",
+          "title": "Intimate Hotels of Barbados - Find Budget-Friendly Stay",
+          "url": "https://www.visitbarbados.org/intimate-hotels-barbados?pageindex=1"
+        },
+        {
+          "id": "cfe7ccdd-2520-45cf-94d7-7b17af8e9841",
+          "type": "document",
+          "title": "Barbados Historic Accommodation - Stay Along Rich Heritage",
+          "url": "https://www.visitbarbados.org/your-stay/where-to-stay/historic-accommodation?pageindex=1"
+        }
+      ],
+      "ms": 5206
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Which doctors, clinics or pharmacies are open now?",
+      "status": "partial",
+      "answer": "Currently, the following clinics and pharmacies are open:\n\n- **Bato’s Pharmacy**  \n  - **Description:** Participating private pharmacy; dispensing fee applies.  \n  - **Area:** King Street, Bridgetown, St. Michael  \n  - **Contact:** Call (246) 426-1699  \n  - **Opening Hours:**  \n    - Monday to Wednesday: 8:00 am to 5:00 pm  \n    - Thursday: 8:00 am to 5:00 pm  \n    - Friday: 8:00 am to 6:00 pm  \n    - Saturday: 8:00 am to 3:00 pm  \n    - Sunday: 9:00 am to 1:00 pm  \n\n- **St. Thomas Outpatient Clinic**  \n  - **Description:** Government clinic; no dispensing fee.  \n  - **Area:** Rock Hall, St. Thomas  \n  - **Contact:** Call (246) 536-4952  \n  - **Opening Hours:**  \n    - Tuesday: 8:15 am to 4:30 pm  \n    - Thursday: 8:15 am to 4:30 pm  \n    - Friday: 8:15 am to 4:30 pm  \n\n- **St. Joseph Outpatient Clinic**  \n  - **Description:** Government clinic; no dispensing fee.  \n  - **Area:** Horse Hill, St. Joseph  \n  - **Contact:** Call (246) 536-3285  \n  - **Opening Hours:**  \n    - Tuesday: 8:15 am to 4:30 pm  \n    - Wednesday: 8:15 am to 4:30 pm  \n    - Friday: 8:15 am to 4:30 pm  \n\nPlease note that the St. Joseph and St. Thomas Outpatient Clinics are only open on specific days, and Bato’s Pharmacy has more extensive hours. If you need to visit, ensure you go during their operating hours.",
+      "sources": [
+        {
+          "id": "bb11c987-ce9f-42c4-8ef9-618bea9fe8ef",
+          "type": "document",
+          "title": "St. Joseph Outpatient Clinic | Government of Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/find-an-open-pharmacy/st-joseph-outpatient-clinic"
+        },
+        {
+          "id": "60557294-09c8-4833-9bd4-ba1ee51f3f77",
+          "type": "document",
+          "title": "St. Thomas Outpatient Clinic | Government of Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/find-an-open-pharmacy/st-thomas-outpatient-clinic"
+        },
+        {
+          "id": "c80e77ba-3879-4e48-9f3d-04919647bad9",
+          "type": "document",
+          "title": "Bato’s Pharmacy | Government of Barbados",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/find-an-open-pharmacy/bato-s-pharmacy"
+        }
+      ],
+      "ms": 8621
+    },
+    {
+      "group": "resident-top-20",
+      "question": "How do I apply for an NIS benefit or pension?",
+      "status": "answered",
+      "answer": "The directory does not have specific information on how to apply for an NIS benefit or pension. You may want to contact the National Insurance Scheme (NIS) directly for guidance on the application process.",
+      "sources": [],
+      "ms": 5744
+    },
+    {
+      "group": "resident-top-20",
+      "question": "What scholarships or training programmes are available?",
+      "status": "answered",
+      "answer": "### Scholarships Available for Barbadians:\n- **Barbados Canada Foundation**  \n- **Chevening Scholarship**  \n- **The Duke of Edinburgh's Award**  \n- **The Japan Exchange & Teaching (JET) Programme**  \n- **The National Development Scholarship**  \n- **Rhodes Scholarships**  \n\n### Training Programmes:\n- **Job Start Plus**: Aimed at young people aged 16–24 (or up to 34 for individuals with disabilities) who are not in employment, education, or training (NEET). It provides structured training, career guidance, skills development, and job placement opportunities.\n- **People Development Programme**: Focuses on lifelong learning and employability, connecting education and training with labour market outcomes.\n- **Barbados YouthADVANCE Corps (BYAC)**: Offers skills development, technical and vocational training, and personal development for youth.\n\nThese programmes are designed to enhance employability and support career development for Barbadians.",
+      "sources": [
+        {
+          "id": "c696f223-8544-447f-84b1-8fe0a9f08335",
+          "type": "document",
+          "title": "Education in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Education_in_Barbados"
+        },
+        {
+          "id": "0a75c246-6146-4ddc-83b2-987da11680e7",
+          "type": "document",
+          "title": "Job Start Plus - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/policies-programmes/people-development-programme/job-start-plus/"
+        },
+        {
+          "id": "d0d1f914-1887-4f60-ad10-d500ac05e62b",
+          "type": "document",
+          "title": "People Development Programme - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/policies-programmes/people-development-programme/"
+        },
+        {
+          "id": "a4b04cea-2fce-44bf-bb8b-f63760a9e4bd",
+          "type": "document",
+          "title": "Apply to the Barbados YouthADVANCE Corps (BYAC)",
+          "url": "https://alpha.gov.bb/work-employment/apply-to-the-barbados-youthadvance-corps"
+        }
+      ],
+      "ms": 7548
+    },
+    {
+      "group": "resident-top-20",
+      "question": "How do I register a business in Barbados?",
+      "status": "answered",
+      "answer": "To register a business in Barbados, you need to follow these steps:\n- Visit the Corporate Affairs and Intellectual Property Office (CAIPO) website for detailed information on the registration process.\n- Ensure you meet the establishment requirements and procedures, which are designed to combine due diligence with ease of doing business.\n\nFor more specific guidance, you may want to consult the CAIPO directly or visit their office for assistance.",
+      "sources": [
+        {
+          "id": "660db2d2-0a33-4de0-8696-132b2707f5d3",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/"
+        },
+        {
+          "id": "04007f0f-c210-4ea9-af54-11212ea35bc3",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Business/registering-business-name"
+        }
+      ],
+      "ms": 4183
+    },
+    {
+      "group": "resident-top-20",
+      "question": "What are my rights as an employee, tenant or consumer?",
+      "status": "clarification",
+      "answer": "Would you like information on tenant and consumer rights from specific sources?",
+      "sources": [],
+      "ms": 5490
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Where can I pay a bill or a government fee online?",
+      "status": "answered",
+      "answer": "Inspection fees are paid at the Ministry of Transport and Works, Pine East-West Boulevard, The Pine, St. The Government of Barbados has created a payments platform where citizens can pay for various government services using multiple payment options such as Credit Cards, Visa Debit Cards, Direct Debit, Payce Digital and the Barbados Post Office. At a government pharmacy, there is no fee to prepare your medication.",
+      "sources": [
+        {
+          "id": "58c00a2f-da3c-4afa-b697-54d784f3866c",
+          "type": "document",
+          "title": "Government Electrical Engineering Department - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/geed/"
+        },
+        {
+          "id": "636f90bd-5c7b-4626-9fb1-30086cf239a8",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/General/ezpay"
+        },
+        {
+          "id": "88caed28-0bba-44fd-9d49-9be4bbfce314",
+          "type": "document",
+          "title": "Get free or subsidised medication",
+          "url": "https://alpha.gov.bb/health-and-emergency-services/free-or-subsidised-medication"
+        }
+      ],
+      "ms": 4371
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Where can I get vehicle repairs, parts or an inspection?",
+      "status": "partial",
+      "answer": "Here are some businesses in Barbados that may offer vehicle repairs, parts, or inspections. It's best to call ahead to confirm their services:\n\n- **Ministry of Transport and Works**  \n  Contact: 536-0054  \n  Email: mtw.legalunit@publicworks.gov.bb  \n  *They handle vehicular damage claims and may provide information on inspections.*\n\n- **Direct Car Rentals Ltd.**  \n  Location: Christ Church  \n  Contact: (246) 420-6372  \n  *They may have information on vehicle maintenance and repairs.*\n\n- **Drive-A-Matic Car Rentals**  \n  Location: St. George  \n  *They are known for car hire but may also assist with vehicle-related services.*\n\n- **Transport Board**  \n  Location: St. Michael  \n  Contact: 246-535-3500  \n  *They provide public transport services and may have resources for vehicle inspections.*\n\nPlease reach out to these businesses directly for more specific information regarding vehicle repairs and parts.",
+      "sources": [
+        {
+          "id": "0d6aa49f-b9db-42ac-8f4c-d2293fb018cd",
+          "type": "document",
+          "title": "Home - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/"
+        },
+        {
+          "id": "565f2be0-bfb5-4607-ac7e-b7e86cba8c09",
+          "type": "document",
+          "title": "Take a Once in a Lifetime Caribbean Coach Tour all the Way to Barbados",
+          "url": "https://www.visitbarbados.org/your-stay/get-around-the-island/coaches?pageindex=1"
+        }
+      ],
+      "ms": 5747
+    },
+    {
+      "group": "resident-top-20",
+      "question": "What are this week's supermarket specials?",
+      "status": "answered",
+      "answer": "The directory does not have information on this week's supermarket specials. You may want to check directly with local supermarkets or their websites for current promotions and discounts.",
+      "sources": [],
+      "ms": 3488
+    },
+    {
+      "group": "resident-top-20",
+      "question": "Who can repair or maintain my home, like a plumber or electrician?",
+      "status": "partial",
+      "answer": "For home repairs or maintenance, such as plumbing or electrical work, you should hire licensed professionals. Here are some key points:\n\n- **Electricians**: Only licensed electricians are permitted to submit applications for electrical inspections or alterations. If you need electrical work done, ensure that the electrician is licensed.\n- **Plumbers**: While the sources do not specify licensing for plumbers, it is generally advisable to hire qualified and experienced plumbers for any plumbing work to ensure safety and compliance with local regulations.\n\nFor electrical work, you can find licensed electricians through local directories or by contacting the Government Electrical Engineering Department for recommendations.",
+      "sources": [
+        {
+          "id": "94bb5b73-d645-4f9f-83af-d378fc78d948",
+          "type": "document",
+          "title": "Inspections - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/geed/inspections"
+        },
+        {
+          "id": "58c00a2f-da3c-4afa-b697-54d784f3866c",
+          "type": "document",
+          "title": "Government Electrical Engineering Department - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/geed/"
+        },
+        {
+          "id": "48e3562e-7121-439c-b994-15fe2ee4f838",
+          "type": "document",
+          "title": "Alterations & Extensions - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/geed/alterations-extensions/"
+        }
+      ],
+      "ms": 4579
+    },
+    {
+      "group": "resident-top-20",
+      "question": "How do I report a pothole or make a complaint?",
+      "status": "answered",
+      "answer": "To report a pothole or make a complaint regarding road conditions, you can contact the Ministry of Transport and Works. Here are the details:\n\n- **Phone**: 536-0054 (Legal Unit)\n- **Email**: mtw.legalunit@publicworks.gov.bb\n- **Address**: The Permanent Secretary, Ministry of Transport and Works, Pine East-West Boulevard, The Pine, St. Michael.\n\nYou can also fill out an issue report form if available. For more serious complaints, you may need to submit a formal letter detailing your concerns.",
+      "sources": [
+        {
+          "id": "0d6aa49f-b9db-42ac-8f4c-d2293fb018cd",
+          "type": "document",
+          "title": "Home - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/"
+        },
+        {
+          "id": "a28d8820-d5a9-4c10-b7cc-52b93b97223c",
+          "type": "document",
+          "title": "Complaints - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/geed/complaints/"
+        }
+      ],
+      "ms": 4373
+    },
+    {
+      "group": "government-services",
+      "question": "How do I get a birth certificate in Barbados?",
+      "status": "answered",
+      "answer": "To get a copy of a birth certificate in Barbados, you can follow these steps:\n\n1. **Eligibility**: You can request a copy for anyone whose birth was registered in Barbados. For Barbadian citizens, copies can be requested at any time.\n\n2. **Application Process**: You can apply in two ways:\n   - **Online**: You need a debit or credit card and an EZPay+ account. Complete the application form online.\n   - **In Person**: Visit the Applications Desk at the Registration Department.\n\n3. **Information Required**: You will need to provide:\n   - Your name, address, and Barbados National Identification (ID) number.\n   - The full name, date of birth, place of birth, and place of baptism of the person named on the certificate.\n   - The full names of the parent(s) of the person named on the certificate.\n\n4. **Cost**: Each certified copy costs $5 BBD. For individuals aged 60 and over, the cost is $1 BBD per certificate.\n\n5. **Processing Time**: A certificate is usually ready for collection in 5 to 7 business days. In cases of medical or travel emergencies, it can sometimes be issued on the same day with proof of the emergency.\n\n6. **Contact Information**: If you need further assistance, you can contact the Registration Department at:\n   - Email: registrarsupremecourt@barbados.gov.bb\n   - Phone: (246) 535-9700 or +1 (246) 535-9751 (if calling from overseas).",
+      "sources": [
+        {
+          "id": "9316f573-524c-48f8-b7fa-65e63bf64298",
+          "type": "document",
+          "title": "Get a copy of a birth certificate",
+          "url": "https://alpha.gov.bb/family-birth-relationships/get-birth-certificate"
+        },
+        {
+          "id": "548fba5a-da91-4c63-a334-b4f5f57bdf42",
+          "type": "document",
+          "title": "Get a copy of a birth certificate",
+          "url": "https://alpha.gov.bb/family-birth-relationships/get-birth-certificate/start"
+        }
+      ],
+      "ms": 6539
+    },
+    {
+      "group": "government-services",
+      "question": "How do I apply for a Barbados driver's licence?",
+      "status": "answered",
+      "answer": "To apply for a Barbados driver's licence, follow these steps:\n\n1. **Prepare Required Documents**:\n   - Valid passport-sized photographs.\n   - Proof of your age and residence.\n   - Declaration of medical fitness.\n\n2. **Complete the Application**:\n   - Apply in the prescribed format to the Licensing Authority.\n\n3. **Take the Regulations Test**:\n   - After your documents are verified, you will need to pass a Regulations Test. A handbook of traffic rules, signs, and regulations will be provided with the application form.\n\n4. **Obtain a Learner's Permit**:\n   - If you pass the Regulations Test, you will be issued a Learner's Permit.\n\n5. **Take the Driving Test**:\n   - After holding the Learner's Permit, you will need to pass a driving test to obtain your full driver's licence.\n\n**Fees**:\n- Learner's Permit: $80.00\n- Regulations Test: $30.00\n- Driving Test: $100.00\n- Driver's Licence: $50.00\n- International Driver's Licence: $65.00\n\n**Contact Information**:\n- Email: blasupport@barbados.gov.bb\n- Phone: 1-246-536-0264 / 1-246-536-0265",
+      "sources": [
+        {
+          "id": "f128913f-e205-4aee-a073-9a8a405f9c60",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/driver-licence"
+        }
+      ],
+      "ms": 6349
+    },
+    {
+      "group": "government-services",
+      "question": "How do I register a vehicle in Barbados?",
+      "status": "answered",
+      "answer": "To register a vehicle in Barbados, you need to go through the Barbados Licensing Authority (BLA). Here are the steps involved:\n\n1. **Gather Required Documents**: You will need to provide necessary documents such as:\n   - Proof of ownership (e.g., bill of sale)\n   - Valid identification (e.g., driver's license)\n   - Insurance documentation\n   - Any other documents as specified by the BLA.\n\n2. **Visit the Barbados Licensing Authority**: You can visit the BLA to submit your application for vehicle registration. \n\n3. **Vehicle Inspection**: Your vehicle may need to undergo an inspection to ensure it meets road safety standards.\n\n4. **Pay Fees**: There will be registration fees that you need to pay at the time of registration.\n\nFor more detailed information, you can contact the Barbados Licensing Authority at 536-0270 or visit their official site for guidance on the registration process.",
+      "sources": [
+        {
+          "id": "9ad0e8fe-1f56-4c01-be71-d4e73b1ee345",
+          "type": "document",
+          "title": "Barbados Licensing Authority - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/barbados-licensing-authority"
+        }
+      ],
+      "ms": 5781
+    },
+    {
+      "group": "government-services",
+      "question": "How do I get a police certificate of character?",
+      "status": "answered",
+      "answer": "To obtain a Police Certificate of Character in Barbados, follow these steps:\n\n1. **Application Form**: Acquire the application form at the Certificate of Character Office located at:\n   - Sugar Cane Mall, Roebuck Street, Bridgetown, St. Michael.\n\n2. **Required Documents**:\n   - A copy of your fingerprints (must be taken by police with their official stamp).\n   - A photocopy of your passport.\n   - Contact information (telephone number(s) and email).\n\n3. **Fee**: The fee for the certificate is $20 Barbados currency. Postal and Money Orders are accepted for the equivalent of the required fee.\n\n4. **Submission**: Submit the completed application form along with the required documents and payment.\n\n5. **Processing**: The certificate and a duplicate will be sent to you. If you need another certificate, a fee of $20 is required.\n\n6. **Validity**: The Certificate of Character is valid for six (6) months.\n\n**Note**: Do not remit funds via Western Union.",
+      "sources": [
+        {
+          "id": "01100f52-b32d-4b1a-8aa1-d0f1b1519f01",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/faq"
+        }
+      ],
+      "ms": 5906
+    },
+    {
+      "group": "government-services",
+      "question": "How do I apply for a Barbados ID card?",
+      "status": "answered",
+      "answer": "To apply for a Barbados ID card, you need to follow these steps:\n\n1. **Eligibility**: You must be a citizen of Barbados or a citizen of another country who has been granted permission by the Chief Immigration Officer to remain in Barbados for at least six months.\n2. **Documents Required**: You must produce original documents or certified copies. Certified copies must be signed by a person who writes their name and position in block letters. \n3. **Photograph Requirements**: When taking your photograph for the ID card, do not wear hats, caps, shawls, scarves, or tinted spectacles.\n4. **Fee**: There is a fee of $60.00 for replacing lost, defaced, or destroyed Identification Cards.\n5. **Contact Information**: For further information, you can contact the Electoral and Boundaries Commission at:\n   - **Address**: 1st Floor, Warrens Towers II, Warrens, St. Michael\n   - **Phone**: 1 (246) 535-4800\n   - **Fax**: 1 (246) 535-4863",
+      "sources": [
+        {
+          "id": "2202ef7e-0fbf-4735-9dc3-d642733d4f5f",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/national-registration"
+        }
+      ],
+      "ms": 6620
+    },
+    {
+      "group": "government-services",
+      "question": "What government services can I use online on Alpha?",
+      "status": "answered",
+      "answer": "You can access various government services online through Alpha, including:\n- Application to Purchase Land or Property\n- Apply for a conductor's licence\n- Apply for a food business licence\n- Apply for a funeral directors licence\n- Apply for a funeral establishment licence\n- Apply for a hairdresser or beautician licence\n- Apply for a hairdressing and beautician business licence\n- Apply for a licence to sell goods or services at a beach or park\n- Apply for a place at a day nursery\n- Apply for a restaurant licence\n- Apply for a temporary restaurant permit\n- Apply for an embalmers licence\n- Apply for financial assistance\n- Apply for National Summer Camp Science Programme 2026\n- Apply to be a Project Protégé mentor\n- Apply to volunteer at a sports camp\n- Find a pharmacy and check what Barbados Drug Service benefits it offers\n- Find out how much severance payment you are owed\n- Get a copy of a birth certificate\n- Get a copy of a death certificate\n- Get a copy of a marriage certificate\n- Get a document notarised\n- Get disaster relief assistance\n- Get free or subsidised medication\n\nFor more details, you can visit the Alpha services section on the Government of Barbados website.",
+      "sources": [
+        {
+          "id": "3da8096e-48f8-46f7-b816-2a0b7eadd95a",
+          "type": "document",
+          "title": "Government Services | Government of Barbados",
+          "url": "https://alpha.gov.bb/"
+        },
+        {
+          "id": "362a64e7-3d1b-49f5-aed2-e0db0cee17c7",
+          "type": "document",
+          "title": "Alpha services | Government of Barbados",
+          "url": "https://alpha.gov.bb/services"
+        }
+      ],
+      "ms": 6762
+    },
+    {
+      "group": "government-services",
+      "question": "How do I get a marriage licence in Barbados?",
+      "status": "answered",
+      "answer": "To obtain a marriage licence in Barbados, follow these steps:\n\n1. **Application**: Both parties (male and female) must apply in person at the Ministry of Home Affairs and Information.\n2. **Documents Required**:\n   - Original birth certificates (in good condition).\n   - National identification card, driver's licence, or valid passport (if available).\n3. **Appointment**: You need to book an appointment to facilitate the granting of the marriage licence. Appointments can be made between 8:30 a.m. and 3:30 p.m. from Monday to Friday.\n4. **Form Submission**: You can download the application form, complete it, and submit it along with the required documents at the Ministry.\n5. **Validity**: The marriage licence is valid for three months from the date of issue, allowing you to get married within that timeframe.\n\nFor further assistance, you can contact the Ministry at:\n- **Phone**: 1 (246) 535-7267  \n- **Email**: haffairs@mha.gov.bb  \n\nFor more information, visit the BGIS website or the government portal under the heading \"Marriage Licence Appointments.\"",
+      "sources": [
+        {
+          "id": "13909923-dcab-45e2-ab29-aeb460b18998",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/marriage-licence"
+        }
+      ],
+      "ms": 6879
+    },
+    {
+      "group": "government-services",
+      "question": "How do I apply for a work permit in Barbados?",
+      "status": "answered",
+      "answer": "The directory does not have specific information on how to apply for a work permit in Barbados. You may need to check with the Ministry of Home Affairs or the Immigration Department for the detailed application process and requirements.",
+      "sources": [],
+      "ms": 3421
+    },
+    {
+      "group": "government-services",
+      "question": "How do I register a death in Barbados?",
+      "status": "answered",
+      "answer": "To register a death in Barbados, you must visit the Registration Department located at the Supreme Court Complex, Whitepark Road, St. Michael. \n\nHere are the contact details for the Registration Department:\n- **Phone**: 1-246-434-9970\n- **Email**: registrar@lawcourts.gov.bb\n\nFor more information, you can also visit their website at www.barbadoslawcourts.gov.bb.",
+      "sources": [
+        {
+          "id": "660db2d2-0a33-4de0-8696-132b2707f5d3",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/"
+        },
+        {
+          "id": "01100f52-b32d-4b1a-8aa1-d0f1b1519f01",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/faq"
+        }
+      ],
+      "ms": 3826
+    },
+    {
+      "group": "government-services",
+      "question": "Where is the Barbados Licensing Authority?",
+      "status": "clarification",
+      "answer": "Would you like more information on how to contact them or their services?",
+      "sources": [],
+      "ms": 3504
+    },
+    {
+      "group": "government-services",
+      "question": "How do I find a job through the National Employment Bureau?",
+      "status": "answered",
+      "answer": "To find a job through the National Employment Bureau, you can utilize the One Stop Resource Centre, which offers various services for job seekers. Here are the steps you can take:\n\n- **Visit the One Stop Resource Centre**: This center provides resources and support for job seekers.\n- **Access Guidance and Counseling**: Get tips on preparing your resume, writing cover letters, searching for vacancies, and preparing for interviews.\n- **Stay Updated on Job Vacancies**: Regularly check for available job listings and apply as needed.\n\nFor more detailed information, you can visit the Ministry of Labour and Social Partnership Relations' website or contact them directly for assistance.",
+      "sources": [
+        {
+          "id": "0a45917e-27c4-450f-8d0e-666efb2da634",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/job-seekers"
+        }
+      ],
+      "ms": 4505
+    },
+    {
+      "group": "government-services",
+      "question": "What does the Ministry of Labour do?",
+      "status": "answered",
+      "answer": "The Ministry of Labour in Barbados has several key functions and objectives:\n- **Promotes Decent Work**: It assists the government and social partners in creating opportunities for decent and productive work, ensuring conditions of freedom of association, equity, security, and human dignity.\n- **Workforce Development**: The Ministry aims to develop a well-informed and properly trained Barbadian workforce, including persons with disabilities, to meet local and regional labour market needs.\n- **Industrial Relations**: It fosters harmonious industrial relations and cordial conciliation in the workplace.\n- **Legislation and Policy**: The Ministry formulates policies and implements legislation to promote rights at work and enhance employment conditions.\n- **Child Labour Elimination**: It actively works to eliminate child labour in Barbados through various initiatives and collaborations with other agencies.\n- **Tripartism**: The Ministry engages in tripartite consultations involving government, employers, and workers to address common labour issues and ensure compliance with international labour standards.",
+      "sources": [
+        {
+          "id": "7cdbd729-2a5b-466f-ada6-f04cbb434f06",
+          "type": "document",
+          "title": "About Us - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/policies-programmes/about-us/"
+        },
+        {
+          "id": "7b55fbd3-c25f-453e-9efe-89e3f31e8758",
+          "type": "document",
+          "title": "Policies & Programmes - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/policies-programmes/"
+        },
+        {
+          "id": "dc0d2686-e75e-4aec-bfa7-a6621c064173",
+          "type": "document",
+          "title": "Child Labour - Committee - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/policies-programmes/overview-2/committee/"
+        },
+        {
+          "id": "ddc639e1-adb4-4f0e-9812-48a60bb9c593",
+          "type": "document",
+          "title": "C-144 Committee - Government of Barbados Ministry of Labour",
+          "url": "https://labour.gov.bb/technical-committees/technical-committees-c144/"
+        }
+      ],
+      "ms": 5473
+    },
+    {
+      "group": "government-services",
+      "question": "How do I renew my driving permit?",
+      "status": "answered",
+      "answer": "To renew your driving permit in Barbados, you typically need to visit the Ministry of Transport and Works. Here are the general steps:\n\n1. **Visit the Ministry of Transport and Works**: You can go to one of their branches, such as Holetown, St. James or Pine, St. Michael, as the Oistins branch is currently undergoing repairs.\n2. **Provide Required Documents**: Bring your current driving permit and any other necessary identification or documentation as specified by the Ministry.\n3. **Complete the Renewal Process**: Follow the instructions provided by the staff at the Ministry to complete your renewal.\n\nFor specific details or to confirm any requirements, you may also contact the Ministry at 536-0270 to ask about the renewal process directly.",
+      "sources": [
+        {
+          "id": "f128913f-e205-4aee-a073-9a8a405f9c60",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/driver-licence"
+        },
+        {
+          "id": "0d6aa49f-b9db-42ac-8f4c-d2293fb018cd",
+          "type": "document",
+          "title": "Home - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/"
+        }
+      ],
+      "ms": 4969
+    },
+    {
+      "group": "government-services",
+      "question": "How do I apply for a tax identification number?",
+      "status": "answered",
+      "answer": "The directory does not have information on how to apply for a tax identification number in Barbados. You may want to check with the Barbados Revenue Authority or visit their official website for guidance on this process.",
+      "sources": [],
+      "ms": 3492
+    },
+    {
+      "group": "government-services",
+      "question": "Where can I get help as a small business owner?",
+      "status": "partial",
+      "answer": "Here are some resources and organizations in Barbados that can assist small business owners:\n\n- **Barbados Small Business Association (BSBA)**  \n  Provides support, advocacy, and resources for small businesses. \n\n- **Enterprise Growth Fund Limited**  \n  Offers financial assistance and support for small and medium-sized enterprises (SMEs). \n\n- **Barbados Investment and Development Corporation (BIDC)**  \n  Provides business development services, including training and advice for small businesses. \n\n- **Ministry of Small Business, Entrepreneurship and Commerce**  \n  Offers various programs and initiatives to support small business growth and development. \n\n- **Local Chambers of Commerce**  \n  Various chambers across the island provide networking opportunities and resources for small business owners. \n\nIt may be beneficial to contact these organizations directly for specific assistance tailored to your needs.",
+      "sources": [
+        {
+          "id": "3a74bbfb-3744-4f0b-a243-30d0dcac6609",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Visit-Barbados/history"
+        },
+        {
+          "id": "f29ef1a0-aaca-438c-b857-d3a070c888d0",
+          "type": "document",
+          "title": "See How Barbados Public Services will Help Your Trip Run Smoothly",
+          "url": "https://www.visitbarbados.org/your-stay/get-around-the-island/public-services?pageindex=1"
+        },
+        {
+          "id": "3fcc6e6b-5b39-4ec0-8904-19ec387d00b9",
+          "type": "document",
+          "title": "Chattel house",
+          "url": "https://en.wikipedia.org/wiki/Chattel_house"
+        }
+      ],
+      "ms": 4835
+    },
+    {
+      "group": "transport",
+      "question": "How much is the bus fare in Barbados?",
+      "status": "answered",
+      "answer": "The current adult bus fare in Barbados is $3.50 BBD. Children in school uniforms, students under eighteen with an institution ID, and senior citizens with a Barbados ID can ride for free on government buses. On ZR buses, schoolchildren in uniform pay $2.50 BBD.",
+      "sources": [
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 3705
+    },
+    {
+      "group": "transport",
+      "question": "Where is the Fairchild Street bus terminal?",
+      "status": "answered",
+      "answer": "The Fairchild Street Bus Terminal is located in St. Michael, Barbados. It serves as a key hub for various bus routes including Route 7 and Route 10.",
+      "sources": [
+        {
+          "id": "c5551948-0553-4be4-b50c-c89a1baf9b7b",
+          "type": "document",
+          "title": "Route 7 Bus Schedule: Sargeant Street towards Fairchild Street Terminal | First bus 5:00 am, last bus 11:00 pm",
+          "url": "https://transit246.com/routes/sargeant-street-towards-fairchild-street-terminal"
+        },
+        {
+          "id": "5d9890e9-1492-453e-abbc-07d513c56afa",
+          "type": "document",
+          "title": "Route 10 Bus Schedule: Bayfield to Fairchild Street Bus Terminal | First bus 5:00 am, last bus 11:00 pm",
+          "url": "https://transit246.com/routes/bayfield-to-fairchild-street-bus-terminal"
+        },
+        {
+          "id": "2cce0802-7e36-44e2-baaa-9ba60b45b85b",
+          "type": "document",
+          "title": "Route 10 Bus Schedule: Bayfield towards Fairchild Street Terminal | First bus 5:00 am, last bus 11:00 pm",
+          "url": "https://transit246.com/routes/bayfield-towards-fairchild-street-terminal"
+        }
+      ],
+      "ms": 3427
+    },
+    {
+      "group": "transport",
+      "question": "How do I get from the airport to Bridgetown by bus?",
+      "status": "answered",
+      "answer": "To get from Grantley Adams International Airport to Bridgetown by bus, you can take Route 27. Here are the details:\n- **First bus:** 5:00 am\n- **Last bus:** 9:30 pm\n- **Duration:** Approximately 69 minutes\n- **Stops:** The bus makes several stops along the way, including the Speightstown Terminal and Fairchild Street Terminal in Bridgetown.\n\nYou can catch the bus at the airport, and it will take you directly to Bridgetown. Make sure to check the bus schedule for any updates or changes.",
+      "sources": [
+        {
+          "id": "8f4b3e7c-f96f-4af3-9ee3-3f0e918421bf",
+          "type": "document",
+          "title": "Route 27 Bus Schedule: Speightstown Terminal towards Airport | First bus 5:00 am, last bus 9:30 pm",
+          "url": "https://transit246.com/routes/speightstown-terminal-towards-airport"
+        },
+        {
+          "id": "70a34ce2-0936-465e-b1b2-488e75f8f1ed",
+          "type": "document",
+          "title": "Barbados Bus Routes and Times: All Transport Board Routes | Transit246",
+          "url": "https://transit246.com/routes"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 5417
+    },
+    {
+      "group": "transport",
+      "question": "What are Transport Board bus routes to Speightstown?",
+      "status": "partial",
+      "answer": "Here are the Transport Board bus routes to Speightstown:\n\n- **Route 1**: Princess Alice Bus Terminal towards Speightstown Terminal\n- **Route 1**: Speightstown Terminal towards Princess Alice Bus Terminal\n- **Route 27**: Speightstown Terminal towards Airport\n- **Route 27**: Long Bay to Speightstown Terminal\n\nThese routes connect various areas to Speightstown, providing convenient access for local travel.",
+      "sources": [
+        {
+          "id": "70a34ce2-0936-465e-b1b2-488e75f8f1ed",
+          "type": "document",
+          "title": "Barbados Bus Routes and Times: All Transport Board Routes | Transit246",
+          "url": "https://transit246.com/routes"
+        },
+        {
+          "id": "8f4b3e7c-f96f-4af3-9ee3-3f0e918421bf",
+          "type": "document",
+          "title": "Route 27 Bus Schedule: Speightstown Terminal towards Airport | First bus 5:00 am, last bus 9:30 pm",
+          "url": "https://transit246.com/routes/speightstown-terminal-towards-airport"
+        },
+        {
+          "id": "69e770e1-6901-41d0-9d30-7d7284332542",
+          "type": "document",
+          "title": "Route 27 Bus Schedule: Long Bay to Speightstown Terminal | First bus 4:45 am, last bus 4:45 am",
+          "url": "https://transit246.com/routes/long-bay-to-speightstown-terminal"
+        }
+      ],
+      "ms": 3805
+    },
+    {
+      "group": "transport",
+      "question": "What are ZR vans?",
+      "status": "answered",
+      "answer": "ZR vans, pronounced \"Zed-Rs,\" are privately owned mini-vans that operate on specific predetermined routes in Barbados. They are recognized by their white exterior with a maroon stripe down the side. ZR vans charge fares that are the same as government buses, and they typically provide change to passengers.",
+      "sources": [
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        }
+      ],
+      "ms": 3854
+    },
+    {
+      "group": "transport",
+      "question": "Do Barbados buses run on Sundays?",
+      "status": "answered",
+      "answer": "Yes, Barbados buses do run on Sundays, but the frequency may be reduced compared to weekdays. For example, Route 27 has 4 departures on Sundays and holidays. Other routes may have similar limited service on Sundays.",
+      "sources": [
+        {
+          "id": "d3b6af0f-77ee-4828-8729-d91f2683e25e",
+          "type": "document",
+          "title": "Route 27 Bus Schedule: Oistins towards Speightstown Terminal | First bus 5:00 am, last bus 12:30 am",
+          "url": "https://transit246.com/routes/oistins-towards-speightstown-terminal"
+        },
+        {
+          "id": "8f4b3e7c-f96f-4af3-9ee3-3f0e918421bf",
+          "type": "document",
+          "title": "Route 27 Bus Schedule: Speightstown Terminal towards Airport | First bus 5:00 am, last bus 9:30 pm",
+          "url": "https://transit246.com/routes/speightstown-terminal-towards-airport"
+        }
+      ],
+      "ms": 3309
+    },
+    {
+      "group": "transport",
+      "question": "How do I get to Oistins by public transport?",
+      "status": "partial",
+      "answer": "To get to Oistins by public transport, you can take a bus or a taxi. Here are the options:\n\n- **Buses**: The Barbados Transport Board operates public buses that can take you to Oistins. You can catch a bus heading towards Christ Church, as Oistins is located in that parish. The current adult fare for a bus ride is $3.50 BBD. Note that the bus operates on an exact fare system, so be sure to have the correct amount as they cannot give change.\n\n- **Taxis**: You can also use a taxi service to reach Oistins. Taxis are available throughout the island, and you can find them at designated taxi stands or hail them on the street.\n\nFor more information on bus routes and schedules, you can contact the Transport Board at 246-535-3500 or visit their website.",
+      "sources": [
+        {
+          "id": "2750fa2e-a745-42f0-8e71-efc5282b3ecf",
+          "type": "document",
+          "title": "Barbados Public Transport Makes it Easy to Get Around the Island",
+          "url": "https://www.visitbarbados.org/your-stay/get-around-the-island/public-transportation?pageindex=1"
+        },
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        },
+        {
+          "id": "be740764-7cdb-4c40-9e85-e27153a62a10",
+          "type": "document",
+          "title": "About Us - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/about-us"
+        }
+      ],
+      "ms": 5070
+    },
+    {
+      "group": "transport",
+      "question": "Can I pay the bus fare with a card?",
+      "status": "partial",
+      "answer": "No, you cannot pay the bus fare with a card on the government-operated Barbados Transport Board buses. The buses operate on an exact fare system and do not provide change. Payment must be made in cash for each one-way journey. However, ZR buses, which are privately owned, may be able to give change and typically follow the same fare structure.",
+      "sources": [
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 3626
+    },
+    {
+      "group": "transport",
+      "question": "What time does the last bus leave Bridgetown?",
+      "status": "answered",
+      "answer": "The last bus leaving from Bridgetown on Route 1 towards Speightstown Terminal departs at 9:15 pm. \n\nFor Route 1B, the last bus from Date Tree Hill to Princess Alice Bus Terminal leaves at 10:00 pm. \n\nThe directory does not provide specific information about other routes or their last bus times from Bridgetown.",
+      "sources": [
+        {
+          "id": "87f703d4-9cfa-4754-b61d-80590690e522",
+          "type": "document",
+          "title": "Route 1 Bus Schedule: Princess Alice Bus Terminal towards Speightstown Terminal | First bus 4:30 am, last bus 9:15 pm",
+          "url": "https://transit246.com/routes/princess-alice-bus-terminal-towards-speightstown-terminal"
+        },
+        {
+          "id": "a2894c24-0e37-42c2-b869-050326afe60a",
+          "type": "document",
+          "title": "Route 1B Bus Schedule: Pie Corner to Princess Alice Bus Terminal | First bus 5:10 am, last bus 10:00 pm",
+          "url": "https://transit246.com/routes/pie-corner-to-princess-alice-bus-terminal"
+        }
+      ],
+      "ms": 4051
+    },
+    {
+      "group": "transport",
+      "question": "How do I get around Barbados without a car?",
+      "status": "answered",
+      "answer": "You can get around Barbados without a car using several transportation options:\n\n- **Public Buses**: The Barbados Transport Board operates a network of buses that cover various routes across the island. They have recently introduced electric buses to modernize the fleet.\n- **Minibuses**: These are a popular and affordable option for local travel. They operate on set routes and can be flagged down anywhere along their path.\n- **Taxis**: Local taxi services are available throughout the island. You can call for a taxi or find them at designated stands. Notable taxi services include:\n  - Sunset Crest Taxi Service: (246) 432-1006\n  - Colony Club Taxi Service: (246) 422-3345\n  - Suntours Barbados: (246) 434-8430\n- **Shuttle Services**: Some hotels provide shuttle services to popular destinations.\n- **Bicycle Rentals**: For a more active option, consider renting a bicycle to explore the island at your own pace.\n\nThese options provide a variety of ways to navigate the island without needing a personal vehicle.",
+      "sources": [
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "3deb7cb6-14ab-4b18-bf13-a7219c2c3c14",
+          "type": "document",
+          "title": "Taxi Services and Island Tours in Barbados - For Value & Convenience on Caribbean Trips",
+          "url": "https://www.visitbarbados.org/your-stay/get-around-the-island/taxi-services?pageindex=1"
+        }
+      ],
+      "ms": 5224
+    },
+    {
+      "group": "history-culture",
+      "question": "When did Barbados become independent?",
+      "status": "answered",
+      "answer": "Barbados became independent on 30 November 1966.",
+      "sources": [
+        {
+          "id": "c48155b2-0f44-47be-b5ce-89b129600e9a",
+          "type": "document",
+          "title": "Constitution of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Constitution_of_Barbados"
+        },
+        {
+          "id": "fabed229-1ab3-4354-999d-846a52acce31",
+          "type": "document",
+          "title": "History of Barbados",
+          "url": "https://en.wikipedia.org/wiki/History_of_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 3405
+    },
+    {
+      "group": "history-culture",
+      "question": "When did Barbados become a republic?",
+      "status": "answered",
+      "answer": "Barbados became a republic on 30 November 2021.",
+      "sources": [
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 3330
+    },
+    {
+      "group": "history-culture",
+      "question": "Who is the President of Barbados?",
+      "status": "answered",
+      "answer": "The President of Barbados is Jeffrey Bostic.",
+      "sources": [
+        {
+          "id": "0f695e81-eb01-49c3-b6cb-416d10b490ce",
+          "type": "document",
+          "title": "President of Barbados",
+          "url": "https://en.wikipedia.org/wiki/President_of_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "c48155b2-0f44-47be-b5ce-89b129600e9a",
+          "type": "document",
+          "title": "Constitution of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Constitution_of_Barbados"
+        }
+      ],
+      "ms": 3305
+    },
+    {
+      "group": "history-culture",
+      "question": "Who was Errol Barrow?",
+      "status": "answered",
+      "answer": "Errol Barrow was a prominent Barbadian politician and the first Prime Minister of Barbados. He played a significant role in the country's political history, particularly in the push for independence from British colonial rule. Barrow was a founding member of the Democratic Labour Party (DLP) and became Premier in 1961 when the DLP won the general elections. He is recognized as a National Hero of Barbados for his contributions to social reform, including the establishment of free education for all Barbadians. Barrow's leadership spanned several terms, and he is also known for his critical stance on foreign interventions in the Caribbean, such as the U.S. invasion of Grenada in 1983. He passed away while in office in 1987.",
+      "sources": [
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "fabed229-1ab3-4354-999d-846a52acce31",
+          "type": "document",
+          "title": "History of Barbados",
+          "url": "https://en.wikipedia.org/wiki/History_of_Barbados"
+        },
+        {
+          "id": "136782d5-5a54-4ec7-a077-66099de5474f",
+          "type": "document",
+          "title": "Prime Minister of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Prime_Minister_of_Barbados"
+        }
+      ],
+      "ms": 4934
+    },
+    {
+      "group": "history-culture",
+      "question": "Who are the national heroes of Barbados?",
+      "status": "answered",
+      "answer": "The eleven official National Heroes of Barbados are:\n- Bussa (−1816)\n- Sarah Ann Gill (1795–1866)\n- Samuel Jackman Prescod (1806–1871)\n- Dr. Charles Duncan O’Neal (1879–1936)\n- Clement Osbourne Payne (1904–1941)\n- Sir Grantley Herbert Adams (1898–1971)\n- Rt. Hon. Errol Walton Barrow (1920–1987)\n- Sir Hugh Worrell Springer (1913–1994)\n- Sir Garfield St. Aubyn Sobers (born 1936)\n- Sir Frank Walcott (1916–1999)\n- Rihanna (born 1988)",
+      "sources": [
+        {
+          "id": "fca2e6f5-46d0-4a7d-bd38-c2498161fad2",
+          "type": "document",
+          "title": "National symbols of Barbados",
+          "url": "https://en.wikipedia.org/wiki/National_symbols_of_Barbados"
+        },
+        {
+          "id": "65fb50c8-e4c7-4c8e-aa26-9596dfa5f101",
+          "type": "document",
+          "title": "Order of National Heroes",
+          "url": "https://en.wikipedia.org/wiki/National_Heroes_of_Barbados"
+        }
+      ],
+      "ms": 6367
+    },
+    {
+      "group": "history-culture",
+      "question": "What is Crop Over?",
+      "status": "answered",
+      "answer": "Crop Over is Barbados' largest festival, celebrated annually from early July until the first Monday in August, culminating in the Grand Kadooment parade. The festival has its roots in the plantation era, originally marking the end of the sugar cane harvest. It features a vibrant mix of cultural heritage, music, dance, and community celebrations, including competitions like the Pic-O-De-Crop Calypso Competition. The festival is known for its lively atmosphere, with events such as Foreday Morning, where participants celebrate with music and revelry, often covering themselves in mud and powder. Crop Over is a significant cultural event for Barbadians, celebrating life, heritage, and unity.",
+      "sources": [
+        {
+          "id": "5221605c-896d-4d05-b75a-8ba38eb82e12",
+          "type": "document",
+          "title": "Crop Over",
+          "url": "https://en.wikipedia.org/wiki/Crop_Over"
+        },
+        {
+          "id": "c7c2fa69-e80a-44b8-8b4f-359015278399",
+          "type": "document",
+          "title": "Explore Mission Crop Over",
+          "url": "https://www.visitbarbados.org/mission-crop-over"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "8e840a2a-983d-43ec-90dc-356e073a6c52",
+          "type": "document",
+          "title": "Explore Barbados Ah Comin’ - An Island of Festivity",
+          "url": "https://www.visitbarbados.org/festival-island"
+        },
+        {
+          "id": "8c065580-110c-4799-bf91-f2e21f5f5398",
+          "type": "document",
+          "title": "Explore Bajan Music of the Sun",
+          "url": "https://www.visitbarbados.org/bajan-music-of-the-sun"
+        }
+      ],
+      "ms": 5013
+    },
+    {
+      "group": "history-culture",
+      "question": "What is the history of sugar in Barbados?",
+      "status": "answered",
+      "answer": "The history of sugar in Barbados began in the 1640s when sugar cane was introduced from Dutch Brazil. This marked a significant transformation in the island's economy and society, as sugar production became the primary cash crop, replacing tobacco and cotton. The sugar industry required substantial investment and labor, leading to the establishment of large plantations and the importation of African slaves to meet labor demands.\n\nBy the late 17th century, Barbados had developed one of the world's largest sugar industries, significantly impacting the island's demographic and economic landscape. The population in 1655 was estimated at 43,000, with a notable portion of African descent due to the slave trade that supported the sugar plantations. The industry thrived, with Barbados becoming a major exporter of sugar to Europe, which solidified its economic importance in the Caribbean region.",
+      "sources": [
+        {
+          "id": "fabed229-1ab3-4354-999d-846a52acce31",
+          "type": "document",
+          "title": "History of Barbados",
+          "url": "https://en.wikipedia.org/wiki/History_of_Barbados"
+        },
+        {
+          "id": "3a74bbfb-3744-4f0b-a243-30d0dcac6609",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Visit-Barbados/history"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 6820
+    },
+    {
+      "group": "history-culture",
+      "question": "Why is Barbados called Little England?",
+      "status": "answered",
+      "answer": "Barbados is referred to as \"Little England\" due to its historical ties to England and the British colonial influence that shaped its culture, governance, and societal structures. The island was colonized by the British in 1627, and over the years, it developed a plantation economy and social systems that mirrored those of England. This nickname reflects the island's British heritage and the significant presence of English customs and traditions in Barbadian life.",
+      "sources": [
+        {
+          "id": "93fae90c-2896-4e50-b5a8-4399c0dd117b",
+          "type": "document",
+          "title": "Tuk band",
+          "url": "https://en.wikipedia.org/wiki/Tuk_band"
+        }
+      ],
+      "ms": 4213
+    },
+    {
+      "group": "history-culture",
+      "question": "What is the Barbados Garrison?",
+      "status": "answered",
+      "answer": "The Barbados Garrison is a historic area located just outside the capital city, Bridgetown. It is known for its military colonial history and is part of the UNESCO World Heritage Site designated as \"Historic Bridgetown and its Garrison.\" The Garrison includes a collection of significant buildings and structures that reflect the era of British military presence in Barbados. It features the Garrison Savannah, a horse racing venue that hosts events like the annual Barbados Gold Cup and the Barbados Triple Crown of Thoroughbred Racing series. The area is recognized for its architectural and historical importance, showcasing a blend of colonial and vernacular architecture.",
+      "sources": [
+        {
+          "id": "efbe0766-41c6-43c0-9d14-43aa471959c7",
+          "type": "document",
+          "title": "Garrison Savannah Racetrack",
+          "url": "https://en.wikipedia.org/wiki/Garrison_Savannah"
+        },
+        {
+          "id": "f89c2164-a0b0-4f78-b245-e08ba3e9a7d5",
+          "type": "document",
+          "title": "Explore Barbados UNESCO World Heritage Sites at a Glance",
+          "url": "https://www.visitbarbados.org/unesco-world-heritage-site?pageindex=1"
+        },
+        {
+          "id": "54ad8ff1-ed12-4608-970f-efafba36bd57",
+          "type": "document",
+          "title": "30 Incredible Things Barbados Is Known For",
+          "url": "https://www.visitbarbados.org/30-incredible-things-from-barbados"
+        },
+        {
+          "id": "aab34768-071a-487f-90eb-d6e1f3a65f4e",
+          "type": "document",
+          "title": "Barbados Towns & Landmarks - Visit Caribbean's Famous Sights",
+          "url": "https://www.visitbarbados.org/things-to-do/experiences/towns-and-landmarks?pageindex=1"
+        }
+      ],
+      "ms": 4918
+    },
+    {
+      "group": "history-culture",
+      "question": "What is Bridgetown and its Garrison a UNESCO World Heritage Site for?",
+      "status": "partial",
+      "answer": "Bridgetown and its Garrison is a UNESCO World Heritage Site due to its historic international commerce, culture, and built heritage. It reflects the development of a colonial port city and its role in the transatlantic trade, showcasing the architectural and cultural influences that shaped Barbados and its people.",
+      "sources": [
+        {
+          "id": "aab34768-071a-487f-90eb-d6e1f3a65f4e",
+          "type": "document",
+          "title": "Barbados Towns & Landmarks - Visit Caribbean's Famous Sights",
+          "url": "https://www.visitbarbados.org/things-to-do/experiences/towns-and-landmarks?pageindex=1"
+        },
+        {
+          "id": "54ad8ff1-ed12-4608-970f-efafba36bd57",
+          "type": "document",
+          "title": "30 Incredible Things Barbados Is Known For",
+          "url": "https://www.visitbarbados.org/30-incredible-things-from-barbados"
+        }
+      ],
+      "ms": 7400
+    },
+    {
+      "group": "history-culture",
+      "question": "What is the story of Bussa's rebellion?",
+      "status": "answered",
+      "answer": "Bussa's Rebellion, which took place in 1816, was the largest slave revolt in Barbadian history. It was led by Bussa, an enslaved African who became a prominent figure in the uprising. The rebellion was fueled by the harsh conditions endured by enslaved people and the growing abolitionist movement in England, which inspired hopes for freedom among the enslaved population in Barbados.\n\nThe planters were taken by surprise, believing their slaves were content due to allowances for weekly dances and some social and economic activities. However, the oppressive Barbados Slave Code, which denied slaves basic human rights and prescribed severe punishments, contributed to the unrest. Bussa and other leaders organized the revolt, aiming to negotiate for freedom in light of the changing political climate in Britain.\n\nThe rebellion was quickly suppressed by British forces, resulting in the deaths of hundreds of rebels. Despite its failure, the brutality of the suppression shocked many in England and strengthened the abolitionist movement, ultimately leading to the abolition of slavery in the British Empire in 1833.",
+      "sources": [
+        {
+          "id": "fabed229-1ab3-4354-999d-846a52acce31",
+          "type": "document",
+          "title": "History of Barbados",
+          "url": "https://en.wikipedia.org/wiki/History_of_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 5852
+    },
+    {
+      "group": "history-culture",
+      "question": "What language do Barbadians speak?",
+      "status": "answered",
+      "answer": "Barbadians primarily speak English, which is the official language. Additionally, they commonly use Bajan, an English-based creole language, especially in informal settings. Bajan has a distinct pronunciation and vocabulary that can differ significantly from Standard English.",
+      "sources": [
+        {
+          "id": "1e3ae158-99d0-4e9e-895a-e0124ee42e4f",
+          "type": "document",
+          "title": "Demographics of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Demographics_of_Barbados"
+        },
+        {
+          "id": "aadca931-8d16-475f-912e-2f48929ebf2b",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Visit-Barbados/demographics"
+        },
+        {
+          "id": "af2180ce-eb90-413e-a165-791938d5e9bb",
+          "type": "document",
+          "title": "Culture of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+        }
+      ],
+      "ms": 3499
+    },
+    {
+      "group": "history-culture",
+      "question": "What is tuk band music?",
+      "status": "answered",
+      "answer": "Tuk band music, also known as rukatuk, is a traditional Barbadian musical genre that emerged during the colonial era. It combines European military-style instruments with Afro-based rhythms, resulting from the historical context of colonialism when traditional Afro-based drums were banned. The typical instruments used in a tuk band include:\n- Double-headed bass drum\n- Pennywhistle (which has replaced the traditional fiddle)\n- Triangle\n- Flute\n- Snare drum\n\nTuk bands often perform at cultural events and festivals, and they are accompanied by costumed characters that have African origins, representing various cultural elements. The music is symbolic of Barbadian cultural history and is an important part of the island's folk traditions.",
+      "sources": [
+        {
+          "id": "93fae90c-2896-4e50-b5a8-4399c0dd117b",
+          "type": "document",
+          "title": "Tuk band",
+          "url": "https://en.wikipedia.org/wiki/Tuk_band"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "af2180ce-eb90-413e-a165-791938d5e9bb",
+          "type": "document",
+          "title": "Culture of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+        }
+      ],
+      "ms": 4619
+    },
+    {
+      "group": "history-culture",
+      "question": "What is the national dish of Barbados?",
+      "status": "answered",
+      "answer": "The national dish of Barbados is cou-cou and flying fish, typically served with spicy gravy.",
+      "sources": [
+        {
+          "id": "fca2e6f5-46d0-4a7d-bd38-c2498161fad2",
+          "type": "document",
+          "title": "National symbols of Barbados",
+          "url": "https://en.wikipedia.org/wiki/National_symbols_of_Barbados"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "af2180ce-eb90-413e-a165-791938d5e9bb",
+          "type": "document",
+          "title": "Culture of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+        }
+      ],
+      "ms": 3699
+    },
+    {
+      "group": "history-culture",
+      "question": "Who is Rihanna and where is she from?",
+      "status": "answered",
+      "answer": "Rihanna, whose full name is Robyn Rihanna Fenty, is a globally recognized singer, songwriter, and businesswoman. She was born in a tiny village on the outskirts of the capital city, Bridgetown, in Barbados. Rihanna is celebrated for her significant contributions to music and her successful ventures in various industries.",
+      "sources": [
+        {
+          "id": "a7ce5041-5cb1-4aea-ba99-0954978d7b1e",
+          "type": "document",
+          "title": "Explore Take A Step into Rihanna Drive",
+          "url": "https://www.visitbarbados.org/take-a-step-into-rihanna-drive"
+        },
+        {
+          "id": "c7c2fa69-e80a-44b8-8b4f-359015278399",
+          "type": "document",
+          "title": "Explore Mission Crop Over",
+          "url": "https://www.visitbarbados.org/mission-crop-over"
+        },
+        {
+          "id": "342c1574-997f-4da9-afca-6a5561516636",
+          "type": "document",
+          "title": "Explore A Bounty Of Beach Activities",
+          "url": "https://www.visitbarbados.org/a-bounty-of-beach-activities"
+        },
+        {
+          "id": "37c29006-d273-4efe-bd8f-15a147db5153",
+          "type": "document",
+          "title": "Local Stories",
+          "url": "https://www.visitbarbados.org/bajan-stories"
+        },
+        {
+          "id": "189cfd75-27f8-4082-8634-071527f7e641",
+          "type": "document",
+          "title": "Visit Barbados - The Official Barbados Tourism Guide",
+          "url": "https://www.visitbarbados.org/"
+        }
+      ],
+      "ms": 3998
+    },
+    {
+      "group": "food-dining",
+      "question": "What are Bajan fish cakes and where can I try them?",
+      "status": "answered",
+      "answer": "Bajan fish cakes are a popular snack in Barbados, typically made from fish that is seasoned and mixed with various ingredients, then fried until golden brown. They are often served with a spicy sauce and are a staple of Barbadian cuisine.\n\nYou can try Bajan fish cakes at:\n- **Oistins Bay Garden**: Known for its Friday Night Fish Fry, where you can enjoy various fish dishes, including fish cakes.\n- **Street vendors**: Popular locations include Baxter's Road near Bridgetown, where you can find local vendors selling fish cakes and other traditional snacks.\n- **The Cliff**: A renowned dining destination that may offer fish cakes as part of its menu.\n\nThese locations provide a great opportunity to experience authentic Bajan fish cakes in a vibrant atmosphere.",
+      "sources": [
+        {
+          "id": "2a1b3858-c8e4-4b8d-a7a8-35bb78116c30",
+          "type": "document",
+          "title": "Barbadian cuisine",
+          "url": "https://en.wikipedia.org/wiki/Barbadian_cuisine"
+        },
+        {
+          "id": "af2180ce-eb90-413e-a165-791938d5e9bb",
+          "type": "document",
+          "title": "Culture of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+        },
+        {
+          "id": "8e840a2a-983d-43ec-90dc-356e073a6c52",
+          "type": "document",
+          "title": "Explore Barbados Ah Comin’ - An Island of Festivity",
+          "url": "https://www.visitbarbados.org/festival-island"
+        },
+        {
+          "id": "863ece3c-8155-4a38-8484-7aae9f70579f",
+          "type": "document",
+          "title": "Explore Take a Bit out of the Culinary Capital of the Caribbean…Literally",
+          "url": "https://www.visitbarbados.org/take-a-bite"
+        }
+      ],
+      "ms": 5024
+    },
+    {
+      "group": "food-dining",
+      "question": "What is cou-cou and flying fish?",
+      "status": "answered",
+      "answer": "Cou-cou and flying fish is the national dish of Barbados. \n\n- **Cou-cou**: This dish is primarily made from cornmeal and okra, stirred to achieve a firm texture. It is a staple in Barbadian cuisine and is often prepared using a special utensil known as a cou-cou stick.\n- **Flying fish**: This fish is typically served fried or steamed and is a popular seafood choice in Barbados. It complements the cou-cou, creating a flavorful and traditional meal.\n\nTogether, cou-cou and flying fish represent a significant part of Barbadian culture and culinary heritage.",
+      "sources": [
+        {
+          "id": "d66fee27-773d-436e-b69b-6d3eebc6df64",
+          "type": "document",
+          "title": "Cou-cou",
+          "url": "https://en.wikipedia.org/wiki/Cou-cou"
+        },
+        {
+          "id": "2a1b3858-c8e4-4b8d-a7a8-35bb78116c30",
+          "type": "document",
+          "title": "Barbadian cuisine",
+          "url": "https://en.wikipedia.org/wiki/Barbadian_cuisine"
+        },
+        {
+          "id": "af2180ce-eb90-413e-a165-791938d5e9bb",
+          "type": "document",
+          "title": "Culture of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Culture_of_Barbados"
+        }
+      ],
+      "ms": 4450
+    },
+    {
+      "group": "food-dining",
+      "question": "Where is the Oistins Friday fish fry?",
+      "status": "answered",
+      "answer": "The Oistins Friday Fish Fry takes place in Oistins Bay Garden, which is located on the south coast of Barbados. It is a popular social gathering where locals and tourists enjoy fried fish meals and local crafts, accompanied by music.",
+      "sources": [
+        {
+          "id": "863ece3c-8155-4a38-8484-7aae9f70579f",
+          "type": "document",
+          "title": "Explore Take a Bit out of the Culinary Capital of the Caribbean…Literally",
+          "url": "https://www.visitbarbados.org/take-a-bite"
+        },
+        {
+          "id": "cb84f8f6-7943-4372-a1d5-91c14c3054ef",
+          "type": "document",
+          "title": "Oistins",
+          "url": "https://en.wikipedia.org/wiki/Oistins"
+        }
+      ],
+      "ms": 4110
+    },
+    {
+      "group": "food-dining",
+      "question": "What is a Bajan cutter?",
+      "status": "answered",
+      "answer": "A Bajan cutter is a type of sandwich where the sliced bread is replaced by a large, flavorful dinner roll. Common filling options for cutters include cheese, fishcakes, fish, or Bajan ham. They are a popular snack found in rum shops across Barbados.",
+      "sources": [
+        {
+          "id": "c1ca4f4e-a9ca-4dd6-abaa-523319ffa795",
+          "type": "document",
+          "title": "Explore The Barbados Rum Shop",
+          "url": "https://www.visitbarbados.org/the-barbados-rum-shop"
+        }
+      ],
+      "ms": 3605
+    },
+    {
+      "group": "food-dining",
+      "question": "What drinks is Barbados known for?",
+      "status": "answered",
+      "answer": "Barbados is known for a variety of drinks, including:\n- Rum and rum punch\n- Banks beer (a pale lager)\n- Hibiscus tea\n- Mauby (a traditional drink made from the bark of the mauby tree)\n- Fruit juices\n- Tamarind drink\n- Soursop drink\n- Golden apple drink\n- Sorrel drink\n- Coconut water\n- Ginger beer",
+      "sources": [
+        {
+          "id": "2a1b3858-c8e4-4b8d-a7a8-35bb78116c30",
+          "type": "document",
+          "title": "Barbadian cuisine",
+          "url": "https://en.wikipedia.org/wiki/Barbadian_cuisine"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 5636
+    },
+    {
+      "group": "food-dining",
+      "question": "Where can I find restaurants on the west coast?",
+      "status": "partial",
+      "answer": "Here are some restaurants located on the west coast of Barbados:\n\n- **Lime Bar**  \n  Located on the exclusive west coast, this premier bar offers friendly and personal service at the best prices on the west coast.  \n  Contact: (246) 271-8261  \n\n- **13°/59° at Port Ferdinand**  \n  Delivers a dining experience of international standards with evolving menus of tasting dishes.  \n  Contact: (246) 272-2020  \n\n- **Champers**  \n  A go-to restaurant for Barbadians and visitors, ideal for celebrating milestones.  \n\n- **Nishi Restaurant**  \n  Offers a diverse menu of English, Caribbean, and Asian dishes, popular for its sushi.  \n\n- **Chefette**  \n  The island’s local fast-food chain known for its tasty broasted chicken.  \n\nPlease note that some listings may not have specific contact details available.",
+      "sources": [
+        {
+          "id": "77dd8f4f-33d8-43f1-b37d-3da1de462737",
+          "type": "document",
+          "title": "Restaurants in Barbados - Caribbean's Top Culinary Retreats",
+          "url": "https://www.visitbarbados.org/things-to-do/experiences/culinary?pageindex=1"
+        },
+        {
+          "id": "863ece3c-8155-4a38-8484-7aae9f70579f",
+          "type": "document",
+          "title": "Explore Take a Bit out of the Culinary Capital of the Caribbean…Literally",
+          "url": "https://www.visitbarbados.org/take-a-bite"
+        }
+      ],
+      "ms": 5680
+    },
+    {
+      "group": "food-dining",
+      "question": "What is pudding and souse?",
+      "status": "answered",
+      "answer": "Pudding and souse is a traditional Barbadian dish consisting of pickled pork served with spiced sweet potatoes. It is considered one of the island's important culinary offerings and is particularly popular on Saturdays.",
+      "sources": [
+        {
+          "id": "2a1b3858-c8e4-4b8d-a7a8-35bb78116c30",
+          "type": "document",
+          "title": "Barbadian cuisine",
+          "url": "https://en.wikipedia.org/wiki/Barbadian_cuisine"
+        },
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        }
+      ],
+      "ms": 4347
+    },
+    {
+      "group": "food-dining",
+      "question": "Where can I eat local food in Bridgetown?",
+      "status": "answered",
+      "answer": "In Bridgetown, you can enjoy local food at the following places:\n- **Chefette**: A popular local fast-food chain known for its tasty broasted chicken.\n- **Oistins Bay Garden**: Famous for its fish fry, especially on Friday nights, where you can taste grilled fish with sides like macaroni pie and rice & peas.\n- **The Barbados Rum Shop**: Offers traditional Bajan favorites such as rice & peas, macaroni pie, baked pork, chicken, and local fish.\n\nThese spots provide a great opportunity to experience authentic Barbadian cuisine while visiting the city.",
+      "sources": [
+        {
+          "id": "7d688fd5-f1f9-4cab-b0e0-6034fc449dde",
+          "type": "document",
+          "title": "Explore What's in a Town... Bridgetown",
+          "url": "https://www.visitbarbados.org/whats-in-a-town-bridgetown"
+        },
+        {
+          "id": "863ece3c-8155-4a38-8484-7aae9f70579f",
+          "type": "document",
+          "title": "Explore Take a Bit out of the Culinary Capital of the Caribbean…Literally",
+          "url": "https://www.visitbarbados.org/take-a-bite"
+        },
+        {
+          "id": "c1ca4f4e-a9ca-4dd6-abaa-523319ffa795",
+          "type": "document",
+          "title": "Explore The Barbados Rum Shop",
+          "url": "https://www.visitbarbados.org/the-barbados-rum-shop"
+        }
+      ],
+      "ms": 4730
+    },
+    {
+      "group": "food-dining",
+      "question": "Is Mount Gay rum from Barbados?",
+      "status": "answered",
+      "answer": "Yes, Mount Gay Rum is produced by Mount Gay Distilleries Ltd., which is located in Barbados. It is recognized as the world's oldest commercial rum distillery, with its origins dating back to 1703.",
+      "sources": [
+        {
+          "id": "64a53b50-788f-413f-b73c-5730fa162880",
+          "type": "document",
+          "title": "Mount Gay Rum",
+          "url": "https://en.wikipedia.org/wiki/Mount_Gay_Rum"
+        },
+        {
+          "id": "d2306c82-a4e0-450b-a1bc-9b183fc2604e",
+          "type": "document",
+          "title": "Witness the Entwined History of Caribbean Rum & Barbados",
+          "url": "https://www.visitbarbados.org/discover/island-stories/rum"
+        }
+      ],
+      "ms": 3467
+    },
+    {
+      "group": "food-dining",
+      "question": "What dining experiences does Visit Barbados recommend?",
+      "status": "partial",
+      "answer": "Visit Barbados recommends a variety of dining experiences that showcase the island's culinary diversity:\n\n- **Fine Dining**: Enjoy upscale dining with classic three-course menus featuring local seafood and creative twists on traditional dishes. Notable restaurants include The Tides, Tapas, Primo, and The Mews.\n- **Local Cuisine**: Savor traditional Bajan dishes such as cou-cou, rice and peas, pelau, and macaroni pie, often accompanied by fresh fruits and vegetables.\n- **Casual Dining**: Experience a relaxed atmosphere with casual eateries that offer a taste of local flavors.\n- **Street Food**: Explore the vibrant street food scene for quick bites and authentic local snacks.\n- **Bars and Rum Shops**: Visit local bars and rum shops to enjoy drinks and socialize in a laid-back setting.\n- **Food Trucks**: Discover mobile food vendors offering a variety of delicious options throughout the island.\n\nThese experiences are designed to immerse visitors in the rich culinary culture of Barbados, making every meal memorable.",
+      "sources": [
+        {
+          "id": "77dd8f4f-33d8-43f1-b37d-3da1de462737",
+          "type": "document",
+          "title": "Restaurants in Barbados - Caribbean's Top Culinary Retreats",
+          "url": "https://www.visitbarbados.org/things-to-do/experiences/culinary?pageindex=1"
+        },
+        {
+          "id": "3c4fe57e-a041-43ae-8d1d-48d974282594",
+          "type": "document",
+          "title": "Explore Fine Dining to Tantalise Taste Buds",
+          "url": "https://www.visitbarbados.org/fine-dining-to-tantalise-taste-buds"
+        },
+        {
+          "id": "b5470677-892c-442a-8b2b-0ce67dddcaed",
+          "type": "document",
+          "title": "Barbados Epicurean Treats - Dine Delicious Caribbean Cuisines",
+          "url": "https://www.visitbarbados.org/discover/island-stories/epicurean"
+        }
+      ],
+      "ms": 6013
+    },
+    {
+      "group": "visitors",
+      "question": "What do I need to enter Barbados as a visitor?",
+      "status": "answered",
+      "answer": "To enter Barbados as a visitor, you need the following:\n- A valid passport (must be valid for the duration of your stay).\n- A valid return ticket to your country of residence.\n- An intended address in Barbados.\n- Evidence of personal support.\n- If traveling with a child under 18 without a parent/guardian, a letter of authorization from the parent/guardian is required.\n\nMost visitors do not require a visa, but it's best to check if your country is on the visa-exempt list.",
+      "sources": [
+        {
+          "id": "0d3d0192-3b90-44f4-9255-a81a4ee700a2",
+          "type": "document",
+          "title": "What Visa & Entry Requirements Do You Need to Visit Barbados?",
+          "url": "https://www.visitbarbados.org/plan-your-trip/visa-and-entry-requirements"
+        }
+      ],
+      "ms": 4360
+    },
+    {
+      "group": "visitors",
+      "question": "What currency is used in Barbados?",
+      "status": "answered",
+      "answer": "The official currency in Barbados is the Barbadian dollar, abbreviated as BBD. It is pegged to the US dollar at an effective exchange rate of US$1 = BBD$2.",
+      "sources": [
+        {
+          "id": "ff0ee376-0e38-4c25-849c-9271f052892e",
+          "type": "document",
+          "title": "Barbadian dollar",
+          "url": "https://en.wikipedia.org/wiki/Barbadian_dollar"
+        },
+        {
+          "id": "8e6343f1-cd76-4db2-9341-b2470a5aa17e",
+          "type": "document",
+          "title": "Economy of Barbados",
+          "url": "https://en.wikipedia.org/wiki/Economy_of_Barbados"
+        }
+      ],
+      "ms": 3688
+    },
+    {
+      "group": "visitors",
+      "question": "Which beaches are best on the south and west coasts?",
+      "status": "partial",
+      "answer": "### Best Beaches on the South Coast:\n- **Accra Beach**  \n  Located in Rockley, Accra Beach is popular for sea and sun bathers who prefer to be near amenities and public transportation.\n\n### Best Beaches on the West Coast:\n- **Paynes Bay**  \n  Known for its calm waters and beautiful scenery, ideal for swimming and relaxing.\n- **Mullins Beach**  \n  A family-friendly beach with clear waters, perfect for water sports and sunbathing.\n- **Sandy Lane Beach**  \n  Renowned for its luxury resorts and pristine sands, great for a relaxing day by the sea.\n\nThese beaches are well-loved by both locals and visitors for their beauty and amenities.",
+      "sources": [
+        {
+          "id": "7291bf8e-828a-46f5-acff-83b4b1afcb99",
+          "type": "document",
+          "title": "Barbados Beaches & Activities - Explore Caribbean Coastline",
+          "url": "https://www.visitbarbados.org/things-to-do/experiences/beaches-activities?pageindex=1"
+        },
+        {
+          "id": "342c1574-997f-4da9-afca-6a5561516636",
+          "type": "document",
+          "title": "Explore A Bounty Of Beach Activities",
+          "url": "https://www.visitbarbados.org/a-bounty-of-beach-activities"
+        },
+        {
+          "id": "27e1bbd8-f05c-4db0-88f1-9103cc5ecb6c",
+          "type": "document",
+          "title": "Barbados Beaches - The Best in the Caribbean",
+          "url": "https://www.visitbarbados.org/discover/island-stories/beaches"
+        }
+      ],
+      "ms": 5420
+    },
+    {
+      "group": "visitors",
+      "question": "What can I do in Bridgetown in one day?",
+      "status": "partial",
+      "answer": "In Bridgetown, you can enjoy a variety of activities in one day:\n\n- **Explore Local Art**: Visit Pelican Village for arts and crafts, where you can see artisans at work and purchase locally made items.\n- **Visit Galleries**: Check out the Queen’s Park Gallery and the Artists’ Alliance in Norman Centre for temporary exhibits and art for sale.\n- **Dining Options**: Experience local cuisine at the Ideal Restaurant in Cave Shepherd, or try street food from various outlets. Fast-food options like Burger King, KFC, Subway, and the local chain Chefette are also available.\n- **Shopping**: Browse the shops in Bridgetown for souvenirs, clothing, and local products.\n- **Relax in Green Spaces**: Enjoy the beautifully landscaped areas around the town, providing a pleasant escape from the urban environment.",
+      "sources": [
+        {
+          "id": "7d688fd5-f1f9-4cab-b0e0-6034fc449dde",
+          "type": "document",
+          "title": "Explore What's in a Town... Bridgetown",
+          "url": "https://www.visitbarbados.org/whats-in-a-town-bridgetown"
+        }
+      ],
+      "ms": 5390
+    },
+    {
+      "group": "visitors",
+      "question": "What is the Barbados Welcome Stamp?",
+      "status": "answered",
+      "answer": "The Barbados Welcome Stamp is a visa program that allows individuals and families to live and work remotely from Barbados for up to one year. It is designed for those whose work is location independent. The application process is conducted online, and once approved, the visa is valid for one year, with the option to reapply if desired. This initiative aims to attract remote workers to the island, promoting Barbados as a desirable destination for living and working remotely.",
+      "sources": [
+        {
+          "id": "cfd5d7c6-4793-448c-98f2-003974f95e59",
+          "type": "document",
+          "title": "Explore 12 Month Barbados Welcome Stamp - Visit Barbados",
+          "url": "https://www.visitbarbados.org/barbados-welcome-stamp"
+        },
+        {
+          "id": "153c1d28-dfb1-432b-b925-ae6be4150e2c",
+          "type": "document",
+          "title": "Explore Working Remotely",
+          "url": "https://www.visitbarbados.org/discover/island-stories/working-remotely"
+        },
+        {
+          "id": "189cfd75-27f8-4082-8634-071527f7e641",
+          "type": "document",
+          "title": "Visit Barbados - The Official Barbados Tourism Guide",
+          "url": "https://www.visitbarbados.org/"
+        }
+      ],
+      "ms": 3953
+    },
+    {
+      "group": "visitors",
+      "question": "When is the best time to visit Barbados?",
+      "status": "answered",
+      "answer": "The best time to visit Barbados is during the dry season, which runs from December to May. During this period, the average temperatures range from 21 to 31 °C (70 to 88 °F), making it ideal for enjoying the sunny Caribbean climate.",
+      "sources": [
+        {
+          "id": "87dae13a-187e-46f1-86c4-16a881da2611",
+          "type": "document",
+          "title": "Plan a Trip To Barbados & Discover the Jewel of Caribbean",
+          "url": "https://www.visitbarbados.org/plan-your-trip"
+        }
+      ],
+      "ms": 3759
+    },
+    {
+      "group": "visitors",
+      "question": "Is tap water safe to drink in Barbados?",
+      "status": "answered",
+      "answer": "Yes, the water supply in Barbados is safe and refreshing to drink, as it is provided by the Barbados Water Authority, which is a government statutory corporation.",
+      "sources": [
+        {
+          "id": "6f04b39b-23dc-4788-b83f-f13f4f95a431",
+          "type": "document",
+          "title": "Barbados Travel Information - Get Familiar with the Island",
+          "url": "https://www.visitbarbados.org/plan-your-trip/travel-information"
+        }
+      ],
+      "ms": 3561
+    },
+    {
+      "group": "visitors",
+      "question": "What is Harrison's Cave?",
+      "status": "answered",
+      "answer": "Harrison's Cave is a popular tourist attraction in Barbados, known for its stunning natural formations. It features a subterranean environment accessible via a tramway, allowing visitors to explore its impressive stalactites and stalagmites, as well as underground streams and waterfalls. The cave is located in the central uplands of Barbados, at an elevation of 700 feet (210 m) above sea level. The main areas of interest within the cave include \"The Great Hall,\" which is over 50 feet (15 m) high, and \"The Village,\" where some formations have formed columns over thousands of years. Harrison's Cave was first mentioned in 1795 and was rediscovered in the early 1970s, later developed for public tours.",
+      "sources": [
+        {
+          "id": "8faaf0af-c8c3-4d1d-ba7c-ea6e7295fdea",
+          "type": "document",
+          "title": "Harrison's Cave",
+          "url": "https://en.wikipedia.org/wiki/Harrison%27s_Cave"
+        },
+        {
+          "id": "54ad8ff1-ed12-4608-970f-efafba36bd57",
+          "type": "document",
+          "title": "30 Incredible Things Barbados Is Known For",
+          "url": "https://www.visitbarbados.org/30-incredible-things-from-barbados"
+        },
+        {
+          "id": "dec0e05c-3774-41ab-a06a-c3942ba5e382",
+          "type": "document",
+          "title": "Explore ADRENALINE JUNKIES WANTED",
+          "url": "https://www.visitbarbados.org/adrenaline-junkies-wanted"
+        }
+      ],
+      "ms": 4512
+    },
+    {
+      "group": "visitors",
+      "question": "Where can I see green monkeys in Barbados?",
+      "status": "answered",
+      "answer": "You can see green monkeys in Barbados in various locations, including:\n- Wildlife reserves\n- Inland trails\n- Coastal pathways\n- Parks created to sustain the island’s natural beauty\n\nThese curious and mischievous monkeys are often spotted in gullies and gardens across the island.",
+      "sources": [
+        {
+          "id": "81c9244b-a8ce-4c86-b34d-bac0abb7e82c",
+          "type": "document",
+          "title": "Barbados",
+          "url": "https://en.wikipedia.org/wiki/Barbados"
+        },
+        {
+          "id": "cdcac057-a002-4a01-a98a-bd4ea2e96973",
+          "type": "document",
+          "title": "Barbados Nature & Wildlife - Untamed on Caribbean Island",
+          "url": "https://www.visitbarbados.org/discover/island-stories/nature-and-wildlife"
+        },
+        {
+          "id": "a7d1dcde-2be9-4461-9d03-27ba19469e9b",
+          "type": "document",
+          "title": "Meet Anthony Hunte",
+          "url": "https://www.visitbarbados.org/anthony-hunte"
+        }
+      ],
+      "ms": 4903
+    },
+    {
+      "group": "visitors",
+      "question": "What should I know about driving in Barbados?",
+      "status": "answered",
+      "answer": "- Driving is on the left-hand side of the road.\n- The speed limit is 60 km/h (37 mph) in built-up areas and generally 80 km/h (50 mph) on the ABC Highway.\n- You must have a valid driving license to drive a motor vehicle in public places.\n- A Learner's Permit is required to obtain a Permanent License, which can be applied for at age 18.\n- An International Driving License can be obtained by citizens of Barbados for driving in foreign countries, valid for a maximum of one year.\n- The island has 1,600 kilometers (990 miles) of public paved roads and one main airport, Sir Grantley Adams International Airport, located in Christ Church.",
+      "sources": [
+        {
+          "id": "f128913f-e205-4aee-a073-9a8a405f9c60",
+          "type": "document",
+          "title": "GOV.BB",
+          "url": "https://www.gov.bb/Citizens/driver-licence"
+        },
+        {
+          "id": "f5cba3d9-b28e-47bd-aaf3-53fad9f4f685",
+          "type": "document",
+          "title": "Transport in Barbados",
+          "url": "https://en.wikipedia.org/wiki/Transport_in_Barbados"
+        },
+        {
+          "id": "1fe07026-c118-4966-8b43-848b23545e05",
+          "type": "document",
+          "title": "Bridgetown",
+          "url": "https://en.wikipedia.org/wiki/Bridgetown"
+        },
+        {
+          "id": "9ad0e8fe-1f56-4c01-be71-d4e73b1ee345",
+          "type": "document",
+          "title": "Barbados Licensing Authority - Ministry of Transport & Works",
+          "url": "https://mtw.gov.bb/departments-services/barbados-licensing-authority"
+        }
+      ],
+      "ms": 5097
+    }
+  ]
+}
