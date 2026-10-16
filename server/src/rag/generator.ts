@@ -296,7 +296,8 @@ export function buildPromptSources(selected: Candidate[], maxChars: number): Pro
     if (budget <= 200) break;
     const text = truncate(candidateText(c), Math.min(1800, budget));
     budget -= text.length;
-    out.push({ id: `S${i + 1}`, type: c.sourceType, title: c.title, text, authority: TIER_LABEL[c.tier], updated: sourceDate(c) });
+    const url = toSourceRef(c).url;
+    out.push({ id: `S${i + 1}`, type: c.sourceType, title: c.title, text, authority: TIER_LABEL[c.tier], updated: sourceDate(c), url: url && /^https?:/i.test(url) ? url : null });
   }
   return out;
 }

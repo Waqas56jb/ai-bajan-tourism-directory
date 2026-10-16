@@ -63,6 +63,8 @@ export interface PromptSource {
   authority?: string;
   /** Date the source page was last updated, if known. */
   updated?: string | null;
+  /** The source's own web page, if it has one (the model may link to it). */
+  url?: string | null;
 }
 
 export function buildMessages(args: {
@@ -80,7 +82,9 @@ export function buildMessages(args: {
   const productLine = analysis.productTerms.length ? `Product/feature mentioned by the user: ${analysis.productTerms.join(', ')}.` : '';
   const sourceBlock = sources
     .map((s) => {
-      const attrs = [s.authority && ` authority="${escapeXml(s.authority)}"`, s.updated && ` updated="${s.updated}"`].filter(Boolean).join('');
+      const attrs = [s.authority && ` authority="${escapeXml(s.authority)}"`, s.updated && ` updated="${s.updated}"`, s.url && ` url="${escapeXml(s.url)}"`]
+        .filter(Boolean)
+        .join('');
       return `<source id="${s.id}" type="${s.type}" title="${escapeXml(s.title)}"${attrs}>\n${escapeXml(s.text)}\n</source>`;
     })
     .join('\n');

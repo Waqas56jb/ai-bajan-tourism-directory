@@ -19,7 +19,8 @@ const digits = (s: string) => s.replace(/\D/g, '');
  * Checks a model answer against the sources it was given:
  *  - output must match the schema;
  *  - cited IDs must be among the provided sources (unknown IDs are dropped);
- *  - every phone number, email and URL in the answer must appear in a provided source
+ *  - every phone number, email and URL in the answer must appear in a provided source (its text,
+ *    or for URLs, the source's own page address)
  *    (otherwise the answer is rejected as potentially fabricated).
  */
 export function validateModelAnswer(raw: unknown, sources: PromptSource[]): ValidationResult {
@@ -36,7 +37,8 @@ export function validateModelAnswer(raw: unknown, sources: PromptSource[]): Vali
   const cited = [...new Set(r.source_ids.filter((id): id is string => typeof id === 'string' && known.has(id)))];
   if (cited.length !== r.source_ids.length) problems.push('dropped unknown source ids');
 
-  const corpus = sources.map((s) => `${s.title}\n${s.text}`).join('\n').toLowerCase();
+  // Source page URLs count as supported: the model is given them and may link to them.
+  const corpus = sources.map((s) => `${s.title}\n${s.url ?? ''}\n${s.text}`).join('\n').toLowerCase();
   const corpusDigits = sources.map((s) => digits(s.text));
 
   const phones = answer.match(/\+?\d[\d ().-]{6,}\d/g) ?? [];
@@ -50,7 +52,7 @@ export function validateModelAnswer(raw: unknown, sources: PromptSource[]): Vali
   for (const e of emails) if (!corpus.includes(e.toLowerCase())) return { ok: false, answer: null, problems: ['unsupported email in answer'] };
   const urls = answer.match(/https?:\/\/[^\s)>\]]+/g) ?? [];
   for (const u of urls) {
-    const clean = u.replace(/[.,;:!?]+$/, '').toLowerCase();
+    const clean = u.replace(/[.,;:!?]+$/, '').replace(/\/$/, '').toLowerCase();
     if (!corpus.includes(clean)) return { ok: false, answer: null, problems: ['unsupported URL in answer'] };
   }
 

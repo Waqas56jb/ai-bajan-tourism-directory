@@ -20,3 +20,13 @@ describe('AskDealia price referral', () => {
     expect(priceReferral(analyzeQuery('How do I renew my passport?', testLexicon))).toBeNull();
   });
 });
+
+describe('answer validation and source links', () => {
+  it('accepts links to a source’s own page but still rejects invented links', async () => {
+    const { validateModelAnswer } = await import('../../src/rag/answerValidation.js');
+    const sources = [{ id: 'S1', type: 'document', title: 'Business name registration', text: 'Filing fee BDS $104.00.', url: 'https://caipo.gov.bb/corporate-affairs/business-name-registration' }];
+    const answer = (text: string) => ({ answer: text, source_ids: ['S1'], needs_clarification: false, clarification_question: '' });
+    expect(validateModelAnswer(answer('Details: https://caipo.gov.bb/corporate-affairs/business-name-registration/.'), sources).ok).toBe(true);
+    expect(validateModelAnswer(answer('Details: https://caipo.gov.bb/made-up-page'), sources).ok).toBe(false);
+  });
+});
