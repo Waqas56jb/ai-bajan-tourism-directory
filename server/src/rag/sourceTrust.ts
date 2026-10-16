@@ -31,6 +31,7 @@ const HOST_TIERS: Array<[RegExp, TrustTier]> = [
   [/(^|\.)bhta\.org$/, 'institutional'],
   [/(^|\.)(exportbarbados|bidc)\.org$/, 'institutional'],
   [/(^|\.)sba\.bb$/, 'institutional'],
+  [/(^|\.)blpc\.com\.bb$/, 'institutional'],
   [/(^|\.)transit246\.com$/, 'local'],
   [/(^|\.)barbados\.org$/, 'publication'],
   [/(^|\.)(barbadostoday\.bb|nationnews\.com)$/, 'publication'],
@@ -68,7 +69,8 @@ export function hostOf(url: unknown): string | null {
 
 /** Tier of a retrieved source. Content without an external URL is AI Bajan's own (listings, FAQs, team documents). */
 export function trustTier(sourceType: string, metadata: Record<string, unknown>): TrustTier {
-  if (sourceType === 'faq') return 'verified';
+  // A verified answer overrides other sources only while it is within its review date.
+  if (sourceType === 'faq') return typeof metadata.reviewDue === 'string' && metadata.reviewDue < new Date().toISOString().slice(0, 10) ? 'local' : 'verified';
   const host = hostOf(metadata.sourceUrl);
   if (!host) return 'local';
   for (const [re, tier] of HOST_TIERS) if (re.test(host)) return tier;

@@ -287,6 +287,29 @@
       ]
     },
     {
+      "name": "Ministry of the Public Service",
+      "start": "https://mps.gov.bb/",
+      "topic": "jobs",
+      "maxPages": 40,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Light & Power",
+      "start": "https://www.blpc.com.bb/",
+      "topic": "utilities",
+      "maxPages": 40,
+      "sitemap": true,
+      "priority": [
+        "outage|contact|customer|bill|pay|report|service|connect"
+      ]
+    },
+    {
+      "name": "Department of Emergency Management",
+      "start": "https://dem.gov.bb/",
+      "topic": "emergency",
+      "maxPages": 30
+    },
+    {
       "name": "AskDealia (Government price comparison)",
       "start": "https://askdealia.gov.bb/",
       "topic": "shopping",

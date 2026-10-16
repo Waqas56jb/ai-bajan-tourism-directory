@@ -9,7 +9,7 @@ import { body, csv, paged, paginationQuery, params, query, uuidParam, validate, 
 import { hasPermission } from '../auth/permissions.js';
 import { afterSourceWrite, isFaqEligible } from '../sync/syncQueue.js';
 import { badRequest, forbidden, notFound } from '../utils/errors.js';
-import { cleanText, sha256 } from '../utils/text.js';
+import { cleanText, isSafeHttpUrl, sha256 } from '../utils/text.js';
 
 const FAQ_STATUSES = ['draft', 'published', 'archived'] as const;
 const APPROVAL = ['pending', 'approved', 'rejected'] as const;
@@ -26,6 +26,13 @@ const faqFields = {
   approvalStatus: z.enum(APPROVAL).optional(),
   includeInChatbot: z.boolean().optional(),
   order: z.number().int().min(0).max(100000).optional(),
+  /** The page that supports this answer (required to publish). */
+  sourceUrl: z.union([z.literal(''), z.string().trim().max(500).refine(isSafeHttpUrl, 'Must be a full http(s) URL')]).optional(),
+  sourceTitle: z.string().trim().max(200).optional(),
+  /** When the answer must be checked again (defaults to six months after approval). */
+  reviewDue: z.iso.date().optional(),
+  /** Why the answer was withdrawn (required when withdrawing a published answer). */
+  withdrawalReason: z.string().trim().max(500).optional(),
 };
 const COLUMNS = {
   question: 'question',
@@ -39,6 +46,10 @@ const COLUMNS = {
   includeInChatbot: 'include_in_chatbot',
   order: 'display_order',
   contentHash: 'content_hash',
+  sourceUrl: 'source_url',
+  sourceTitle: 'source_title',
+  reviewDue: 'review_due',
+  withdrawalReason: 'withdrawal_reason',
 };
 
 interface FaqRow {
@@ -55,6 +66,13 @@ interface FaqRow {
   display_order: number;
   content_hash: string;
   content_version: number;
+  source_url: string;
+  source_title: string;
+  approved_by: string | null;
+  approved_at: Date | null;
+  review_due: Date | string | null;
+  withdrawal_reason: string;
+  approved_by_name?: string | null;
   index_status: string | null;
   last_indexed_at: Date | null;
   created_at: Date;
@@ -73,6 +91,13 @@ export const toFaq = (r: FaqRow) => ({
   approvalStatus: r.approval_status,
   includeInChatbot: r.include_in_chatbot,
   order: r.display_order,
+  sourceUrl: r.source_url || null,
+  sourceTitle: r.source_title || null,
+  approvedBy: r.approved_by_name ?? null,
+  approvedAt: r.approved_at,
+  reviewDue: r.review_due ? localDay(r.review_due) : null,
+  reviewOverdue: Boolean(r.review_due && localDay(r.review_due) < new Date().toISOString().slice(0, 10)),
+  withdrawalReason: r.withdrawal_reason || null,
   indexingStatus: r.index_status ?? 'not_indexed',
   lastIndexedAt: r.last_indexed_at,
   version: r.content_version,
@@ -81,8 +106,40 @@ export const toFaq = (r: FaqRow) => ({
 });
 
 const select = (db: Database) => `
-  select f.*, s.status as index_status, s.last_indexed_at from ${db.t('faqs')} f
-  left join ${db.t('index_state')} s on s.source_type = 'faq' and s.source_id = f.id`;
+  select f.*, s.status as index_status, s.last_indexed_at, a.display_name as approved_by_name from ${db.t('faqs')} f
+  left join ${db.t('index_state')} s on s.source_type = 'faq' and s.source_id = f.id
+  left join ${db.t('admins')} a on a.id = f.approved_by`;
+
+/** A Postgres `date` (node-postgres parses it as local midnight) as YYYY-MM-DD. */
+const localDay = (v: Date | string) =>
+  v instanceof Date ? `${v.getFullYear()}-${String(v.getMonth() + 1).padStart(2, '0')}-${String(v.getDate()).padStart(2, '0')}` : String(v).slice(0, 10);
+const inDays = (n: number) => new Date(Date.now() + n * 86400_000).toISOString().slice(0, 10);
+
+/**
+ * Knowledge-library rules: a published answer needs a supporting source; approving records who
+ * approved it and when, and sets the next review (six months unless given); withdrawing a
+ * published answer needs a reason.
+ */
+function libraryRules(
+  req: Request,
+  b: { status?: string; approvalStatus?: string; sourceUrl?: string; reviewDue?: string; withdrawalReason?: string },
+  current?: { status: string; approval_status: string; source_url: string },
+) {
+  const status = b.status ?? current?.status;
+  const sourceUrl = b.sourceUrl ?? current?.source_url ?? '';
+  if (status === 'published' && !sourceUrl) throw badRequest('A published answer needs a supporting source (the page it is based on).', { field: 'sourceUrl' });
+  if (b.status === 'archived' && current?.status === 'published' && !b.withdrawalReason) {
+    throw badRequest('Give a reason for withdrawing this answer.', { field: 'withdrawalReason' });
+  }
+  const approving = b.approvalStatus === 'approved' && (current?.approval_status !== 'approved' || b.status === 'published' || b.sourceUrl !== undefined);
+  const extra: Record<string, unknown> = {};
+  if (approving) {
+    extra.approved_by = req.admin?.id ?? null;
+    extra.approved_at = new Date().toISOString();
+    if (!b.reviewDue) b.reviewDue = inDays(180);
+  }
+  return extra;
+}
 
 /** Publishing or approving needs knowledge:publish; publishing implies approval unless stated. */
 function checkPublishRights(req: Request, b: { status?: string; approvalStatus?: string }) {
@@ -143,10 +200,12 @@ export function faqRoutes(ctx: AppContext) {
   r.post('/', requirePermission('knowledge:write'), validate({ body: z.strictObject(faqFields) }), async (req, res) => {
     const b = body<Record<string, unknown> & { question: string; answer: string; status?: string; approvalStatus?: string }>(req);
     checkPublishRights(req, b);
+    const approval = libraryRules(req, b);
     const row = await db.tx(async (client) => {
       const values = { ...b, contentHash: sha256(`${cleanText(b.question)}\n${cleanText(b.answer)}`) };
       const { sets, params: p } = buildSet(values, COLUMNS);
       const cols = sets.map((s) => s.split(' = ')[0]);
+      for (const [k, v] of Object.entries(approval)) (cols.push(k), p.push(v));
       p.push(req.admin?.id ?? null, req.admin?.id ?? null);
       const id = (
         await client.query<{ id: string }>(
@@ -176,9 +235,11 @@ export function faqRoutes(ctx: AppContext) {
       const row = await db.tx(async (client) => {
         const current = (await client.query<FaqRow>(`select * from ${db.t('faqs')} where id = $1 for update`, [id])).rows[0];
         if (!current) throw notFound('FAQ');
+        const approval = libraryRules(req, b, current);
         const q = b.question ?? current.question;
         const a = b.answer ?? current.answer;
         const { sets, params: p } = buildSet({ ...b, contentHash: sha256(`${cleanText(q)}\n${cleanText(a)}`) }, COLUMNS);
+        for (const [k, v] of Object.entries(approval)) (p.push(v), sets.push(`${k} = $${p.length}`));
         p.push(req.admin?.id ?? null, id);
         await client.query(
           `update ${db.t('faqs')} set ${sets.join(', ')}, updated_by = $${p.length - 1}, content_version = content_version + 1 where id = $${p.length}`,

@@ -119,7 +119,13 @@ export async function loadFaqSource(q: Queryable, db: Database, id: string): Pro
     chunks: chunkFaq(f.question, f.answer),
     categoryIds: cats.ids,
     locationIds: await ancestorsOfLocation(q, db, f.location_id),
-    metadata: { question: f.question, relatedListingId: f.related_listing_id },
+    metadata: {
+      question: f.question,
+      relatedListingId: f.related_listing_id,
+      // The page this verified answer is based on, cited with it, and when it is due for review.
+      sourceUrl: /^https?:\/\//i.test(f.source_url ?? '') ? f.source_url : null,
+      reviewDue: dateOnly(f.review_due),
+    },
   };
 }
 

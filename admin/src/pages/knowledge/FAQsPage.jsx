@@ -38,11 +38,16 @@ const schema = z
     status: z.enum(['draft', 'review', 'published', 'archived']),
     includeInChatbot: z.boolean(),
     order: z.coerce.number().int().min(1).max(999),
+    sourceUrl: z.string().trim().max(500).refine((u) => !u || /^https?:\/\/\S+\.\S+/i.test(u), 'Enter the full web address, starting with https://'),
+    sourceTitle: z.string().trim().max(200),
+    reviewDue: z.string(),
   })
   .superRefine((v, ctx) => {
     if (!v.question) ctx.addIssue({ path: ['question'], code: 'custom', message: 'A question is required.' });
     if (v.status === 'published' && !v.answer)
       ctx.addIssue({ path: ['answer'], code: 'custom', message: 'Published FAQs need an answer.' });
+    if (v.status === 'published' && !v.sourceUrl)
+      ctx.addIssue({ path: ['sourceUrl'], code: 'custom', message: 'Published answers need a supporting source: the page this answer is based on.' });
   });
 
 function FaqEditor({ faq, open, onOpenChange, nextOrder }) {
@@ -71,6 +76,9 @@ function FaqEditor({ faq, open, onOpenChange, nextOrder }) {
         status: faq?.status ?? 'draft',
         includeInChatbot: faq?.includeInChatbot ?? true,
         order: faq?.order ?? nextOrder,
+        sourceUrl: faq?.sourceUrl ?? '',
+        sourceTitle: faq?.sourceTitle ?? '',
+        reviewDue: faq?.reviewDue ?? '',
       });
   }, [open, faq, nextOrder, reset]);
 
@@ -165,6 +173,26 @@ function FaqEditor({ faq, open, onOpenChange, nextOrder }) {
               {...register('status')}
             />
           </div>
+          <div className="space-y-3 rounded-xl bg-subtle p-4">
+            <p className="text-sm font-semibold text-ink">Verification</p>
+            <TextField
+              label="Supporting source (web address)"
+              placeholder="https://www.gov.bb/…"
+              helper="The page this answer is based on. Required to publish; it is cited with the answer."
+              error={errors.sourceUrl?.message}
+              {...register('sourceUrl')}
+            />
+            <div className="grid gap-3 sm:grid-cols-2">
+              <TextField label="Source name" placeholder="e.g. Barbados Water Authority – Contact us" {...register('sourceTitle')} />
+              <TextField label="Review by" type="date" helper="Defaults to six months after approval." {...register('reviewDue')} />
+            </div>
+            {editing && faq?.approvedAt && (
+              <p className="text-xs text-muted">
+                Approved {faq.approvedBy ? `by ${faq.approvedBy} ` : ''}on {formatDate(faq.approvedAt)}.
+                {faq.reviewOverdue ? ' Review is overdue: the answer no longer overrides other sources until it is re-approved.' : ''}
+              </p>
+            )}
+          </div>
           <Controller
             control={control}
             name="tags"
@@ -257,7 +285,7 @@ export default function FAQsPage() {
   );
   const t = useTableState(faqs, config);
 
-  const setStatus = useApiMutation(({ id, status }) => updateFaq(id, { status }), {
+  const setStatus = useApiMutation(({ id, status, withdrawalReason }) => updateFaq(id, { status, withdrawalReason }), {
     invalidate: [['faqs']],
     success: (f) => `“${f.question}” is now ${f.status}`,
     error: 'Couldn’t change status',
@@ -288,6 +316,20 @@ export default function FAQsPage() {
         label: 'Unpublish',
         icon: Undo2,
         onSelect: () => setStatus.mutate({ id: f.id, status: 'draft' }),
+      },
+      f.status === 'published' && {
+        label: 'Withdraw…',
+        icon: Undo2,
+        onSelect: async () => {
+          const { confirmed, value } = await confirm({
+            title: 'Withdraw this answer?',
+            message: 'AI Bajan stops using it straight away. The reason is kept with the entry.',
+            confirmLabel: 'Withdraw',
+            tone: 'danger',
+            input: { label: 'Reason for withdrawing', required: true },
+          });
+          if (confirmed) setStatus.mutate({ id: f.id, status: 'archived', withdrawalReason: value });
+        },
       },
       {
         label: 'Delete',
@@ -491,6 +533,19 @@ export default function FAQsPage() {
               key: 'status',
               header: 'Status',
               cell: (f) => <StatusBadge status={f.status} map={PUBLICATION_STATUSES} />,
+            },
+            {
+              key: 'review',
+              header: 'Review',
+              hideBelow: 'lg',
+              cell: (f) =>
+                f.reviewOverdue ? (
+                  <Badge tone="danger">Review overdue</Badge>
+                ) : f.reviewDue ? (
+                  <span className="whitespace-nowrap text-muted">by {formatDate(f.reviewDue)}</span>
+                ) : (
+                  <span className="text-muted">—</span>
+                ),
             },
             {
               key: 'updated',

@@ -86,6 +86,10 @@ const toServerFaq = (v) =>
     status: v.status === undefined ? undefined : v.status === 'review' ? 'draft' : v.status,
     includeInChatbot: typeof v.includeInChatbot === 'boolean' ? v.includeInChatbot : undefined,
     order: Number.isFinite(Number(v.order)) && v.order !== '' && v.order !== undefined ? Number(v.order) : undefined,
+    sourceUrl: typeof v.sourceUrl === 'string' ? v.sourceUrl.trim() : undefined,
+    sourceTitle: typeof v.sourceTitle === 'string' ? v.sourceTitle.trim() : undefined,
+    reviewDue: v.reviewDue ? String(v.reviewDue).slice(0, 10) : undefined,
+    withdrawalReason: v.withdrawalReason || undefined,
   });
 
 export async function getFaqs() {

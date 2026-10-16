@@ -258,11 +258,31 @@ describe('FAQs and documents', () => {
     const draft = await request(app).post('/api/v1/admin/faqs').set(bearer('content')).send({ question: 'Is tap water safe to drink?', answer: 'Yes, tap water in Barbados is generally safe.' });
     expect(draft.status).toBe(201);
     expect(draft.body.status).toBe('draft');
-    const pub = await request(app).patch(`/api/v1/admin/faqs/${draft.body.id}`).set(bearer('content')).send({ status: 'published' });
+    // A verified answer cannot be published without the page that supports it.
+    const noSource = await request(app).patch(`/api/v1/admin/faqs/${draft.body.id}`).set(bearer('content')).send({ status: 'published' });
+    expect(noSource.status).toBe(400);
+    const pub = await request(app)
+      .patch(`/api/v1/admin/faqs/${draft.body.id}`)
+      .set(bearer('content'))
+      .send({ status: 'published', sourceUrl: 'https://www.gov.bb/State-Bodies/water-authority', sourceTitle: 'Barbados Water Authority' });
     expect(pub.status).toBe(200);
     expect(pub.body.approvalStatus).toBe('approved');
+    // Approval is recorded, with a review date about six months out.
+    expect(pub.body.approvedAt).toBeTruthy();
+    expect(pub.body.reviewDue > new Date(Date.now() + 170 * 86400_000).toISOString().slice(0, 10)).toBe(true);
+    expect(pub.body.reviewOverdue).toBe(false);
     await drainQueue(ctx);
     expect(await activeChunks(draft.body.id)).toBe(1);
+    // Withdrawing a published answer needs a reason, and removes it from the assistant.
+    expect((await request(app).patch(`/api/v1/admin/faqs/${draft.body.id}`).set(bearer('super')).send({ status: 'archived' })).status).toBe(400);
+    const withdrawn = await request(app)
+      .patch(`/api/v1/admin/faqs/${draft.body.id}`)
+      .set(bearer('super'))
+      .send({ status: 'archived', withdrawalReason: 'Superseded by the Water Authority’s new contact page.' });
+    expect(withdrawn.status).toBe(200);
+    expect(withdrawn.body.withdrawalReason).toMatch(/Superseded/);
+    await drainQueue(ctx);
+    expect(await activeChunks(draft.body.id)).toBe(0);
   });
 
   it('rejects empty FAQ answers', async () => {
