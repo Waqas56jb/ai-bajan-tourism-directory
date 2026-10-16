@@ -52,7 +52,14 @@ const decode = (s: string) =>
 /** HTML → markdown-ish text: headings kept (so chunks follow sections), boilerplate removed. */
 export function htmlToText(html: string): { title: string; text: string } {
   const title = decode(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '').replace(/\s+/g, ' ').trim();
-  let body = html.match(/<main[\s\S]*?<\/main>/i)?.[0] ?? html.match(/<article[\s\S]*?<\/article>/i)?.[0] ?? html.match(/<body[\s\S]*?<\/body>/i)?.[0] ?? html;
+  // The page's main content: the <main>/<article> block with the most text. Many sites repeat
+  // <article> for sidebar cards, so the first one is not necessarily the page itself; when even
+  // the largest block holds little of the page's text, use the whole body.
+  const whole = html.match(/<body[\s\S]*?<\/body>/i)?.[0] ?? html;
+  const visible = (s: string) => s.replace(/<(script|style|noscript|svg)[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').length;
+  const blocks = [...html.matchAll(/<(main|article)\b[\s\S]*?<\/\1>/gi)].map((m) => ({ html: m[0], size: visible(m[0]) }));
+  const best = blocks.sort((a, b) => b.size - a.size)[0];
+  let body = best && best.size >= 0.25 * visible(whole) ? best.html : whole;
   body = body
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|noscript|svg|nav|footer|header|form|iframe|aside|button|select)[\s\S]*?<\/\1>/gi, ' ')

@@ -3,7 +3,7 @@
  *
  *   official      Government of Barbados and statutory bodies (gov.bb sites, Transport Board,
  *                 Central Bank, Meteorological Services)
- *   institutional Barbadian institutions (Visit Barbados, National Trust, Museum, NCF, UWI,
+ *   institutional Barbadian institutions (Visit Barbados, National Trust, Museum, NCF, UWI, SBA,
  *                 BHTA, Export Barbados)
  *   local         AI Bajan's own verified content: directory listings, FAQs, approved adverts,
  *                 documents written by the team, and local services such as Transit246
@@ -28,6 +28,7 @@ const HOST_TIERS: Array<[RegExp, TrustTier]> = [
   [/(^|\.)uwi\.edu$/, 'institutional'],
   [/(^|\.)bhta\.org$/, 'institutional'],
   [/(^|\.)(exportbarbados|bidc)\.org$/, 'institutional'],
+  [/(^|\.)sba\.bb$/, 'institutional'],
   [/(^|\.)transit246\.com$/, 'local'],
   [/(^|\.)barbados\.org$/, 'publication'],
   [/(^|\.)(barbadostoday\.bb|nationnews\.com)$/, 'publication'],

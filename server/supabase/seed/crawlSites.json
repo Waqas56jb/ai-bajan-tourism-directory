@@ -1,16 +1,77 @@
 {
   "description": "Barbados Trusted Information Network: websites AI Bajan learns from (client-approved). Pages come from each site's sitemap and links, within its own domain and robots.txt rules; every page is stored with its URL and its own update date, indexed for RAG, and re-checked for changes daily (npm run knowledge:crawl -- --refresh re-checks everything). Source priority is set in server/src/rag/sourceTrust.ts.",
   "sites": [
-    { "name": "Government of Barbados – Alpha services", "start": "https://alpha.gov.bb/services", "topic": "government", "maxPages": 250, "sitemap": true },
-    { "name": "GOV.BB", "start": "https://www.gov.bb/", "topic": "government", "maxPages": 150, "sitemap": true },
-    { "name": "Barbados Revenue Authority", "start": "https://bra.gov.bb/", "topic": "tax", "maxPages": 80, "sitemap": true },
-    { "name": "Corporate Affairs and Intellectual Property Office (CAIPO)", "start": "https://caipo.gov.bb/", "topic": "business", "maxPages": 80, "sitemap": true },
-    { "name": "Barbados Licensing Authority", "start": "https://bla.gov.bb/", "topic": "transport", "maxPages": 60, "sitemap": true },
-    { "name": "Ministry of Transport & Works", "start": "https://mtw.gov.bb/", "topic": "transport", "maxPages": 80, "sitemap": true },
-    { "name": "Ministry of Labour", "start": "https://labour.gov.bb/", "topic": "jobs", "maxPages": 60, "sitemap": true },
-    { "name": "Barbados Transport Board", "start": "https://www.transportboard.com/", "topic": "transport", "maxPages": 80, "sitemap": true },
-    { "name": "Transport Authority", "start": "https://ta.gov.bb/", "topic": "transport", "maxPages": 40 },
-    { "name": "Transit246 (bus schedules)", "start": "https://transit246.com/", "topic": "transport", "maxPages": 40 },
+    {
+      "name": "Government of Barbados – Alpha services",
+      "start": "https://alpha.gov.bb/services",
+      "topic": "government",
+      "maxPages": 250,
+      "sitemap": true
+    },
+    {
+      "name": "GOV.BB",
+      "start": "https://www.gov.bb/",
+      "topic": "government",
+      "maxPages": 150,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Revenue Authority",
+      "start": "https://bra.gov.bb/",
+      "topic": "tax",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Corporate Affairs and Intellectual Property Office (CAIPO)",
+      "start": "https://caipo.gov.bb/",
+      "topic": "business",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Licensing Authority",
+      "start": "https://bla.gov.bb/",
+      "topic": "transport",
+      "maxPages": 60,
+      "sitemap": true
+    },
+    {
+      "name": "Ministry of Transport & Works",
+      "start": "https://mtw.gov.bb/",
+      "topic": "transport",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Ministry of Labour",
+      "start": "https://labour.gov.bb/",
+      "topic": "jobs",
+      "maxPages": 60,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Transport Board",
+      "start": "https://www.transportboard.com/",
+      "topic": "transport",
+      "maxPages": 80,
+      "sitemap": true,
+      "seeds": [
+        "https://www.transportboard.com/route-finder/"
+      ]
+    },
+    {
+      "name": "Transport Authority",
+      "start": "https://ta.gov.bb/",
+      "topic": "transport",
+      "maxPages": 40
+    },
+    {
+      "name": "Transit246 (bus schedules)",
+      "start": "https://transit246.com/",
+      "topic": "transport",
+      "maxPages": 40
+    },
     {
       "name": "Visit Barbados",
       "start": "https://www.visitbarbados.org/",
@@ -33,30 +94,253 @@
         "things-to-do|discover|plan-your-trip|your-stay|beach|parish|getting-around|weather|wildlife|nature|cave"
       ]
     },
-    { "name": "Barbados National Trust", "start": "https://barbadosnationaltrust.com/", "topic": "heritage", "maxPages": 80, "sitemap": true },
-    { "name": "Barbados Museum & Historical Society", "start": "https://barbmuse.org.bb/", "topic": "heritage", "maxPages": 60, "sitemap": true },
-    { "name": "National Cultural Foundation", "start": "https://ncf.bb/", "topic": "culture", "maxPages": 80, "sitemap": true },
+    {
+      "name": "Barbados National Trust",
+      "start": "https://barbadosnationaltrust.com/",
+      "topic": "heritage",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Museum & Historical Society",
+      "start": "https://barbmuse.org.bb/",
+      "topic": "heritage",
+      "maxPages": 60,
+      "sitemap": true
+    },
+    {
+      "name": "National Cultural Foundation",
+      "start": "https://ncf.bb/",
+      "topic": "culture",
+      "maxPages": 80,
+      "sitemap": true,
+      "exclude": [
+        "^/20(0|1)[0-9]/",
+        "^/20(20|21|22)/"
+      ],
+      "priority": [
+        "crop-over|nifca|festival|culture|art|heritage|about|programme|grant|business|music|dance|calendar"
+      ]
+    },
     {
       "name": "Barbados.org",
       "start": "https://barbados.org/",
       "topic": "tourism",
       "maxPages": 120,
-      "exclude": ["^/reports/", "^/blog/wp-", "^/do\\.htm", "^/apt/finest\\.htm"]
+      "exclude": [
+        "^/reports/",
+        "^/blog/wp-",
+        "^/do\\.htm",
+        "^/apt/finest\\.htm"
+      ],
+      "seeds": [
+        "https://barbados.org/orestname.htm"
+      ]
     },
-    { "name": "Barbados Statistical Service", "start": "https://stats.gov.bb/", "topic": "statistics", "maxPages": 80, "sitemap": true },
-    { "name": "Central Bank of Barbados", "start": "https://www.centralbank.org.bb/", "topic": "economy", "maxPages": 80, "sitemap": true },
-    { "name": "Export Barbados (BIDC)", "start": "https://exportbarbados.org/", "topic": "business", "maxPages": 60, "sitemap": true },
-    { "name": "Barbados Hotel & Tourism Association", "start": "https://bhta.org/", "topic": "tourism", "maxPages": 80, "sitemap": true, "exclude": ["^/directory/"] },
+    {
+      "name": "Barbados Statistical Service",
+      "start": "https://stats.gov.bb/",
+      "topic": "statistics",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Central Bank of Barbados",
+      "start": "https://www.centralbank.org.bb/",
+      "topic": "economy",
+      "maxPages": 80,
+      "sitemap": true
+    },
+    {
+      "name": "Export Barbados (BIDC)",
+      "start": "https://exportbarbados.org/",
+      "topic": "business",
+      "maxPages": 60,
+      "sitemap": true
+    },
+    {
+      "name": "Barbados Hotel & Tourism Association",
+      "start": "https://bhta.org/",
+      "topic": "tourism",
+      "maxPages": 80,
+      "sitemap": true,
+      "exclude": [
+        "^/directory/"
+      ]
+    },
     {
       "name": "UWI Cave Hill",
       "start": "https://www.cavehill.uwi.edu/",
       "topic": "education",
       "maxPages": 120,
       "sitemap": true,
-      "priority": ["admission|apply|programme|program|course|fee|scholarship|bursar|financial|student|faculty|undergraduate|postgraduate"]
+      "priority": [
+        "admission|apply|programme|program|course|fee|scholarship|bursar|financial|student|faculty|undergraduate|postgraduate"
+      ]
     },
-    { "name": "Barbados Meteorological Services", "start": "https://barbadosweather.org/", "topic": "weather", "maxPages": 40, "sitemap": true },
-    { "name": "Barbados Today", "start": "https://barbadostoday.bb/", "topic": "news", "maxPages": 0, "disabled": "waiting for the publisher's permission; the site also blocks automated access" },
-    { "name": "Nation News", "start": "https://nationnews.com/", "topic": "news", "maxPages": 0, "disabled": "waiting for the publisher's permission; the site also blocks automated access" }
+    {
+      "name": "Barbados Meteorological Services",
+      "start": "https://barbadosweather.org/",
+      "topic": "weather",
+      "maxPages": 40,
+      "sitemap": true
+    },
+    {
+      "name": "Ministry of Health and Wellness",
+      "start": "https://health.gov.bb/",
+      "topic": "health",
+      "maxPages": 80,
+      "sitemap": true,
+      "seeds": [
+        "https://health.gov.bb/Councils/Medical-Council/Medical-Register?name=&type=&view=Table"
+      ]
+    },
+    {
+      "name": "Small Business Association directory",
+      "start": "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/a",
+      "topic": "business",
+      "maxPages": 40,
+      "include": [
+        "/membership/directory"
+      ],
+      "seeds": [
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/a",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/b",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/c",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/d",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/e",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/f",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/g",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/h",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/i",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/j",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/k",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/l",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/m",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/n",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/o",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/p",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/q",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/r",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/s",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/t",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/u",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/v",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/w",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/x",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/y",
+        "https://sba.bb/sba3/index.php/membership/directory/list-alpha999/z"
+      ]
+    },
+    {
+      "name": "Totally Barbados – Bajan recipes",
+      "start": "https://www.totallybarbados.com/articles/barbados-recipes/",
+      "topic": "food",
+      "maxPages": 60,
+      "include": [
+        "^/articles/barbados-recipes"
+      ]
+    },
+    {
+      "name": "Ins & Outs of Barbados – events",
+      "start": "https://www.insandoutsbarbados.com/events",
+      "topic": "events",
+      "maxPages": 40,
+      "include": [
+        "^/events"
+      ]
+    },
+    {
+      "name": "Home Improvement Barbados",
+      "start": "https://www.homeimprovementbb.com/",
+      "topic": "home",
+      "maxPages": 60
+    },
+    {
+      "name": "Carters (hardware & building supplies)",
+      "start": "https://cartersonline.bb/",
+      "topic": "shopping",
+      "maxPages": 40
+    },
+    {
+      "name": "A-One Supermarkets",
+      "start": "https://aonesupermarkets.com/",
+      "topic": "shopping",
+      "maxPages": 30
+    },
+    {
+      "name": "Cost-U-Less Barbados",
+      "start": "https://www.costuless.com/barbados/about-us",
+      "topic": "shopping",
+      "maxPages": 20,
+      "include": [
+        "^/barbados"
+      ]
+    },
+    {
+      "name": "Emergency numbers (allemergencynum.com)",
+      "start": "https://allemergencynum.com/barbados/",
+      "topic": "emergency",
+      "maxPages": 3,
+      "include": [
+        "^/barbados"
+      ]
+    },
+    {
+      "name": "AskDealia (Government price comparison)",
+      "start": "https://askdealia.gov.bb/",
+      "topic": "shopping",
+      "maxPages": 0,
+      "disabled": "its terms forbid automated access and reuse without written permission; AI Bajan links to it for price questions instead"
+    },
+    {
+      "name": "Numbeo food prices",
+      "start": "https://www.numbeo.com/food-prices/country_result.jsp?country=Barbados",
+      "topic": "prices",
+      "maxPages": 0,
+      "disabled": "commercial use of Numbeo data requires a paid licence from Numbeo"
+    },
+    {
+      "name": "PriceSmart Barbados",
+      "start": "https://www.pricesmart.com/en-bb",
+      "topic": "shopping",
+      "maxPages": 0,
+      "disabled": "its robots.txt opts out of AI crawlers"
+    },
+    {
+      "name": "Massy Stores",
+      "start": "https://www.shopmassystoresbb.com/",
+      "topic": "shopping",
+      "maxPages": 0,
+      "disabled": "the site blocks automated access (HTTP 403)"
+    },
+    {
+      "name": "Kooyman",
+      "start": "https://www.kooymanbv.com/barbados_en/",
+      "topic": "home",
+      "maxPages": 0,
+      "disabled": "the site blocks automated access (HTTP 405)"
+    },
+    {
+      "name": "FindYello Barbados",
+      "start": "https://www.findyello.com/barbados/",
+      "topic": "directory",
+      "maxPages": 0,
+      "disabled": "the site blocks automated access (HTTP 403)"
+    },
+    {
+      "name": "Barbados Today",
+      "start": "https://barbadostoday.bb/",
+      "topic": "news",
+      "maxPages": 0,
+      "disabled": "waiting for the publisher's permission; the site also blocks automated access"
+    },
+    {
+      "name": "Nation News",
+      "start": "https://nationnews.com/",
+      "topic": "news",
+      "maxPages": 0,
+      "disabled": "waiting for the publisher's permission; the site also blocks automated access"
+    }
   ]
 }

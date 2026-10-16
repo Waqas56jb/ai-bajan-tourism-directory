@@ -3,6 +3,7 @@ import { visitorKey } from '../auth/visitorToken.js';
 import { conflict, notFound } from '../utils/errors.js';
 import { logger, scrub } from '../utils/logger.js';
 import { assessEvidence, type EvidenceAssessment } from '../rag/evidence.js';
+import { PRICE_REFERRAL_TEXT, priceReferral } from '../rag/priceReferral.js';
 import { generateAnswer, noEvidenceAnswer, templateAnswer, TEMPLATES, type GeneratedAnswer } from '../rag/generator.js';
 import { nextMemoryState, resolveWithMemory, summarizeMemory, type MemoryState } from '../rag/memory.js';
 import { analyzeQuery, type QueryAnalysis } from '../rag/queryAnalysis.js';
@@ -180,6 +181,15 @@ export async function handleChat(ctx: AppContext, req: ChatRequest, visitorId: s
         const g0 = performance.now();
         answer = await generateAnswer(ctx, { analysis, evidence, history, memorySummary: summarizeMemory(memoryState), language: req.language, audience: req.audience });
         timings.generation = Math.round(performance.now() - g0);
+      }
+      // Supermarket price questions: point to AskDealia, the government's price-comparison service.
+      const referral = priceReferral(analysis);
+      if (referral && answer.status !== 'clarification' && answer.status !== 'technical_failure') {
+        answer = {
+          ...answer,
+          text: answer.text.includes('AskDealia') ? answer.text : `${answer.text}\n\n${PRICE_REFERRAL_TEXT}`,
+          sources: [...answer.sources.filter((s) => s.id !== referral.id), referral],
+        };
       }
       if (analysis.intent === 'live_info' && analysis.liveKind) {
         const lead = TEMPLATES.live[analysis.liveKind];
