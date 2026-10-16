@@ -2413,7 +2413,10 @@
     "include": [
      [
       "caipo",
-      "corporate affairs and intellectual property"
+      "corporate affairs and intellectual property",
+      "form 1",
+      "registration of business names",
+      "business barbados"
      ],
      [
       "104"
@@ -2517,7 +2520,9 @@
      [
       "environmental health",
       "inspect",
-      "polyclinic"
+      "polyclinic",
+      "food business licence",
+      "food business license"
      ]
     ],
     "exclude": []
