@@ -6,6 +6,7 @@ import { LogoMark } from '@/components/layout/Logo';
 import { ImageWithFallback } from '@/components/common/ImageUploadPreview';
 import { imgLarge } from '@/data/helpers';
 import { PageLoading } from '@/components/common/States';
+import { IS_DEMO } from '@/config/environment';
 
 /** Split-screen layout for sign-in screens. Signed-in admins are sent to the dashboard. */
 export function AuthLayout() {
@@ -35,7 +36,9 @@ export function AuthLayout() {
         </main>
         <p className="flex items-start gap-2 text-xs text-muted">
           <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          Demo sign-in only. Real authentication and authorization will be provided by the backend.
+          {IS_DEMO
+            ? 'Demo sign-in only. Real authentication and authorization will be provided by the backend.'
+            : 'Secure sign-in for authorised AI Bajan administrators. Every request is checked against your administrator role.'}
         </p>
       </div>
       <div className="relative hidden overflow-hidden lg:block">

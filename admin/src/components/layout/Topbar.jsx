@@ -16,7 +16,7 @@ function HelpDialog({ open, onOpenChange }) {
       open={open}
       onOpenChange={onOpenChange}
       title="Help & shortcuts"
-      description="Quick reference for this demo dashboard."
+      description="Quick reference for the AI Bajan admin dashboard."
     >
       <div className="space-y-5 text-sm">
         <section>

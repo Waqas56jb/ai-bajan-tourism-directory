@@ -92,6 +92,7 @@ export function buildMessages(args: {
         s.news && ` kind="news item"`,
         s.authority && ` authority="${escapeXml(s.authority)}"`,
         s.updated && ` ${s.news ? 'published' : 'updated'}="${s.updated}"`,
+        s.updated && !s.news && s.updated < new Date(Date.now() - 3 * 365 * 86400_000).toISOString().slice(0, 10) && ` note="not updated for over three years; may be out of date"`,
         s.url && ` url="${escapeXml(s.url)}"`,
       ]
         .filter(Boolean)

@@ -34,7 +34,7 @@ export default function LoginPage() {
     setFormError('');
     try {
       await login(values);
-      toast.success('Signed in to the demo dashboard');
+      toast.success(IS_DEMO ? 'Signed in to the demo dashboard' : 'Signed in');
       navigate(location.state?.from ?? '/', { replace: true });
     } catch (err) {
       setFormError(err.message);

@@ -285,6 +285,7 @@ export function fuse(
   }
 
   const authoritative = needsAuthoritativeSource(a.original);
+  const staleBefore = new Date(Date.now() - 3 * 365 * 86400_000).toISOString().slice(0, 10);
   const wantsNews = /\b(news|latest|announce\w*|update[sd]?|recent(ly)?|this (week|weekend|month)|today|happening|events?)\b/i.test(a.original);
   // Distinctive words of the question (not "how", "Barbados", …) used to recognise a page by its title.
   const titleTerms = [...new Set(a.keyTerms.filter((t) => t.length > 3 && !/^(barbados|bajan|where|what|which|when|does|have|find|from|with|about|there|their)$/i.test(t)))];
@@ -310,6 +311,9 @@ export function fuse(
     cand.score *= trustWeight(cand.tier, authoritative);
     // News items describe the situation on their date: rank them lower unless the user asks for news.
     if (cand.metadata.pageKind === 'news' && !wantsNews) cand.score *= 0.55;
+    // For schedules, fees and procedures, a page not updated for over three years (e.g. an old
+    // route diversion notice) is likely out of date: rank it lower.
+    else if (authoritative && typeof cand.metadata.sourceUpdatedAt === 'string' && cand.metadata.sourceUpdatedAt < staleBefore) cand.score *= 0.6;
     // A page whose own title names what was asked (e.g. "Barbados Water Authority") is usually the page to use.
     const titleWords = cand.title.toLowerCase();
     const titleHits = titleTerms.filter((t) => textHasTerm(titleWords, t)).length;
