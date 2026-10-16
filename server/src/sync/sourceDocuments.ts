@@ -151,6 +151,8 @@ export async function loadDocumentSource(q: Queryable, db: Database, id: string)
       sourceUrl: /^https?:\/\//i.test(d.source_reference ?? '') ? d.source_reference : null,
       // The page's own "last updated" date, kept so answers can say how current a source is.
       sourceUpdatedAt: dateOnly(d.source_updated_at),
+      // News items and announcements describe the situation on their date, not now.
+      pageKind: (d.tags ?? []).includes('news') ? 'news' : 'page',
     },
   };
 }

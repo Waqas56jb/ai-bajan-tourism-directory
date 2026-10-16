@@ -1,0 +1,2552 @@
+{
+ "about": "Accuracy regression suite (npm run eval:regression). Checks were written from answers graded correct in the 100-question accuracy review (Oct 2026) and from facts verified on official Barbadian sources. include = groups of accepted phrasings (one per group must appear); exclude = phrases that signal a known error. protected = the question was answered correctly before, so a failure is a regression. Update a check when the underlying fact changes (e.g. a new Minimum Wage Order).",
+ "cases": [
+  {
+   "n": 1,
+   "question": "What jobs are available in Barbados right now?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "job register",
+      "labour.gov.bb",
+      "national employment bureau",
+      "employment bureau"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Vacancies change daily; a good answer points to the Barbados Job Register on labour.gov.bb (Ministry of Labour / National Employment Bureau). Behaviour check only.",
+   "source": "https://labour.gov.bb/the-barbados-job-register-is-live"
+  },
+  {
+   "n": 2,
+   "question": "What is the latest news in Barbados today?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "gov.bb/news",
+      "gis.gov.bb",
+      "government information service",
+      "nationnews",
+      "nation news",
+      "barbados today",
+      "cbc",
+      "visitbarbados.org",
+      "visit barbados"
+     ]
+    ],
+    "exclude": [
+     "trident id"
+    ]
+   },
+   "basis": "No live news; answer should say so and point to news sources (GOV.BB News/GIS, local media). Stale headlines like the Trident ID item must not be presented as latest.",
+   "source": "https://www.gov.bb/News"
+  },
+  {
+   "n": 3,
+   "question": "Is there a storm or hurricane warning for Barbados?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "emergency management",
+      "met office",
+      "meteorological"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Warnings are live; answer should direct to the Department of Emergency Management and Barbados Meteorological Services (Met Office). Hurricane season is 1 June to 30 November.",
+   "source": "https://alpha.gov.bb/health-and-emergency-services/stormready"
+  },
+  {
+   "n": 4,
+   "question": "Where can I find a tyre repair shop near me?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "tyre",
+      "tire"
+     ]
+    ],
+    "exclude": [
+     "couldn't find any listing",
+     "could not find any listing",
+     "find any listing that mentions"
+    ]
+   },
+   "basis": "Directory-dependent; a useful answer names tyre/tire repair shops or services rather than only asking a clarifying question. Weak behaviour check only.",
+   "source": "graded answer (both not_answered)"
+  },
+  {
+   "n": 5,
+   "question": "Which bus or route taxi should I take to Bridgetown?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "transport board",
+      "minibus",
+      "mini bus",
+      "zr",
+      "route taxi"
+     ],
+     [
+      "3.50"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Transport Board buses, yellow minibuses and white ZR route taxis (maroon stripe) all serve Bridgetown; standard fare BBD$3.50; check the destination sign.",
+   "source": "https://www.visitbarbados.org/your-stay/get-around-the-island/public-transportation"
+  },
+  {
+   "n": 6,
+   "question": "How do I renew my Barbados passport?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "immigration"
+     ],
+     [
+      "immigration.gov.bb",
+      "appointment"
+     ]
+    ],
+    "exclude": [
+     "monday, december 12"
+    ]
+   },
+   "basis": "Passports are handled by the Barbados Immigration Department (or missions abroad); appointments are booked online at immigration.gov.bb; applicants over 16 complete Form A. The 2022 'new passports from today, Monday, December 12' news must not be presented as current.",
+   "source": "https://www.gov.bb/Citizens/apply-passport ; https://www.immigration.gov.bb/"
+  },
+  {
+   "n": 7,
+   "question": "Why is my electricity or water off, and when will it return?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "light & power",
+      "light and power",
+      "bl&p",
+      "blpc"
+     ],
+     [
+      "water authority",
+      "bwa"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Outages are live; answer should direct electricity issues to Barbados Light & Power (BL&P) and water issues to the Barbados Water Authority (BWA).",
+   "source": "https://alpha.gov.bb/health-and-emergency-services/water-outages"
+  },
+  {
+   "n": 8,
+   "question": "What events are happening in Barbados this weekend?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "visitbarbados",
+      "visit barbados",
+      "events calendar",
+      "event calendar",
+      "events and festivals",
+      "what's on",
+      "whats on"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Events change weekly; answer should point to a real events listing such as Visit Barbados events and festivals.",
+   "source": "https://www.visitbarbados.org/things-to-do/events-and-festivals"
+  },
+  {
+   "n": 9,
+   "question": "Where can I find the best price for building materials?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "carter",
+      "home improvement",
+      "homeimprovement",
+      "hardware"
+     ]
+    ],
+    "exclude": [
+     "s. a. m. construction",
+     "b. d. m. building",
+     "k. m. m. hardware"
+    ]
+   },
+   "basis": "Prices change; answer should name real suppliers (e.g. Carter & Co, Home Improvement & Hardware Supplies) and advise checking current prices. Invented businesses (S.A.M., B.D.M., K.M.M.) are errors.",
+   "source": "https://cartersonline.bb/departments ; https://www.homeimprovementbb.com"
+  },
+  {
+   "n": 10,
+   "question": "Where can I rent an affordable apartment in Christ Church?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "christ church"
+     ],
+     [
+      "adulo",
+      "real estate",
+      "rental listing",
+      "listings",
+      "long-term",
+      "long term"
+     ]
+    ],
+    "exclude": [
+     "best e villas"
+    ]
+   },
+   "basis": "Adulo Apartments (Rockley Hill, Christ Church) is a valid budget option; long-term rentals via real-estate listings. Best E Villas Prospect is in St. James, not Christ Church.",
+   "source": "https://www.visitbarbados.org/adulo-apartments"
+  },
+  {
+   "n": 11,
+   "question": "Which doctors, clinics or pharmacies are open now?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "pharmacy",
+      "pharmacies",
+      "clinic"
+     ],
+     [
+      "cannot",
+      "can't",
+      "not able",
+      "unable",
+      "call ahead",
+      "call before",
+      "check directly",
+      "confirm",
+      "opening hours"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Live open status is unknowable; answer should list pharmacies/clinics with listed hours (alpha.gov.bb find-an-open-pharmacy) and advise confirming. Behaviour check only.",
+   "source": "https://alpha.gov.bb/health-and-emergency-services/find-an-open-pharmacy"
+  },
+  {
+   "n": 12,
+   "question": "How do I apply for an NIS benefit or pension?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "national insurance",
+      "nis"
+     ],
+     [
+      "nis.gov.bb",
+      "frank walcott",
+      "culloden",
+      "431-7400",
+      "467-4647",
+      "portal",
+      "claim form",
+      "application form",
+      "online form"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Benefits (sickness, maternity, old-age contributory/non-contributory pension, etc.) are claimed from the National Insurance and Social Security Service using its claim forms (nis.gov.bb online forms/NIS Portal) or at the Frank Walcott Building, Culloden Road, St. Michael; tel (246) 431-7400 / 467-4647.",
+   "source": "https://www.nis.gov.bb/"
+  },
+  {
+   "n": 13,
+   "question": "What scholarships or training programmes are available?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "scholarship"
+     ],
+     [
+      "job start plus",
+      "jobstart",
+      "national development scholarship",
+      "barbados scholarship",
+      "exhibition",
+      "youthadvance",
+      "byac",
+      "chevening",
+      "people development"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Includes government scholarships (National Development Scholarship, Barbados Scholarships/Exhibitions), Chevening etc., and training such as Job Start Plus (ages 16-24) and Barbados YouthADVANCE Corps.",
+   "source": "graded answer (earlier); https://labour.gov.bb/policies-programmes/people-development-programme/job-start-plus/"
+  },
+  {
+   "n": 14,
+   "question": "How do I register a business in Barbados?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "caipo",
+      "corporate affairs",
+      "business barbados"
+     ],
+     [
+      "104",
+      "form 1",
+      "business name"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Register with CAIPO (Business Barbados): Form 1 for a business name, fee BDS$104, online or by appointment; register within 14 days of starting if not trading under own surname.",
+   "source": "https://caipo.gov.bb/corporate-affairs/business-name-registration"
+  },
+  {
+   "n": 15,
+   "question": "What are my rights as an employee, tenant or consumer?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "labour",
+      "employment rights"
+     ],
+     [
+      "consumer affairs",
+      "consumer protection",
+      "fair trading",
+      "commerce and consumer"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Should give substance or pointers: employee rights (Employment Rights Act, Labour Department/Ministry of Labour), consumer rights (Consumer Protection Act, Department of Commerce and Consumer Affairs, Fair Trading Commission). A bare clarifying question fails.",
+   "source": "https://labour.gov.bb ; https://www.ftc.gov.bb"
+  },
+  {
+   "n": 16,
+   "question": "Where can I pay a bill or a government fee online?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "ezpay",
+      "ez pay"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Government fees are paid online through EZPay+ (ezpay.gov.bb), by credit/Visa debit card or direct debit, 24/7.",
+   "source": "https://www.gov.bb/General/ezpay"
+  },
+  {
+   "n": 17,
+   "question": "Where can I get vehicle repairs, parts or an inspection?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "repair",
+      "mechanic",
+      "garage"
+     ],
+     [
+      "licensing authority",
+      "bla.gov.bb",
+      "(bla)"
+     ]
+    ],
+    "exclude": [
+     "car rentals"
+    ]
+   },
+   "basis": "Repairs/parts from auto repair shops and parts dealers (e.g. SBA directory listings); vehicle inspections are done by the Barbados Licensing Authority (BLA) or its approved private garages.",
+   "source": "https://bla.gov.bb/services ; https://mtw.gov.bb/barbados-licensing-authority-bla-decentralizes-vehicle-registrations-private-garages-soon-to-do-inspections"
+  },
+  {
+   "n": 18,
+   "question": "What are this week's supermarket specials?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "askdealia",
+      "ask dealia",
+      "price comparison",
+      "price-comparison"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Specials change weekly; answer should say it has no live specials and point to AskDealia (askdealia.gov.bb), the Government price-comparison service, or supermarkets directly.",
+   "source": "https://askdealia.gov.bb"
+  },
+  {
+   "n": 19,
+   "question": "Who can repair or maintain my home, like a plumber or electrician?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "plumb"
+     ],
+     [
+      "electric"
+     ],
+     [
+      "geed",
+      "government electrical engineering",
+      "licensed"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Names plumbers/electricians from directories; only licensed electricians may submit inspection/alteration applications to the Government Electrical Engineering Department (GEED).",
+   "source": "https://mtw.gov.bb/departments-services/geed/"
+  },
+  {
+   "n": 20,
+   "question": "How do I report a pothole or make a complaint?",
+   "group": "resident-top-20",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "transport and works",
+      "mtw"
+     ]
+    ],
+    "exclude": [
+     "chief electrical officer"
+    ]
+   },
+   "basis": "Report potholes to the Ministry of Transport and Works (tel 536-0059, issue-report form, @mtwbarbados); vehicle damage claims via its Legal Unit. GEED/Chief Electrical Officer is irrelevant to roads.",
+   "source": "graded answer (earlier); https://mtw.gov.bb/"
+  },
+  {
+   "n": 21,
+   "question": "How do I get a birth certificate in Barbados?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "registration department",
+      "registrar",
+      "supreme court"
+     ],
+     [
+      "$5",
+      "5 bbd",
+      "bbd 5",
+      "bds$5",
+      "bbd$5",
+      "five dollars"
+     ],
+     [
+      "ezpay",
+      "online"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Apply to the Registration Department (Supreme Court) online via EZPay+ or in person; $5 BBD per certified copy ($1 for 60+); ready in 5-7 business days.",
+   "source": "https://alpha.gov.bb/family-birth-relationships/get-birth-certificate"
+  },
+  {
+   "n": 22,
+   "question": "How do I apply for a Barbados driver's licence?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "licensing authority",
+      "bla.gov.bb",
+      "(bla)"
+     ],
+     [
+      "learner"
+     ],
+     [
+      "driving test",
+      "road test",
+      "practical test",
+      "driving exam",
+      "regulations test"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Through the Barbados Licensing Authority: apply with photos/proof of age and residence, pass the Regulations Test, get a Learner's Permit, pass the driving test, then pay for the licence ($50).",
+   "source": "https://www.gov.bb/Citizens/driver-licence"
+  },
+  {
+   "n": 23,
+   "question": "How do I register a vehicle in Barbados?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "licensing authority",
+      "bla.gov.bb",
+      "(bla)"
+     ],
+     [
+      "insurance"
+     ]
+    ],
+    "exclude": [
+     "marriage"
+    ]
+   },
+   "basis": "Register at the Barbados Licensing Authority with customs declaration (C63), insurance certificate, weight and examiner's certificates, form LA 33; inspection at BLA or approved garage.",
+   "source": "https://bla.gov.bb/servicedetails/VmVoaWNsZSBSZWdpc3RyYXRpb24%3d"
+  },
+  {
+   "n": 24,
+   "question": "How do I get a police certificate of character?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "fingerprint"
+     ],
+     [
+      "$20",
+      "20 bbd",
+      "bbd 20",
+      "bds$20",
+      "bbd$20",
+      "twenty dollars"
+     ],
+     [
+      "sugar cane mall",
+      "roebuck"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Forms from the Certificate of Character Office, Sugar Cane Mall, Roebuck Street, Bridgetown; submit police-taken fingerprints and passport copy; fee $20 BBD; valid six months.",
+   "source": "https://www.gov.bb/faq"
+  },
+  {
+   "n": 25,
+   "question": "How do I apply for a Barbados ID card?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "electoral and boundaries",
+      "ebc"
+     ],
+     [
+      "birth certificate",
+      "passport"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Apply to the Electoral and Boundaries Commission (Warrens Towers II, 535-4800) with original/certified birth certificate or Barbados passport (plus immigration status if not born in Barbados); citizens or residents permitted 6+ months.",
+   "source": "https://www.gov.bb/Citizens/national-registration"
+  },
+  {
+   "n": 26,
+   "question": "What government services can I use online on Alpha?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "alpha.gov.bb",
+      "alpha"
+     ],
+     [
+      "birth certificate",
+      "death certificate",
+      "marriage certificate",
+      "notaris",
+      "notariz",
+      "licence",
+      "license",
+      "financial assistance"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Alpha (alpha.gov.bb/services) offers online government services such as copies of birth/death/marriage certificates, notarisation, food business/restaurant/hairdresser licences, financial and disaster relief assistance. The exact list changes, so only a few stable examples are checked.",
+   "source": "https://alpha.gov.bb/services"
+  },
+  {
+   "n": 27,
+   "question": "How do I get a marriage licence in Barbados?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "home affairs"
+     ],
+     [
+      "birth certificate"
+     ],
+     [
+      "three months",
+      "3 months"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Both parties apply in person (by appointment) at the Ministry of Home Affairs and Information with original birth certificates and ID; the licence is valid for three months.",
+   "source": "https://www.gov.bb/Citizens/marriage-licence"
+  },
+  {
+   "n": 28,
+   "question": "How do I apply for a work permit in Barbados?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "immigration"
+     ],
+     [
+      "employer",
+      "on behalf of",
+      "company"
+     ]
+    ],
+    "exclude": [
+     "does not have specific information",
+     "no information"
+    ]
+   },
+   "basis": "Work permits are issued by the Barbados Immigration Department; the prospective employer normally applies on the worker's behalf (short-term permits up to 11 months, long-term up to 3 years), booking an appointment via immigration.gov.bb.",
+   "source": "https://immigration.gov.bb/pages/STWP.aspx"
+  },
+  {
+   "n": 29,
+   "question": "How do I register a death in Barbados?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "registration department",
+      "registrar"
+     ],
+     [
+      "medical certificate",
+      "certificate of death",
+      "cause of death",
+      "doctor",
+      "physician"
+     ]
+    ],
+    "exclude": [
+     "coleridge street",
+     "register the marriages"
+    ]
+   },
+   "basis": "A Notice of Death plus the doctor's Medical Certificate of (cause of) Death and the deceased's ID are lodged with the Registration Department (Supreme Court Complex, Whitepark Road, St. Michael) or district registrar, usually by the funeral director, within 5 days of death.",
+   "source": "https://www.barbadoslawcourts.gov.bb/useful-links/for-public/services/vital-statistics-registration/registration-of-deaths"
+  },
+  {
+   "n": 30,
+   "question": "Where is the Barbados Licensing Authority?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "pine"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The BLA headquarters is at The Pine, St. Michael (with a branch at Holetown, St. James); tel. 536-0270, bla.gov.bb.",
+   "source": "https://mtw.gov.bb/ufaq-category/licensing"
+  },
+  {
+   "n": 31,
+   "question": "How do I find a job through the National Employment Bureau?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "national employment bureau",
+      "neb"
+     ],
+     [
+      "register",
+      "registration",
+      "sign up",
+      "job register",
+      "labour.gov.bb"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Job seekers register with the National Employment Bureau (Ministry of Labour), which matches them to vacancies; vacancies change constantly so only the behaviour (register with the NEB / where to go) is checked.",
+   "source": "https://labour.gov.bb"
+  },
+  {
+   "n": 32,
+   "question": "What does the Ministry of Labour do?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "decent work",
+      "employment"
+     ],
+     [
+      "industrial relations",
+      "workers' rights",
+      "rights at work",
+      "labour legislation",
+      "occupational safety",
+      "child labour"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The Ministry of Labour promotes decent and productive work, employment and workforce development, harmonious industrial relations, labour legislation/rights at work, occupational safety and health, and elimination of child labour.",
+   "source": "graded answer (labour.gov.bb about-us)"
+  },
+  {
+   "n": 33,
+   "question": "How do I renew my driving permit?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "licensing authority",
+      "bla"
+     ],
+     [
+      "ezpay",
+      "online",
+      "revenue authority",
+      "bra"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Renewals are handled by the Barbados Licensing Authority; payment online via EZPay (one-year renewals) or at a Barbados Revenue Authority branch; drivers 75+ need a medical certificate.",
+   "source": "https://bla.gov.bb"
+  },
+  {
+   "n": 34,
+   "question": "How do I apply for a tax identification number?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "tamis"
+     ],
+     [
+      "revenue authority",
+      "bra"
+     ]
+    ],
+    "exclude": [
+     "does not have information"
+    ]
+   },
+   "basis": "A TIN is obtained by registering with the Barbados Revenue Authority through its TAMIS portal (tamis.bra.gov.bb).",
+   "source": "https://bra.gov.bb/Popular-Topics/Registration"
+  },
+  {
+   "n": 35,
+   "question": "Where can I get help as a small business owner?",
+   "group": "government-services",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "small business association",
+      "bsba",
+      "small business development",
+      "export barbados",
+      "fund access",
+      "fundaccess",
+      "enterprise growth fund",
+      "egfl",
+      "sbdc"
+     ]
+    ],
+    "exclude": [
+     "national entrepreneurship development company"
+    ]
+   },
+   "basis": "Support bodies include the Barbados Small Business Association, Export Barbados (formerly BIDC), Enterprise Growth Fund / FundAccess and the small-business ministry; programmes change, so only that a real support body is named is checked, and the invented 'NEDC' is excluded.",
+   "source": "well-established reference (reviewer notes)"
+  },
+  {
+   "n": 36,
+   "question": "How much is the bus fare in Barbados?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "3.50"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The Transport Board adult fare is BBD $3.50, exact fare, no change given.",
+   "source": "https://www.transportboard.com/about-us/fare-policy"
+  },
+  {
+   "n": 37,
+   "question": "Where is the Fairchild Street bus terminal?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "bridgetown"
+     ],
+     [
+      "fairchild street"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The Fairchild Street Bus Terminal is on Fairchild Street in Bridgetown, near the Chamberlain Bridge/Careenage, and mainly serves south and east routes. Only Bridgetown/Fairchild Street are checked because street-level detail is worded too variably.",
+   "source": "https://www.transportboard.com"
+  },
+  {
+   "n": 38,
+   "question": "How do I get from the airport to Bridgetown by bus?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "3.50"
+     ],
+     [
+      "fairchild",
+      "bridgetown"
+     ]
+    ],
+    "exclude": [
+     "route 27",
+     "speightstown terminal"
+    ]
+   },
+   "basis": "Transport Board buses run from the airport along the south coast into Bridgetown's Fairchild Street Terminal for BBD $3.50 exact fare. Route 27 goes north to Speightstown and is wrong advice.",
+   "source": "https://www.transportboard.com/about-us/fare-policy"
+  },
+  {
+   "n": 39,
+   "question": "What are Transport Board bus routes to Speightstown?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "princess alice"
+     ],
+     [
+      "route 1",
+      "route 1a",
+      "route 1b"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Route 1 (and variants) runs between Princess Alice Bus Terminal in Bridgetown and Speightstown Terminal along the west coast; Route 27 links Speightstown with the airport.",
+   "source": "https://transit246.com/routes"
+  },
+  {
+   "n": 40,
+   "question": "What are ZR vans?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "privately owned",
+      "private"
+     ],
+     [
+      "route taxi",
+      "route",
+      "maroon"
+     ]
+    ],
+    "exclude": [
+     "$2.00",
+     "bds$2 ",
+     "bds$2,",
+     "bds $2 "
+    ]
+   },
+   "basis": "ZRs are privately owned route taxis/minivans (white with a maroon stripe) on fixed routes; fare is the same as Transport Board buses (BBD $3.50), so a $2 fare is outdated.",
+   "source": "graded answer"
+  },
+  {
+   "n": 41,
+   "question": "Do Barbados buses run on Sundays?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "yes",
+      "do run",
+      "operate",
+      "run on sunday"
+     ],
+     [
+      "reduced",
+      "fewer",
+      "less frequent",
+      "vary",
+      "varies",
+      "check"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Yes, buses run on Sundays and public holidays but on reduced schedules that vary by route.",
+   "source": "graded answer"
+  },
+  {
+   "n": 42,
+   "question": "How do I get to Oistins by public transport?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "fairchild",
+      "south coast"
+     ],
+     [
+      "bus",
+      "zr",
+      "route taxi"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Buses and ZRs to Oistins leave Bridgetown from the Fairchild Street Terminal and run along the south coast (Highway 7); fare BBD $3.50.",
+   "source": "https://www.transportboard.com"
+  },
+  {
+   "n": 43,
+   "question": "Can I pay the bus fare with a card?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "cash"
+     ],
+     [
+      "cashless",
+      "rollout",
+      "roll out",
+      "phase",
+      "not yet",
+      "exact"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The Transport Board is rolling out cashless payments in phases; for now passengers pay the exact BBD $3.50 fare in cash.",
+   "source": "https://www.transportboard.com/contact-us/faq"
+  },
+  {
+   "n": 44,
+   "question": "What time does the last bus leave Bridgetown?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "route",
+      "varies",
+      "depends"
+     ],
+     [
+      "transport board",
+      "transportboard",
+      "transit246",
+      "timetable",
+      "schedule"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Last departures vary by route and day and schedules change, so only behaviour is checked: say it depends on the route and point to Transport Board/Transit246 timetables.",
+   "source": "https://www.transportboard.com"
+  },
+  {
+   "n": 45,
+   "question": "How do I get around Barbados without a car?",
+   "group": "transport",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "bus"
+     ],
+     [
+      "taxi",
+      "zr",
+      "minibus",
+      "route taxi"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Options are Transport Board buses, privately operated yellow minibuses and ZR route taxis, and taxis.",
+   "source": "https://www.gov.bb/Visit-Barbados/getting-around-barbados"
+  },
+  {
+   "n": 46,
+   "question": "When did Barbados become independent?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "1966"
+     ],
+     [
+      "30 november",
+      "november 30",
+      "30th november",
+      "30th of november"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Barbados became independent on 30 November 1966.",
+   "source": "graded answer"
+  },
+  {
+   "n": 47,
+   "question": "When did Barbados become a republic?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "2021"
+     ],
+     [
+      "30 november",
+      "november 30",
+      "30th november",
+      "30th of november"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Barbados became a parliamentary republic on 30 November 2021.",
+   "source": "graded answer"
+  },
+  {
+   "n": 48,
+   "question": "Who is the President of Barbados?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "bostic"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Jeffrey Bostic has been President since 30 November 2025, succeeding Dame Sandra Mason (first President, 2021-2025).",
+   "source": "https://www.gov.bb/Visit-Barbados/president"
+  },
+  {
+   "n": 49,
+   "question": "Who was Errol Barrow?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "first prime minister",
+      "first pm"
+     ],
+     [
+      "independence",
+      "1966"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Errol Barrow (1920-1987), DLP leader, was Barbados's first Prime Minister and led it to independence on 30 November 1966; a National Hero, commemorated on Errol Barrow Day (21 January).",
+   "source": "graded answer"
+  },
+  {
+   "n": 50,
+   "question": "Who are the national heroes of Barbados?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "bussa"
+     ],
+     [
+      "sobers"
+     ],
+     [
+      "rihanna",
+      "robyn fenty"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The eleven National Heroes: Bussa, Sarah Ann Gill, Samuel Jackman Prescod, Charles Duncan O'Neal, Clement Payne, Grantley Adams, Errol Barrow, Hugh Springer, Garfield Sobers, Frank Walcott and Rihanna (2021).",
+   "source": "graded answer"
+  },
+  {
+   "n": 51,
+   "question": "What is Crop Over?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "sugar cane",
+      "sugarcane",
+      "sugar-cane",
+      "cane harvest",
+      "sugar harvest",
+      "harvest"
+     ],
+     [
+      "kadooment"
+     ]
+    ],
+    "exclude": [
+     "three-month",
+     "three month"
+    ]
+   },
+   "basis": "Crop Over is Barbados' biggest festival, celebrating the end of the sugar cane harvest (origins 1687, revived 1974); it runs from early July (about five to six weeks) to Grand Kadooment on the first Monday in August.",
+   "source": "graded answer (earlier); https://www.visitbarbados.org/mission-crop-over"
+  },
+  {
+   "n": 52,
+   "question": "What is the history of sugar in Barbados?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "1640"
+     ],
+     [
+      "plantation"
+     ],
+     [
+      "enslaved",
+      "slave",
+      "slavery"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Sugar cane was introduced in the 1640s (from Dutch Brazil) and replaced tobacco and cotton; it built a plantation economy worked by enslaved Africans. Its history is shown at the Sir Frank Hutson Sugar Museum at Portvale.",
+   "source": "graded answer"
+  },
+  {
+   "n": 53,
+   "question": "Why is Barbados called Little England?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "british",
+      "britain",
+      "england",
+      "english"
+     ],
+     [
+      "colon",
+      "1627",
+      "settled",
+      "rule"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Settled by the English in 1627 and under unbroken British rule for over 300 years, Barbados took on English-style governance, law, architecture and customs. That is why it is called Little England.",
+   "source": "graded answer"
+  },
+  {
+   "n": 54,
+   "question": "What is the Barbados Garrison?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "military",
+      "garrison",
+      "army",
+      "soldier",
+      "barracks",
+      "fort"
+     ],
+     [
+      "unesco",
+      "world heritage"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A historic British military complex next to Bridgetown (St Ann's Fort, barracks, the Savannah parade ground), once the largest in the British Caribbean. It is part of the UNESCO World Heritage Site Historic Bridgetown and its Garrison, inscribed in 2011.",
+   "source": "graded answer"
+  },
+  {
+   "n": 55,
+   "question": "What is Bridgetown and its Garrison a UNESCO World Heritage Site for?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "british colonial",
+      "colonial architecture",
+      "english colonial",
+      "colonial town",
+      "colonial port",
+      "colonial era"
+     ],
+     [
+      "garrison",
+      "military"
+     ],
+     [
+      "town plan",
+      "layout",
+      "urban",
+      "street",
+      "planning",
+      "serpentine",
+      "17th century",
+      "17th-century",
+      "seventeenth"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Inscribed in 2011 (criteria ii, iii, iv) as an outstanding example of British colonial architecture. The reasons are: the old town's 17th-century winding (serpentine) street layout, which shows an English approach to colonial town planning unlike the Spanish or Dutch grids; and the nearby Garrison, the military complex that protected the port and Atlantic trade.",
+   "source": "https://whc.unesco.org/en/list/1376"
+  },
+  {
+   "n": 56,
+   "question": "What is the story of Bussa's rebellion?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "1816"
+     ],
+     [
+      "bussa"
+     ],
+     [
+      "enslaved",
+      "slave"
+     ]
+    ],
+    "exclude": [
+     "freedman",
+     "freedwoman",
+     "free woman"
+    ]
+   },
+   "basis": "In April 1816 Bussa, an African-born enslaved man, led the largest slave revolt in Barbados' history. Nanny Grigg, an enslaved domestic woman, was one of its organisers. The revolt was crushed with hundreds of rebels killed, but it strengthened the abolition movement.",
+   "source": "graded answer (earlier)"
+  },
+  {
+   "n": 57,
+   "question": "What language do Barbadians speak?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "english"
+     ],
+     [
+      "bajan",
+      "creole",
+      "dialect"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "English is the official language. Bajan, an English-based creole, is widely spoken informally.",
+   "source": "graded answer (earlier)"
+  },
+  {
+   "n": 58,
+   "question": "What is tuk band music?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "tuk"
+     ],
+     [
+      "drum"
+     ],
+     [
+      "penny whistle",
+      "pennywhistle",
+      "penny-whistle",
+      "flute",
+      "whistle",
+      "fife",
+      "fiddle",
+      "triangle"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Tuk (rukatuk) is Barbadian folk music that blends British military band music with African rhythms. It is played on a bass drum, snare (kettle) drum and penny whistle or flute (earlier a fiddle), sometimes with a triangle.",
+   "source": "graded answer"
+  },
+  {
+   "n": 59,
+   "question": "What is the national dish of Barbados?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "cou-cou",
+      "cou cou",
+      "coucou",
+      "cou- cou",
+      "coo-coo"
+     ],
+     [
+      "flying fish",
+      "flyingfish",
+      "flying-fish"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Cou-cou (cornmeal and okra) and flying fish.",
+   "source": "graded answer"
+  },
+  {
+   "n": 60,
+   "question": "Who is Rihanna and where is she from?",
+   "group": "history-culture",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "singer",
+      "music",
+      "artist",
+      "recording"
+     ],
+     [
+      "barbados",
+      "bajan",
+      "barbadian"
+     ],
+     [
+      "st. michael",
+      "st michael",
+      "saint michael",
+      "bridgetown",
+      "westbury"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Robyn Rihanna Fenty is a singer and entrepreneur (Fenty Beauty). She was born in St Michael, Barbados (raised on Westbury Road, Bridgetown) and was named a National Hero in 2021.",
+   "source": "graded answer"
+  },
+  {
+   "n": 61,
+   "question": "What are Bajan fish cakes and where can I try them?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "salt cod",
+      "salted cod",
+      "saltfish",
+      "salt fish",
+      "salt-fish",
+      "codfish",
+      "cod "
+     ],
+     [
+      "oistins",
+      "baxter",
+      "street food",
+      "vendor",
+      "stall",
+      "rum shop",
+      "cuz",
+      "bakery",
+      "snackette",
+      "bread and two",
+      "fish fry"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Deep-fried fritters of salted cod (saltfish) in a seasoned batter, eaten with pepper sauce or in salt bread as a 'bread and two'. They are sold by street vendors, rum shops, bakeries and fish fries (e.g. Oistins).",
+   "source": "graded answer (latest)"
+  },
+  {
+   "n": 62,
+   "question": "What is cou-cou and flying fish?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "cornmeal",
+      "corn meal",
+      "corn flour",
+      "cornflour",
+      "maize"
+     ],
+     [
+      "okra",
+      "ochro"
+     ],
+     [
+      "national dish"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The national dish of Barbados: cou-cou is cornmeal and okra stirred until firm, served with steamed or fried flying fish and a spicy gravy.",
+   "source": "graded answer"
+  },
+  {
+   "n": 63,
+   "question": "Where is the Oistins Friday fish fry?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "oistins"
+     ],
+     [
+      "christ church",
+      "south coast",
+      "south-coast",
+      "southern coast"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "At Oistins Bay Garden in Oistins, a fishing town in Christ Church on the south coast, on Friday nights.",
+   "source": "graded answer"
+  },
+  {
+   "n": 64,
+   "question": "What is a Bajan cutter?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "sandwich"
+     ],
+     [
+      "salt bread",
+      "saltbread",
+      "salt-bread",
+      "roll"
+     ],
+     [
+      "fish",
+      "ham",
+      "cheese",
+      "egg"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A sandwich made on a Bajan salt bread roll, filled with flying fish, fish cakes, ham, cheese or egg, often with pepper sauce.",
+   "source": "graded answer"
+  },
+  {
+   "n": 65,
+   "question": "What drinks is Barbados known for?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "rum"
+     ],
+     [
+      "mount gay",
+      "banks",
+      "mauby",
+      "sorrel",
+      "rum punch",
+      "falernum",
+      "ginger beer"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Rum (Barbados is the birthplace of rum; Mount Gay dates to 1703), rum punch, Banks beer, mauby, sorrel, falernum and local juices.",
+   "source": "graded answer"
+  },
+  {
+   "n": 66,
+   "question": "Where can I find restaurants on the west coast?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "st. james",
+      "st james",
+      "saint james",
+      "holetown",
+      "speightstown",
+      "st. peter",
+      "st peter",
+      "saint peter",
+      "paynes bay",
+      "payne's bay",
+      "sandy lane",
+      "mullins",
+      "sunset crest"
+     ]
+    ],
+    "exclude": [
+     "champers"
+    ]
+   },
+   "basis": "Behaviour check only, because restaurant listings change. The west coast covers St James and St Peter (Holetown, Paynes Bay, Sunset Crest, Speightstown). Champers is in Hastings on the south coast and must not appear as a west coast restaurant.",
+   "source": "graded answer (latest)"
+  },
+  {
+   "n": 67,
+   "question": "What is pudding and souse?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "sweet potato",
+      "sweet-potato",
+      "sweet potatoes"
+     ],
+     [
+      "pickled",
+      "pickle",
+      "lime",
+      "brine",
+      "souse"
+     ],
+     [
+      "pork",
+      "pig"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A Saturday Bajan dish. Pudding is spiced, grated sweet potato steamed in a pig-intestine casing. Souse is pork (head, trotters) pickled in lime juice with onion, cucumber and pepper.",
+   "source": "graded answer (earlier); https://www.totallybarbados.com/articles/barbados-recipes/pudding-souse"
+  },
+  {
+   "n": 68,
+   "question": "Where can I eat local food in Bridgetown?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "mustor",
+      "cheapside",
+      "baxter",
+      "pelican",
+      "rum shop",
+      "vendor",
+      "street food",
+      "food court",
+      "lunch spot",
+      "local eatery",
+      "local eateries",
+      "chefette",
+      "cafeteria"
+     ]
+    ],
+    "exclude": [
+     "the tides"
+    ]
+   },
+   "basis": "Behaviour check, because eateries change. Local Bajan lunch spots in and next to Bridgetown include Mustor's Restaurant (McGregor Street), stalls around Cheapside Market, the Pelican Village area and the Baxter's Road vendors. Chefette is a local chain. The Tides is a Holetown fine-dining restaurant, not a Bridgetown option, and Oistins is in Christ Church.",
+   "source": "https://www.visitbarbados.org/whats-in-a-town-bridgetown; https://www.visitbarbados.org/a-beginners-guide-to-dining-in-barbados"
+  },
+  {
+   "n": 69,
+   "question": "Is Mount Gay rum from Barbados?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "yes"
+     ],
+     [
+      "1703",
+      "oldest",
+      "300 years"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Yes. Mount Gay is made in Barbados (St Lucy) and is documented back to 1703, making it the world's oldest commercial rum brand.",
+   "source": "graded answer"
+  },
+  {
+   "n": 70,
+   "question": "What dining experiences does Visit Barbados recommend?",
+   "group": "food-dining",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "oistins",
+      "dine with a bajan",
+      "lickrish",
+      "fish fry",
+      "rum shop",
+      "street food",
+      "food tour",
+      "mustor",
+      "fine dining",
+      "food truck"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Behaviour check. Visit Barbados recommends Oistins fish fry, Dine With A Bajan, Lickrish Food Tours, fine dining, rum shops, street food and casual local spots such as Mustor's and Cutters.",
+   "source": "graded answer (latest)"
+  },
+  {
+   "n": 71,
+   "question": "What do I need to enter Barbados as a visitor?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "passport"
+     ],
+     [
+      "return ticket",
+      "onward ticket",
+      "return or onward",
+      "return/onward",
+      "round-trip",
+      "round trip",
+      "return flight",
+      "onward travel",
+      "return travel",
+      "onward journey"
+     ],
+     [
+      "visa"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A valid passport, a return or onward ticket, an address in Barbados, proof of funds, a parental letter for unaccompanied minors and a visa only if your nationality needs one. Visitors also fill in the online immigration/customs form (ED card) before arrival.",
+   "source": "https://www.visitbarbados.org/plan-your-trip/visa-and-entry-requirements"
+  },
+  {
+   "n": 72,
+   "question": "What currency is used in Barbados?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "barbados dollar",
+      "barbadian dollar",
+      "bbd",
+      "bds"
+     ],
+     [
+      "2:1",
+      "2 to 1",
+      "2-to-1",
+      "1:2",
+      "bbd$2",
+      "bds$2",
+      "bbd 2",
+      "$2",
+      "2.00",
+      "2 bbd",
+      "2 barbados",
+      "two barbados",
+      "twice"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The Barbados dollar (BBD), the only legal tender, is pegged to the US dollar at BBD$2 = US$1. 1.98 is only a bank buying rate.",
+   "source": "graded answer (earlier); https://www.centralbank.org.bb/faqs/currency-faqs-list"
+  },
+  {
+   "n": 73,
+   "question": "Which beaches are best on the south and west coasts?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "accra",
+      "rockley",
+      "miami",
+      "enterprise",
+      "dover",
+      "carlisle",
+      "sandy beach",
+      "welches",
+      "worthing",
+      "silver sands",
+      "brownes",
+      "browne's",
+      "pebbles"
+     ],
+     [
+      "mullins",
+      "paynes",
+      "payne's",
+      "brighton",
+      "gibbes",
+      "gibbs",
+      "heywoods",
+      "holetown",
+      "sandy lane",
+      "batts rock",
+      "reeds",
+      "alleynes",
+      "sunset crest",
+      "church point",
+      "mount standfast"
+     ]
+    ],
+    "exclude": [
+     "crane beach"
+    ]
+   },
+   "basis": "South coast: Accra/Rockley, Dover, Miami (Enterprise) Beach, Sandy Beach (Worthing), Welches, Silver Sands, plus Carlisle Bay/Brownes on the south-west. West coast (St James and St Peter): Paynes Bay, Mullins, Gibbes, Sandy Lane, Holetown, Heywoods, Batts Rock, Brighton. Crane Beach is on the south-east coast (St Philip), not the west.",
+   "source": "https://www.visitbarbados.org/things-to-do/experiences/beaches-activities?pageindex=1"
+  },
+  {
+   "n": 74,
+   "question": "What can I do in Bridgetown in one day?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "garrison",
+      "parliament",
+      "heroes square",
+      "national heroes",
+      "barbados museum",
+      "careenage",
+      "chamberlain bridge",
+      "synagogue",
+      "cathedral",
+      "unesco"
+     ],
+     [
+      "carlisle bay",
+      "broad street",
+      "cheapside",
+      "pelican village",
+      "swan street",
+      "boardwalk",
+      "browne's beach",
+      "brownes beach"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A day in Bridgetown can take in the UNESCO historic city and Garrison, Parliament Buildings and National Heroes Square, the Careenage and Chamberlain Bridge, Nidhe Israel Synagogue, the Barbados Museum, shopping on Broad Street, Cheapside Market and Pelican Village, and a swim at Carlisle Bay.",
+   "source": "graded answer (latest)"
+  },
+  {
+   "n": 75,
+   "question": "What is the Barbados Welcome Stamp?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "remote",
+      "location independent",
+      "location-independent",
+      "work from",
+      "telework"
+     ],
+     [
+      "12 month",
+      "12-month",
+      "twelve month",
+      "twelve-month",
+      "year"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A 12-month visa launched in 2020 that lets location-independent remote workers and their families live in Barbados. You apply online and can renew.",
+   "source": "https://www.visitbarbados.org/barbados-welcome-stamp"
+  },
+  {
+   "n": 76,
+   "question": "When is the best time to visit Barbados?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "december"
+     ],
+     [
+      "dry season",
+      "dry"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Dry season (December to May) is generally best; wet/hurricane season June to November, but the island is warm and visitable year-round.",
+   "source": "graded answer"
+  },
+  {
+   "n": 77,
+   "question": "Is tap water safe to drink in Barbados?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "safe"
+     ],
+     [
+      "barbados water authority",
+      "bwa",
+      "tap water",
+      "water supply"
+     ]
+    ],
+    "exclude": [
+     "not safe to drink",
+     "unsafe to drink",
+     "should not drink the tap",
+     "avoid tap water",
+     "avoid drinking tap"
+    ]
+   },
+   "basis": "Yes: Barbados tap water (supplied by the Barbados Water Authority, filtered through coral limestone) is safe to drink.",
+   "source": "graded answer"
+  },
+  {
+   "n": 78,
+   "question": "What is Harrison's Cave?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "stalactite",
+      "stalagmite",
+      "limestone",
+      "crystallized",
+      "crystallised"
+     ],
+     [
+      "tram"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "A limestone show cave in the central uplands (St. Thomas) with stalactites/stalagmites, streams and pools, toured by tram (plus eco-adventure tours); features the Great Hall.",
+   "source": "graded answer"
+  },
+  {
+   "n": 79,
+   "question": "Where can I see green monkeys in Barbados?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "welchman hall",
+      "grenade hall",
+      "farley hill",
+      "barbados wildlife"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Barbados Wildlife Reserve (St. Peter, best around the 2pm feeding) and Welchman Hall Gully (St. Thomas) are the main places to see green monkeys.",
+   "source": "graded answer"
+  },
+  {
+   "n": 80,
+   "question": "What should I know about driving in Barbados?",
+   "group": "visitors",
+   "audience": "visitor",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "temporary",
+      "visitor's permit",
+      "visitors permit",
+      "visitor permit",
+      "visitor's driving permit"
+     ],
+     [
+      "km/h",
+      "kph",
+      "mph",
+      "speed limit"
+     ]
+    ],
+    "exclude": [
+     "drive on the right",
+     "driving is on the right",
+     "right-hand side of the road"
+    ]
+   },
+   "basis": "Driving is on the left; visitors need a temporary driving permit (BDS$10 under 2 months, $100 up to a year) from the Licensing Authority or car hire firms; speed limits 80 km/h highways, 60 km/h elsewhere, 40 km/h in town; hands-free phone use only.",
+   "source": "graded answer (https://www.gov.bb/Visit-Barbados/getting-around-barbados)"
+  },
+  {
+   "n": 81,
+   "question": "How do I get a TAMIS tax account?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "tamis.bra.gov.bb",
+      "tamis"
+     ],
+     [
+      "barbados revenue authority",
+      "bra.gov.bb",
+      "(bra)",
+      "revenue authority"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Register online at tamis.bra.gov.bb to obtain a Tax Identification Number (TIN); BRA support at 535-ETAX (535-3829) or bramail@bra.gov.bb.",
+   "source": "graded answer (https://bra.gov.bb/Help)"
+  },
+  {
+   "n": 82,
+   "question": "What is the minimum wage in Barbados?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "10.71"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "National minimum wage is BDS$10.71 per hour from 21 January 2026 (2% increase from $10.50); security guards have a separate sectoral rate. Update this check if a new Minimum Wage Order is made.",
+   "source": "https://wageindicator.org/salary/minimum-wage/minimum-wages-news/2026/minimum-wage-updated-in-barbados-from-21-january-2026-february-09-2026 ; https://labour.gov.bb/notice-of-intention-to-make-minimum-wage-order-2025"
+  },
+  {
+   "n": 83,
+   "question": "How do I apply for a job in the public service?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "ministry of the public service",
+      "mps.gov.bb"
+     ]
+    ],
+    "exclude": [
+     "467-4500"
+    ]
+   },
+   "basis": "Public service jobs are handled by the Ministry of the Public Service (People Resourcing and Compliance Directorate); vacancies are posted at mps.gov.bb, contact (246) 535-4500. The old 467-4500 number is outdated.",
+   "source": "https://mps.gov.bb/People_Resourcing/"
+  },
+  {
+   "n": 84,
+   "question": "What should I do to prepare for a hurricane?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "water"
+     ],
+     [
+      "shelter",
+      "department of emergency management",
+      "emergency plan",
+      "evacuat"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "StormReady checklist: secure home/shutters, store 3 gallons of water per person for 3 days, non-perishable food, documents in waterproof bag, cash, charged devices and radio for DEM updates, know nearest shelter.",
+   "source": "graded answer (https://alpha.gov.bb/health-and-emergency-services/stormready/checklist)"
+  },
+  {
+   "n": 85,
+   "question": "How do I contact the Barbados Water Authority?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "434-4292",
+      "434 4292",
+      "4344292",
+      "434-4bwa",
+      "434-4200",
+      "434 4200",
+      "4344200",
+      "customercare@bwa.gov.bb",
+      "barbadoswaterauthority.com"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "BWA Customer Service (246) 434-4292 (434-4BWA), daily 8:30am-midnight; PBX (246) 434-4200; customercare@bwa.gov.bb; office at Pine Commercial Estate, St. Michael. (The 426-3990 number in the earlier answer could not be verified.)",
+   "source": "https://barbadoswaterauthority.com/contact-us/ ; https://alpha.gov.bb/health-and-emergency-services/water-outages"
+  },
+  {
+   "n": 86,
+   "question": "Where can I renew a vehicle licence or pay road tax?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "barbados revenue authority",
+      "revenue authority",
+      "bra.gov.bb",
+      "(bra)",
+      "ezpay"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Motor vehicle licence (road tax) is paid to the Barbados Revenue Authority, at any BRA branch or online (BRA/EZPay), not at the Licensing Authority.",
+   "source": "https://bra.gov.bb/About/Tax-Types/Motor-Vehicle-Licensing"
+  },
+  {
+   "n": 87,
+   "question": "What public holidays does Barbados have?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "errol barrow"
+     ],
+     [
+      "kadooment"
+     ],
+     [
+      "boxing day",
+      "december 26",
+      "26 december"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "12 holidays: New Year's Day, Errol Barrow Day (21 Jan), Good Friday, Easter Monday, National Heroes' Day (28 Apr), Labour Day (1 May), Whit Monday, Emancipation Day (1 Aug), Kadooment Day (1st Mon Aug), Independence Day (30 Nov), Christmas Day, Boxing Day.",
+   "source": "graded answer (https://alpha.gov.bb/bank-holiday-calendar)"
+  },
+  {
+   "n": 88,
+   "question": "How do I find a polyclinic near me?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "branford",
+      "winston scott",
+      "eunice gibson",
+      "randal phillips",
+      "maurice byer",
+      "edgar cochrane",
+      "st. philip polyclinic",
+      "st philip polyclinic",
+      "frederick miller",
+      "glebe polyclinic",
+      "david thompson"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Government polyclinics include Branford Taitt (Black Rock), Maurice Byer (St. Peter), Winston Scott (Bridgetown), Eunice Gibson (Warrens), David Thompson (St. John), Frederick Miller/Glebe (St. George), Randal Phillips (Oistins), Edgar Cochrane (Wildey), St. Philip (Six Roads).",
+   "source": "graded answer (https://health.gov.bb/For-Public/Primary-Health-Care)"
+  },
+  {
+   "n": 89,
+   "question": "How do I sign up for the National Insurance Scheme?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "national insurance"
+     ],
+     [
+      "frank walcott",
+      "culloden",
+      "431-7400",
+      "467-4647",
+      "467-4nis",
+      "nis.gov.bb",
+      "gov.bb/departments/national-insurance"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Register with the National Insurance Department, Frank Walcott Building, Culloden Road, St. Michael (tel. 431-7400 / 467-4NIS), bringing national ID; employees are usually registered via their employer.",
+   "source": "graded answer (https://www.gov.bb/Departments/national-insurance)"
+  },
+  {
+   "n": 90,
+   "question": "Where can I learn about Barbados Revenue Authority services?",
+   "group": "everyday-life",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "bra.gov.bb"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "The BRA website bra.gov.bb (Popular Topics, Apply, Help, Service Charter pages) describes its services.",
+   "source": "graded answer (https://bra.gov.bb)"
+  },
+  {
+   "n": 91,
+   "question": "What exactly are Bajan fish cakes, and how are they prepared?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "salt cod",
+      "salted cod",
+      "saltfish",
+      "salt fish",
+      "codfish",
+      "salted fish"
+     ],
+     [
+      "fried",
+      "fry",
+      "frying"
+     ]
+    ],
+    "exclude": [
+     "flying fish"
+    ]
+   },
+   "basis": "Bajan fish cakes are fritters of salted cod (desalted by boiling, flaked) mixed with flour, baking powder, herbs, onion and hot pepper, deep-fried; often eaten in salt bread ('bread and two') with Marie Rose or pepper sauce.",
+   "source": "graded answer (https://barbados.org/barbados-recipes-fishcakes.htm)"
+  },
+  {
+   "n": 92,
+   "question": "What is the difference between pudding and souse and cou-cou and flying fish?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "pig",
+      "pork"
+     ],
+     [
+      "cornmeal",
+      "corn meal",
+      "corn flour"
+     ],
+     [
+      "okra",
+      "ochro"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Pudding and souse: pickled pork (lime, cucumber, onion, pepper) with steamed spiced sweet-potato pudding, a Saturday tradition. Cou-cou and flying fish: cornmeal-and-okra cou-cou with (usually steamed) flying fish in sauce, the national dish.",
+   "source": "graded answer"
+  },
+  {
+   "n": 93,
+   "question": "How can I renew my Barbados driver's licence, and what documents do I need?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "revenue authority",
+      "ezpay",
+      "bra.gov.bb",
+      "(bra)"
+     ],
+     [
+      "licensing authority",
+      "bla.gov.bb",
+      "(bla)"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Renew by paying the fee at any BRA branch or online via EZPay, presenting the expiring licence and ID; drivers 75+ need a medical certificate every 2 years, 85+ every year; licence collected from the Barbados Licensing Authority.",
+   "source": "graded answer (https://www.gov.bb/Citizens/driver-licence)"
+  },
+  {
+   "n": 94,
+   "question": "Which bus should I take from Bridgetown to Bathsheba, and where do I board it?",
+   "group": "client",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "fairchild"
+     ],
+     [
+      "transport board",
+      "route 6",
+      "bathsheba route",
+      "bathsheba service",
+      "bathsheba bus"
+     ]
+    ],
+    "exclude": [
+     "route 1e"
+    ]
+   },
+   "basis": "Take the Transport Board's Bathsheba bus (route 6, roughly hourly, about 1 hour) from the Fairchild Street Terminal in Bridgetown; route 1E runs from Speightstown, not Bridgetown. Diversions are temporary and are not checked.",
+   "source": "https://www.transportboard.com ; https://www.rome2rio.com/s/Fairchild-Street-Terminal/Bathsheba"
+  },
+  {
+   "n": 95,
+   "question": "What are the steps and costs for registering a small business in Barbados?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "caipo",
+      "corporate affairs and intellectual property"
+     ],
+     [
+      "104"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Register a business name with CAIPO by filing Form 1 (online or in person); filing fee BDS$104.",
+   "source": "graded answer (https://caipo.gov.bb/corporate-affairs/business-name-registration)"
+  },
+  {
+   "n": 96,
+   "question": "Where can I find a reasonably priced apartment to rent in St. Philip?",
+   "group": "client",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "real estate",
+      "realtor",
+      "classified",
+      "marketplace",
+      "rental agenc",
+      "letting agen",
+      "property agen",
+      "listing site",
+      "rental website",
+      "rental platform"
+     ]
+    ],
+    "exclude": [
+     "type of shop"
+    ]
+   },
+   "basis": "No stable facts (listings and prices change constantly); a good answer admits it has no live listings and points to real estate/rental agencies, classifieds or online marketplaces.",
+   "source": "behaviour check"
+  },
+  {
+   "n": 97,
+   "question": "Are there any current vacancies for electricians in Barbados?",
+   "group": "client",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "job register",
+      "labour.gov.bb",
+      "national employment bureau",
+      "ministry of labour"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Vacancies change daily; a good answer points to the Barbados Job Register / Ministry of Labour (National Employment Bureau) rather than inventing openings.",
+   "source": "https://labour.gov.bb/the-barbados-job-register-is-live"
+  },
+  {
+   "n": 98,
+   "question": "What are three historical places in Bridgetown that a visitor can explore on foot?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "museum",
+      "synagogue",
+      "garrison",
+      "screw dock",
+      "parliament",
+      "cathedral",
+      "george washington house",
+      "careenage",
+      "chamberlain bridge",
+      "national heroes square",
+      "trafalgar"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Historic Bridgetown and its Garrison (UNESCO) sites include the Parliament Buildings, Nidhe Israel Synagogue, St. Michael's Cathedral, Blackwoods Screw Dock, the Garrison Savannah, Barbados Museum and George Washington House.",
+   "source": "graded answer (https://www.visitbarbados.org/heritage-site)"
+  },
+  {
+   "n": 99,
+   "question": "Can I legally operate a food vending business from a vehicle in Barbados, and which approvals are required?",
+   "group": "client",
+   "audience": "resident",
+   "protected": true,
+   "checks": {
+    "include": [
+     [
+      "food business licence",
+      "food business license",
+      "food licence",
+      "food license",
+      "food handler"
+     ],
+     [
+      "environmental health",
+      "inspect",
+      "polyclinic"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "Yes, with a Food Business Licence (covers food sold from vehicles); the vehicle is inspected by an Environmental Health Officer and the licence must be displayed.",
+   "source": "https://alpha.gov.bb/business-trade/apply-for-food-business-licence"
+  },
+  {
+   "n": 100,
+   "question": "Where can I buy a second-hand refrigerator in Barbados for under BDS$500?",
+   "group": "client",
+   "audience": "resident",
+   "protected": false,
+   "checks": {
+    "include": [
+     [
+      "marketplace",
+      "classified",
+      "second-hand shop",
+      "second hand shop",
+      "thrift",
+      "used appliance",
+      "pre-owned"
+     ]
+    ],
+    "exclude": []
+   },
+   "basis": "No stable facts (stock and prices change); a good answer admits it cannot confirm stockists and points to online marketplaces/classifieds or second-hand/used-appliance sellers.",
+   "source": "behaviour check"
+  }
+ ]
+}

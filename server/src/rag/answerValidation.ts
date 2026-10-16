@@ -11,6 +11,10 @@ export interface ValidationResult {
   ok: boolean;
   answer: ModelAnswer | null;
   problems: string[];
+  /** Phone numbers, emails or links in the answer that no source contains. */
+  unsupported?: string[];
+  /** The rejected answer text (used to remove only the unsupported details). */
+  draft?: string;
 }
 
 const digits = (s: string) => s.replace(/\D/g, '');
@@ -41,19 +45,24 @@ export function validateModelAnswer(raw: unknown, sources: PromptSource[]): Vali
   const corpus = sources.map((s) => `${s.title}\n${s.url ?? ''}\n${s.text}`).join('\n').toLowerCase();
   const corpusDigits = sources.map((s) => digits(s.text));
 
+  // Collect every detail that no source supports, so the caller can ask for a rewrite or remove it.
+  const unsupported: string[] = [];
   const phones = answer.match(/\+?\d[\d ().-]{6,}\d/g) ?? [];
   for (const p of phones) {
+    // Dates and year ranges ("2021-2025", "2026-10-16", "16/10/2026") are not phone numbers.
+    if (/^\d{4}\s*-\s*\d{2,4}$|^\d{4}-\d{2}-\d{2}$|^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(p.trim())) continue;
     const d = digits(p);
-    if (d.length >= 7 && !corpusDigits.some((cd) => cd.includes(d.slice(-7)))) {
-      return { ok: false, answer: null, problems: [`unsupported phone number in answer`] };
-    }
+    if (d.length >= 7 && !corpusDigits.some((cd) => cd.includes(d.slice(-7)))) unsupported.push(p.trim());
   }
   const emails = answer.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) ?? [];
-  for (const e of emails) if (!corpus.includes(e.toLowerCase())) return { ok: false, answer: null, problems: ['unsupported email in answer'] };
+  for (const e of emails) if (!corpus.includes(e.toLowerCase())) unsupported.push(e);
   const urls = answer.match(/https?:\/\/[^\s)>\]]+/g) ?? [];
   for (const u of urls) {
     const clean = u.replace(/[.,;:!?]+$/, '').replace(/\/$/, '').toLowerCase();
-    if (!corpus.includes(clean)) return { ok: false, answer: null, problems: ['unsupported URL in answer'] };
+    if (!corpus.includes(clean)) unsupported.push(u.replace(/[.,;:!?]+$/, ''));
+  }
+  if (unsupported.length) {
+    return { ok: false, answer: null, problems: unsupported.map((u) => `unsupported detail: ${u}`), unsupported, draft: answer };
   }
 
   return {

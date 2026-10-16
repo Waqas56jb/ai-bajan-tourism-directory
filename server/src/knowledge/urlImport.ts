@@ -1,3 +1,4 @@
+import { repairMojibake } from './pageCleanup.js';
 import { lookup } from 'node:dns/promises';
 import { isIP } from 'node:net';
 import { AppError, badRequest } from '../utils/errors.js';
@@ -51,7 +52,8 @@ const decode = (s: string) =>
 
 /** HTML → markdown-ish text: headings kept (so chunks follow sections), boilerplate removed. */
 export function htmlToText(html: string): { title: string; text: string } {
-  const title = decode(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '').replace(/\s+/g, ' ').trim();
+  // The page title, not an icon's: inline <svg> elements carry their own <title> ("Facebook-color").
+  const title = repairMojibake(decode(html.replace(/<svg[\s\S]*?<\/svg>/gi, ' ').match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '').replace(/\s+/g, ' ').trim());
   // The page's main content: the <main>/<article> block with the most text. Many sites repeat
   // <article> for sidebar cards, so the first one is not necessarily the page itself; when even
   // the largest block holds little of the page's text, use the whole body.
@@ -80,7 +82,7 @@ export function htmlToText(html: string): { title: string; text: string } {
     .map((l) => l.replace(/\[\s*(?:\d+|[a-z]|edit|citation needed)\s*\]/gi, '').replace(/\s+([,.;:!?)])/g, '$1').trim())
     .filter(Boolean)
     .join('\n');
-  return { title, text };
+  return { title, text: repairMojibake(text) };
 }
 
 /** Fetch a public page's raw body (same safety rules). Used by the importer and the site crawler. */

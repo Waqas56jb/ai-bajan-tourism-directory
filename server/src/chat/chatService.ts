@@ -214,6 +214,7 @@ export async function handleChat(ctx: AppContext, req: ChatRequest, visitorId: s
     fallbackUsed: answer.fallbackUsed,
     fallbackReason: answer.fallbackReason,
     usedConversationContext: usedContext,
+    validationProblems: answer.validationProblems.length ? answer.validationProblems.slice(0, 10) : undefined,
   };
   const p0 = performance.now();
   const assistant = await db.tx(async (client) => {

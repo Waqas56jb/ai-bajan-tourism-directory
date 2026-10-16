@@ -280,7 +280,9 @@ export function noEvidenceAnswer(a: QueryAnalysis): GeneratedAnswer {
   else if (a.intent === 'business_prospecting')
     text = `The AI Bajan directory doesn’t have information about who buys ${product || 'that product'}. It lists businesses and their public contact details, but not their purchasing needs. If you tell me what type of business you’d like to approach, I can list the ones in the directory with their contact details.`;
   else if (a.intent === 'product_availability')
-    text = `I couldn’t find any listing that mentions ${product || 'that'}${where}. If you tell me what type of shop you’re looking for, I can list those in the directory.`;
+    text = product
+      ? `I couldn’t find any listing that mentions ${product}${where}. If you tell me what type of shop you’re looking for, I can list those in the directory.`
+      : `I couldn’t find a listing for that${where} in the AI Bajan directory yet, so I won’t guess. Try a nearby area, or ask about a type of business or service.`;
   else if (a.categories.length) text = `I couldn’t find any ${plural(a.categories[0].name)} listed in the AI Bajan directory${where} yet.`;
   else
     text =
@@ -297,7 +299,16 @@ export function buildPromptSources(selected: Candidate[], maxChars: number): Pro
     const text = truncate(candidateText(c), Math.min(1800, budget));
     budget -= text.length;
     const url = toSourceRef(c).url;
-    out.push({ id: `S${i + 1}`, type: c.sourceType, title: c.title, text, authority: TIER_LABEL[c.tier], updated: sourceDate(c), url: url && /^https?:/i.test(url) ? url : null });
+    out.push({
+      id: `S${i + 1}`,
+      type: c.sourceType,
+      title: c.title,
+      text,
+      authority: TIER_LABEL[c.tier],
+      updated: sourceDate(c),
+      url: url && /^https?:/i.test(url) ? url : null,
+      news: c.metadata.pageKind === 'news',
+    });
   }
   return out;
 }
@@ -321,15 +332,40 @@ export async function generateAnswer(
   const sources = buildPromptSources(selected, ctx.config.RETRIEVAL_MAX_CONTEXT_CHARS);
   const started = performance.now();
   try {
-    const raw = await ctx.llm.completeJson({
-      messages: buildMessages({ ...args, sources }),
-      schemaName: 'ai_bajan_answer',
-      schema: ANSWER_SCHEMA as unknown as Record<string, unknown>,
-    });
-    const v = validateModelAnswer(raw, sources);
+    const messages = buildMessages({ ...args, sources });
+    const ask = (correction?: string) =>
+      ctx.llm.completeJson({
+        messages: correction ? [...messages, { role: 'system' as const, content: correction }] : messages,
+        schemaName: 'ai_bajan_answer',
+        schema: ANSWER_SCHEMA as unknown as Record<string, unknown>,
+      });
+    let raw = await ask();
+    let v = validateModelAnswer(raw, sources);
+    const problems = [...v.problems];
+    // An answer with a detail no source supports (a phone number or link from memory) is not thrown
+    // away: the model rewrites it once without such details, and failing that only those lines go.
+    if (!v.ok && v.unsupported?.length) {
+      raw = await ask(
+        `Your previous answer included details that are not in the SOURCES: ${v.unsupported.join(', ')}. Write the answer again using only details found in the SOURCES. Where a needed detail is not in the sources, say so and name the organisation to contact instead.`,
+      );
+      v = validateModelAnswer(raw, sources);
+      problems.push('rewritten without unsupported details', ...v.problems);
+      if (!v.ok && v.unsupported?.length && v.draft) {
+        const unsupported = v.unsupported;
+        const kept = v.draft
+          .split('\n')
+          .filter((line) => !unsupported.some((u) => line.includes(u)))
+          .join('\n')
+          .trim();
+        if (kept.length >= 80) {
+          v = validateModelAnswer({ ...(raw as object), answer: kept }, sources);
+          problems.push('removed lines with unsupported details');
+        }
+      }
+    }
     const latencyMs = Math.round(performance.now() - started);
     if (!v.ok || !v.answer) {
-      return { ...extractive(), fallbackUsed: true, fallbackReason: 'answer_failed_validation', validationProblems: v.problems, latencyMs };
+      return { ...extractive(), fallbackUsed: true, fallbackReason: 'answer_failed_validation', validationProblems: problems, latencyMs };
     }
     const byId = new Map(sources.map((s, i) => [s.id, selected[i]]));
     const cited = v.answer.source_ids.map((id) => byId.get(id)).filter((c): c is Candidate => Boolean(c));
@@ -356,7 +392,7 @@ export async function generateAnswer(
       fallbackUsed: false,
       fallbackReason: null,
       generation: 'llm',
-      validationProblems: v.problems,
+      validationProblems: problems,
       shownListings: listingsShown.map((c) => ({ id: c.sourceId, name: c.title })),
       latencyMs,
     };

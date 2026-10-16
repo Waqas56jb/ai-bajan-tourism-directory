@@ -285,6 +285,9 @@ export function fuse(
   }
 
   const authoritative = needsAuthoritativeSource(a.original);
+  const wantsNews = /\b(news|latest|announce\w*|update[sd]?|recent(ly)?|this (week|weekend|month)|today|happening|events?)\b/i.test(a.original);
+  // Distinctive words of the question (not "how", "Barbados", …) used to recognise a page by its title.
+  const titleTerms = [...new Set(a.keyTerms.filter((t) => t.length > 3 && !/^(barbados|bajan|where|what|which|when|does|have|find|from|with|about|there|their)$/i.test(t)))];
   const terms = [...new Set([...a.keyTerms.filter((t) => t.length > 2), ...a.categories.map((c) => c.matched).filter((m) => m !== '(memory)')])];
   const product = a.productTerms;
   for (const cand of bySource.values()) {
@@ -305,6 +308,12 @@ export function fuse(
     cand.score *= 0.6 + 0.4 * cand.coverage;
     // Prefer official and Barbadian institutional sources; general references (Wikipedia) rank last.
     cand.score *= trustWeight(cand.tier, authoritative);
+    // News items describe the situation on their date: rank them lower unless the user asks for news.
+    if (cand.metadata.pageKind === 'news' && !wantsNews) cand.score *= 0.55;
+    // A page whose own title names what was asked (e.g. "Barbados Water Authority") is usually the page to use.
+    const titleWords = cand.title.toLowerCase();
+    const titleHits = titleTerms.filter((t) => textHasTerm(titleWords, t)).length;
+    if (titleTerms.length && titleHits >= Math.min(2, titleTerms.length)) cand.score *= 1 + 0.25 * (titleHits / titleTerms.length);
     // Keep the most relevant chunks first and drop near-duplicates within a source.
     const seen = new Set<string>();
     cand.chunks = cand.chunks

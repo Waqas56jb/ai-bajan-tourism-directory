@@ -108,7 +108,7 @@ export class OpenAiProvider implements LlmProvider {
               {
                 model: this.chatModel,
                 messages: req.messages,
-                temperature: 0.2,
+                temperature: 0.1,
                 max_completion_tokens: req.maxOutputTokens ?? this.maxOutputTokens,
                 response_format: {
                   type: 'json_schema',

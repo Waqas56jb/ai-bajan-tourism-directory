@@ -24,8 +24,10 @@
     "admin:grant": "tsx scripts/grantAdmin.ts",
     "eval:rag": "tsx tests/evaluation/runEvaluation.ts",
     "eval:live": "tsx tests/evaluation/runLiveTest.ts",
+    "eval:regression": "tsx tests/evaluation/runRegression.ts",
     "knowledge:import": "tsx scripts/importKnowledge.ts",
-    "knowledge:crawl": "tsx scripts/crawlSites.ts"
+    "knowledge:crawl": "tsx scripts/crawlSites.ts",
+    "knowledge:repair": "tsx scripts/repairKnowledge.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

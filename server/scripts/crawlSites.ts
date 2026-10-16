@@ -19,6 +19,7 @@ import { readFileSync } from 'node:fs';
 import { env } from '../src/config/env.js';
 import { createDatabase } from '../src/database/db.js';
 import { checkDueSources, contentHash, plainFetcher, type FetchedPage } from '../src/knowledge/sourceChecker.js';
+import { betterTitle, isNewsPage, newsDate } from '../src/knowledge/pageCleanup.js';
 import { assertPublicUrl, pageUpdatedDate } from '../src/knowledge/urlImport.js';
 import { afterSourceWrite } from '../src/sync/syncQueue.js';
 
@@ -192,6 +193,12 @@ async function crawl(site: Site, totals: { imported: number; skipped: number; fa
   const lastmod = new Map(fromSitemap.map((s) => [s.url, s.lastmod]));
   const queue = [...(site.seeds ?? []), ...fromSitemap.map((s) => s.url), start.toString()].map((u) => u.replace(/\/$/, ''));
   const seen = new Set(queue);
+  // Titles shared across this site (its name, or one already used by several stored pages) are not page titles.
+  const siteTitles = new Set(
+    [site.name, host.replace(/^www\./, '')].map((t) => t.toLowerCase()).concat(
+      (await db.many<{ title: string }>(`select lower(title) title from ${db.t('knowledge_documents')} where source_reference like $1 group by 1 having count(*) >= 4`, [`%${host.replace(/^www\./, '')}%`])).map((r) => r.title),
+    ),
+  );
   let added = 0;
   let visited = 0;
   console.log(
@@ -215,7 +222,9 @@ async function crawl(site: Site, totals: { imported: number; skipped: number; fa
         }
       }
       const finalUrl = page.url.replace(/\/$/, '');
-      const { title, text } = page;
+      const text = page.text;
+      const title = betterTitle(page.title, text, { siteTitles, url: page.url });
+      const news = isNewsPage(page.url, title, text);
       // Link-hub pages (the start page, menus) are followed but only stored if they match the topics.
       if (text.length < 300 || (isStart && include.length && !wanted(url))) continue;
       if (stored.has(finalUrl)) {
@@ -228,14 +237,15 @@ async function crawl(site: Site, totals: { imported: number; skipped: number; fa
         totals.skipped++;
         continue;
       }
-      const updated = pageUpdatedDate(page.html, page.lastModified) ?? (lastmod.get(url) ? String(lastmod.get(url)).slice(0, 10) : null);
+      const updated =
+        (news ? newsDate(text) : null) ?? pageUpdatedDate(page.html, page.lastModified) ?? (lastmod.get(url) ? String(lastmod.get(url)).slice(0, 10) : null);
       await db.tx(async (client) => {
         const row = await client.query<{ id: string; content_version: number }>(
           `insert into ${db.t('knowledge_documents')}
              (title, summary, content, source_type, source_reference, tags, status, approval_status, visibility, include_in_chatbot,
               content_hash, source_updated_at, last_checked_at)
            values ($1, $2, $3, 'article', $4, $5, 'published', 'approved', 'public', true, $6, $7::date, now()) returning id, content_version`,
-          [(title || finalUrl).slice(0, 200), `From ${site.name}`, text.slice(0, 190_000), finalUrl, [site.topic, host.replace(/^www\./, '')], hash, updated],
+          [(title || finalUrl).slice(0, 200), `From ${site.name}`, text.slice(0, 190_000), finalUrl, [site.topic, host.replace(/^www\./, ''), ...(news ? ['news'] : [])], hash, updated],
         );
         await afterSourceWrite(client, db, { sourceType: 'document', sourceId: row.rows[0].id, version: row.rows[0].content_version, eligible: true });
       });
