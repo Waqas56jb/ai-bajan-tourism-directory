@@ -36,3 +36,16 @@ describe('imported page clean-up', () => {
     expect(betterTitle('GOV.BB', news, { url: 'https://www.gov.bb/news_article.php?id=150' })).toBe('Newly Designed Barbados Passport Now Available');
   });
 });
+
+describe('answers when nothing is listed', () => {
+  it('points rental, job and second-hand questions to Jobs & Classifieds instead of asking about a shop', async () => {
+    const { noEvidenceAnswer } = await import('../../src/rag/generator.js');
+    const { analyzeQuery } = await import('../../src/rag/queryAnalysis.js');
+    const { testLexicon } = await import('../fixtures/lexicon.js');
+    const text = noEvidenceAnswer(analyzeQuery('Where can I find a reasonably priced apartment to rent in St. Philip?', testLexicon)).text;
+    expect(text).toMatch(/Jobs & Classifieds/);
+    expect(text).not.toMatch(/type of shop/);
+    // A shop question keeps the shop wording.
+    expect(noEvidenceAnswer(analyzeQuery('Where can I buy glucose test strips?', testLexicon)).text).not.toMatch(/Jobs & Classifieds/);
+  });
+});

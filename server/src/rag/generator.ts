@@ -279,6 +279,8 @@ export function noEvidenceAnswer(a: QueryAnalysis): GeneratedAnswer {
   if (a.intent === 'listing_detail') text = 'I couldn’t find a business by that name in the AI Bajan directory. Could you check the name, or tell me what kind of place it is?';
   else if (a.intent === 'business_prospecting')
     text = `The AI Bajan directory doesn’t have information about who buys ${product || 'that product'}. It lists businesses and their public contact details, but not their purchasing needs. If you tell me what type of business you’d like to approach, I can list the ones in the directory with their contact details.`;
+  else if (/\b(rent|rental|apartment|flat|house|room|accommodation|job|jobs|vacanc\w*|hiring|second-?hand|used)\b/i.test(a.original))
+    text = `I don’t have listings for that${where} yet, so I won’t guess. Check AI Bajan’s Jobs & Classifieds page, where approved local adverts for jobs, rentals and items for sale appear, or contact local real-estate agents and the Barbados Job Register for jobs.`;
   else if (a.intent === 'product_availability')
     text = product
       ? `I couldn’t find any listing that mentions ${product}${where}. If you tell me what type of shop you’re looking for, I can list those in the directory.`
@@ -367,6 +369,21 @@ export async function generateAnswer(
     if (!v.ok || !v.answer) {
       return { ...extractive(), fallbackUsed: true, fallbackReason: 'answer_failed_validation', validationProblems: problems, latencyMs };
     }
+    // With strong evidence a clarifying question is rarely the most useful reply ("Which area?"):
+    // ask once for the answer the sources support, covering the main meanings if needed.
+    if (v.ok && v.answer?.needs_clarification && evidence.level === 'strong') {
+      const again = validateModelAnswer(
+        await ask(
+          'Do not ask a clarifying question. Answer now with what the SOURCES say: cover the most likely meaning (or briefly the main meanings) and name where to find more. Set needs_clarification to false.',
+        ),
+        sources,
+      );
+      if (again.ok && again.answer && !again.answer.needs_clarification) {
+        v = again;
+        problems.push('answered instead of asking for clarification');
+      }
+    }
+    if (!v.answer) throw new Error('unreachable: validated answer missing');
     const byId = new Map(sources.map((s, i) => [s.id, selected[i]]));
     const cited = v.answer.source_ids.map((id) => byId.get(id)).filter((c): c is Candidate => Boolean(c));
     if (v.answer.needs_clarification && v.answer.clarification_question) {
