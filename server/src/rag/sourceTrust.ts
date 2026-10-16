@@ -1,6 +1,8 @@
 /**
  * Barbados Trusted Information Network: how much the assistant trusts each source.
  *
+ *   verified      FAQs written by the AI Bajan team in the admin: checked answers, also used to
+ *                 correct an official page that is out of date
  *   official      Government of Barbados and statutory bodies (gov.bb sites, Transport Board,
  *                 Central Bank, Meteorological Services)
  *   institutional Barbadian institutions (Visit Barbados, National Trust, Museum, NCF, UWI, SBA,
@@ -14,7 +16,7 @@
  * and current information, background sources are pushed down further so that authoritative
  * pages are preferred whenever they cover the question.
  */
-export type TrustTier = 'official' | 'institutional' | 'local' | 'publication' | 'background';
+export type TrustTier = 'verified' | 'official' | 'institutional' | 'local' | 'publication' | 'background';
 
 const HOST_TIERS: Array<[RegExp, TrustTier]> = [
   [/(^|\.)gov\.bb$/, 'official'],
@@ -36,6 +38,7 @@ const HOST_TIERS: Array<[RegExp, TrustTier]> = [
 ];
 
 export const TIER_WEIGHT: Record<TrustTier, number> = {
+  verified: 1.4,
   official: 1.35,
   institutional: 1.2,
   local: 1.0,
@@ -46,6 +49,7 @@ export const TIER_WEIGHT: Record<TrustTier, number> = {
 const BACKGROUND_PENALTY_AUTHORITATIVE = 0.5;
 
 export const TIER_LABEL: Record<TrustTier, string> = {
+  verified: 'AI Bajan team-verified answer',
   official: 'official government source',
   institutional: 'Barbadian institution',
   local: 'AI Bajan verified information',
@@ -64,6 +68,7 @@ export function hostOf(url: unknown): string | null {
 
 /** Tier of a retrieved source. Content without an external URL is AI Bajan's own (listings, FAQs, team documents). */
 export function trustTier(sourceType: string, metadata: Record<string, unknown>): TrustTier {
+  if (sourceType === 'faq') return 'verified';
   const host = hostOf(metadata.sourceUrl);
   if (!host) return 'local';
   for (const [re, tier] of HOST_TIERS) if (re.test(host)) return tier;

@@ -25,6 +25,7 @@ import NotFoundPage from '@/pages/errors/NotFoundPage';
 
 /** Barbados Trusted Information Network tiers (highest first), as ranked by the assistant. */
 const SOURCE_TIERS = {
+  verified: '0 · AI Bajan team-verified answer (highest)',
   official: '1 · Official government source',
   institutional: '2 · Barbadian institution',
   local: '3 · AI Bajan verified information',

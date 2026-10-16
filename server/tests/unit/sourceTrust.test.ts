@@ -27,6 +27,7 @@ describe('Trusted Information Network tiers', () => {
     expect(trustTier('document', { sourceUrl: 'https://barbados.org/food.htm' })).toBe('publication');
     expect(trustTier('document', { sourceUrl: 'https://en.wikipedia.org/wiki/Barbados' })).toBe('background');
     expect(trustTier('listing', { url: '/listings/x' })).toBe('local');
+    expect(trustTier('faq', {})).toBe('verified');
     expect(trustTier('document', {})).toBe('local');
   });
 

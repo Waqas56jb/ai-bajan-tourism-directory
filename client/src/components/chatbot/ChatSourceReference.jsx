@@ -4,7 +4,7 @@ import { classifyHref } from '@/lib/safeUrl';
 
 const icons = { listing: Store, guide: BookOpen, page: FileText };
 /** Trusted Information Network: label official and Barbadian institutional sources. */
-const TIER_LABELS = { official: 'Official', institutional: 'Barbadian institution' };
+const TIER_LABELS = { verified: 'Verified by AI Bajan', official: 'Official', institutional: 'Barbadian institution' };
 
 /** Source references supplied with an answer. Links are validated before rendering. */
 export function ChatSourceReference({ sources, onNavigate }) {
