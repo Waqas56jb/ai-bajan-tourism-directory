@@ -2365,16 +2365,11 @@
       "ezpay",
       "bra.gov.bb",
       "(bra)"
-     ],
-     [
-      "licensing authority",
-      "bla.gov.bb",
-      "(bla)"
      ]
     ],
     "exclude": []
    },
-   "basis": "Renew by paying the fee at any BRA branch or online via EZPay, presenting the expiring licence and ID; drivers 75+ need a medical certificate every 2 years, 85+ every year; licence collected from the Barbados Licensing Authority.",
+   "basis": "Renew by paying the fee at any BRA branch or online via EZPay, presenting the expiring licence and ID; drivers 75+ need a medical certificate every 2 years, 85+ every year; licence collected from the Barbados Licensing Authority. Renewal is paid through the BRA; the Licensing Authority is not required for a renewal.",
    "source": "graded answer (https://www.gov.bb/Citizens/driver-licence)"
   },
   {
